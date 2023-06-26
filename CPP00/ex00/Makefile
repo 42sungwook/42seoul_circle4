@@ -3,7 +3,7 @@
 # **************************************************************************** #
 NAME		=	megaphone
 INC_FILES	=	
-SRC_FILES   =   megaphone.cpp
+SRC_FILES	=	megaphone.cpp
 # **************************************************************************** #
 # Directories && Paths                                                         #
 # **************************************************************************** #
@@ -44,12 +44,12 @@ ifeq ($(shell echo "$(NAME_LEN)-6" | bc | grep -c '-'), 1)
 else
 	N = $(NAME_LEN)
 endif
-RST =   \033[0m
-GRN =   \033[1;32m
-CYN =   \033[1;36m
-BCY =   \033[1;96m
-HOM =   \033[A
-CLR =   \033[K
+RST =	\033[0m
+GRN =	\033[1;32m
+CYN =	\033[1;36m
+BCY =	\033[1;96m
+HOM =	\033[A
+CLR =	\033[K
 # **************************************************************************** #
 # Rules                                                                        #
 # **************************************************************************** #
@@ -72,4 +72,4 @@ fclean			:	clean
 						@printf "$(BCY)%$Ns Program! 🗑$(RST)\\n" Remove
 re				:	fclean
 						 @make all
-.PHONY          :   all clean fclean re
+.PHONY			:	all clean fclean re

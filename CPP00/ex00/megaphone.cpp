@@ -5,7 +5,7 @@
 #define RED_TEXT "\033[1;31m"
 #define RESET_TEXT "\033[0m"
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
 
     std::string input;
 
