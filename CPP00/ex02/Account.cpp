@@ -95,10 +95,7 @@ void Account::_displayTimestamp() {
     std::time_t currentTime = std::time(NULL);
     std::tm* localTime = std::localtime(&currentTime);
 
-    // Set fill character to '0'
     std::cout << std::setfill('0');
-
-    // Print formatted timestamp
     std::cout << "[" << localTime->tm_year + 1900
               << std::setw(2) << localTime->tm_mon + 1
               << std::setw(2) << localTime->tm_mday << "_"
