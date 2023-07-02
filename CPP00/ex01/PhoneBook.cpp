@@ -1,5 +1,7 @@
 #include "PhoneBook.hpp"
 
+PhoneBook::PhoneBook() : contactCount(0) {}
+
 std::string PhoneBook::truncateText(const std::string& text) const {
     std::string truncatedText = text;
     if (truncatedText.length() > 10) {
@@ -8,8 +10,6 @@ std::string PhoneBook::truncateText(const std::string& text) const {
     }
     return truncatedText;
 }
-
-PhoneBook::PhoneBook() : contactCount(0) {}
 
 void PhoneBook::addContact(const Contact& contact) {
     if (contactCount >= MAX_CONTACTS) {

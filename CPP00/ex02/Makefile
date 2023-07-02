@@ -1,9 +1,9 @@
 # **************************************************************************** #
 # ProgramName && Files                                                         #
 # **************************************************************************** #
-NAME		=	ex01
-INC_FILES	=	Contact.hpp PhoneBook.hpp
-SRC_FILES	=	Contact.cpp PhoneBook.cpp main.cpp
+NAME		=	ex02
+INC_FILES	=	Account.hpp
+SRC_FILES	=	Account.cpp tests.cpp
 # **************************************************************************** #
 # Directories && Paths                                                         #
 # **************************************************************************** #
