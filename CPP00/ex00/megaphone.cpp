@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
     }
 
     for (std::size_t i = 0; i < input.length(); ++i) {
-        input[i] = std::toupper(input[i]);
+        input[i] = std::toupper(static_cast<unsigned char>(input[i]));
     }
 
     std::cout << input << std::endl;
