@@ -14,21 +14,21 @@ Contact::Contact(const std::string& firstName,
 									darkestSecret(darkestSecret) {}
 
 std::string Contact::getFirstName() const {
-    return firstName;
+	return firstName;
 }
 
 std::string Contact::getLastName() const {
-    return lastName;
+	return lastName;
 }
 
 std::string Contact::getNickname() const {
-    return nickname;
+	return nickname;
 }
 
 std::string Contact::getPhoneNumber() const {
-    return phoneNumber;
+	return phoneNumber;
 }
 
 std::string Contact::getDarkestSecret() const {
-    return darkestSecret;
+	return darkestSecret;
 }

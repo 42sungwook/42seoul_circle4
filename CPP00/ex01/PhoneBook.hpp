@@ -10,18 +10,17 @@
 #define YELLOW_TEXT "\033[1;33m"
 
 class PhoneBook {
+	public:
+		PhoneBook();
+		void addContact(const Contact& contact);
+		void displayContacts() const;
+		void searchContact(int index) const;
 
-public:
-    PhoneBook();
-    void addContact(const Contact& contact);
-    void displayContacts() const;
-    void searchContact(int index) const;
-
-private:
-    static const int MAX_CONTACTS = 8;
-    Contact contacts[MAX_CONTACTS];
-    std::string truncateText(const std::string& text) const;
-    int contactCount;
-};
+	private:
+		static const int MAX_CONTACTS = 8;
+		Contact contacts[MAX_CONTACTS];
+		std::string truncateText(const std::string& text) const;
+		int contactCount;
+	};
 
 #endif
