@@ -2,8 +2,8 @@
 # ProgramName && Files                                                         #
 # **************************************************************************** #
 NAME		=	ex00
-INC_FILES	=	
-SRC_FILES	=
+INC_FILES	=	Zombie.hpp
+SRC_FILES	= newZombie.cpp randomChump.cpp Zombie.cpp main.cpp
 # **************************************************************************** #
 # Directories && Paths                                                         #
 # **************************************************************************** #
