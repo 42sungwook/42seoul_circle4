@@ -19,7 +19,7 @@ Zombie::Zombie(const std::string& name): _name(name){
 
 Zombie::Zombie(const Zombie &object){
 	*this = object;
-	std::cout << _name << ": Arr..." << std::endl;
+	std::cout << _name          << ": Arr..." << std::endl;
 }
 
 

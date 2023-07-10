@@ -2,8 +2,8 @@
 # ProgramName && Files                                                         #
 # **************************************************************************** #
 NAME		=	ex03
-INC_FILES	=	
-SRC_FILES	=
+INC_FILES	=	HumanA.hpp HumanB.hpp Weapon.hpp
+SRC_FILES	= HumanA.cpp HumanB.cpp Weapon.cpp main.cpp
 # **************************************************************************** #
 # Directories && Paths                                                         #
 # **************************************************************************** #
