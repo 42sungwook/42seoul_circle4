@@ -8,6 +8,16 @@ Harl::Harl()
     levelFunctions["error"] = &Harl::error;
 }
 
+Harl::~Harl() {}
+
+Harl &Harl::operator= (const Harl &object)
+{
+	if (this != &object)
+		this->levelFunctions = object.levelFunctions;
+
+	return *this;
+}
+
 void Harl::debug()
 {
 	std::cout << "Debug" << std::endl;

@@ -2,10 +2,10 @@
 # define HARL_HPP
 
 # include <iostream>
-# include <functional>
-# include <map>
 # include <algorithm> // for std::transform
 # include <cctype>    // for std::tolower
+
+# define LEVELS 4
 
 struct ToLower
 {
@@ -18,8 +18,6 @@ struct ToLower
 class Harl
 {
 	private:
-		std::map<std::string, void (Harl::*)()> levelFunctions;
-
 		void debug();
 		void info();
 		void warning();
@@ -29,7 +27,7 @@ class Harl
 		Harl();
 		~Harl();
 		Harl &operator= (const Harl &object);
-		Harl(const std::string& name);	
+		Harl(const std::string& name);
 		void complain(std::string level);
 };
 
