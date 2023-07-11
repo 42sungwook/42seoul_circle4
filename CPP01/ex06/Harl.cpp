@@ -4,12 +4,6 @@ Harl::Harl() {}
 
 Harl::~Harl() {}
 
-Harl &Harl::operator= (const Harl &object)
-{
-	(void)object;
-	return *this;
-}
-
 void Harl::debug()
 {
 	std::cout << "Debug" << std::endl;

@@ -26,8 +26,6 @@ class Harl
 	public:
 		Harl();
 		~Harl();
-		Harl &operator= (const Harl &object);
-		Harl(const std::string& name);
 		void complain(std::string level);
 };
 

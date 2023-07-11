@@ -8,9 +8,9 @@ int main(int ac, char **av)
 		return 1;
 	}
 
-	std::string filename = std::string(av[1]);
-	std::string str1 = std::string(av[2]);
-	std::string str2 = std::string(av[3]);
+	std::string filename = av[1];
+	std::string str1 = av[2];
+	std::string str2 = av[3];
 
 	Replace replace = Replace(filename, str1, str2);
 	replace.openInFile();
