@@ -7,14 +7,6 @@
 # include <algorithm> // for std::transform
 # include <cctype>    // for std::tolower
 
-struct ToLower
-{
-    char operator()(char c) const
-    {
-        return static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
-    }
-};
-
 class Harl
 {
 	private:

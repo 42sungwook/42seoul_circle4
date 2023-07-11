@@ -40,8 +40,6 @@ void Harl::error()
 
 void Harl::complain(std::string level)
 {
-    std::transform(level.begin(), level.end(), level.begin(), ToLower());
-
     if (levelFunctions.find(level) != levelFunctions.end())
         (this->*levelFunctions[level])();
     else
