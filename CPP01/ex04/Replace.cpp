@@ -63,8 +63,6 @@ void Replace::replaceStr() {
 			_line.insert(pos, _str2);
 			pos += _str2.length();
 	}
-	std::cout << _line << std::endl;
-
 }
 
 void	Replace::makeOutFile() {
@@ -81,4 +79,5 @@ void	Replace::makeOutFile() {
 	
 	outputFile << _line;
 	outputFile.close();
+	_inputFile = 0;
 }
