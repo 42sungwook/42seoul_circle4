@@ -19,8 +19,6 @@ private:
 
 public:
 	Harl();
-	~Harl();
-	Harl &operator=(const Harl &object);
 	void complain(std::string level);
 };
 
