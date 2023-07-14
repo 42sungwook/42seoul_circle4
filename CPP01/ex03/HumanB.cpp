@@ -5,20 +5,6 @@ HumanB::HumanB(const std::string &name) : _name(name)
 	_weapon = NULL;
 }
 
-HumanB::~HumanB() {}
-
-HumanB &HumanB::operator=(const HumanB &name)
-{
-	_name = name._name;
-	_weapon = name._weapon;
-	return (*this);
-}
-
-HumanB::HumanB(const HumanB &object)
-{
-	*this = object;
-}
-
 void HumanB::attack(void) const
 {
 	if (!_weapon)

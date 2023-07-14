@@ -7,12 +7,11 @@
 
 int main()
 {
-	Zombie *zombie1 = newZombie("Zombie1");
-	Zombie zombie("Zombie2");
-	Zombie zombie2(zombie);
-	zombie2.announce();
+	Zombie *zombie1 = new Zombie("Zombie1");
+	zombie1->announce();
 	delete zombie1;
 
-	randomChump("Zombie3");
+	randomChump("Zombie2");
+
 	// atexit(a);
 }

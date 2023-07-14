@@ -17,8 +17,6 @@ private:
 public:
 	Replace(const std::string &filename, const std::string &str1, const std::string &str2);
 	~Replace();
-	Replace &operator=(const Replace &name);
-	Replace(const Replace &object);
 	void openInFile();
 	void replaceStr();
 	void makeLine();

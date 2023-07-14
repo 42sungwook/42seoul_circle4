@@ -11,7 +11,6 @@ private:
 public:
 	Zombie();
 	~Zombie();
-	Zombie &operator=(const Zombie &name);
 	Zombie(const std::string &name);
 	void announce(void) const;
 	void setName(std::string name);

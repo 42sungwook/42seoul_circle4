@@ -12,7 +12,7 @@ int main(int ac, char **av)
 	std::string str1 = av[2];
 	std::string str2 = av[3];
 
-	Replace replace = Replace(filename, str1, str2);
+	Replace replace(filename, str1, str2);
 	replace.openInFile();
 	replace.makeLine();
 	replace.replaceStr();

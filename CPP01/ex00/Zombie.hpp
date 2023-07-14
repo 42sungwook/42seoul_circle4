@@ -9,10 +9,6 @@ private:
 	std::string _name;
 
 public:
-	Zombie();
-	~Zombie();
-	Zombie &operator=(const Zombie &name);
-	Zombie(const Zombie &object);
 	Zombie(const std::string &name);
 	void announce(void) const;
 };

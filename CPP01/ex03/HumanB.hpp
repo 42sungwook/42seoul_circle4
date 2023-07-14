@@ -11,9 +11,6 @@ private:
 
 public:
 	HumanB(const std::string &name);
-	~HumanB();
-	HumanB &operator=(const HumanB &name);
-	HumanB(const HumanB &object);
 	void attack(void) const;
 	void setWeapon(Weapon &weapon);
 };

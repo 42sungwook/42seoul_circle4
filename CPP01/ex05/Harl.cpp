@@ -2,15 +2,15 @@
 
 Harl::Harl()
 {
-    levelFunctions["debug"] = &Harl::debug;
-    levelFunctions["info"] = &Harl::info;
-    levelFunctions["warning"] = &Harl::warning;
-    levelFunctions["error"] = &Harl::error;
+	levelFunctions["debug"] = &Harl::debug;
+	levelFunctions["info"] = &Harl::info;
+	levelFunctions["warning"] = &Harl::warning;
+	levelFunctions["error"] = &Harl::error;
 }
 
 Harl::~Harl() {}
 
-Harl &Harl::operator= (const Harl &object)
+Harl &Harl::operator=(const Harl &object)
 {
 	if (this != &object)
 		this->levelFunctions = object.levelFunctions;
@@ -40,8 +40,8 @@ void Harl::error()
 
 void Harl::complain(std::string level)
 {
-    if (levelFunctions.find(level) != levelFunctions.end())
-        (this->*levelFunctions[level])();
-    else
-        std::cout << "Invalid level: " << level << std::endl;
+	if (levelFunctions.find(level) != levelFunctions.end())
+		(this->*levelFunctions[level])();
+	else
+		std::cout << "Invalid level: " << level << std::endl;
 }

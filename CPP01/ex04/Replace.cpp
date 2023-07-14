@@ -11,20 +11,6 @@ Replace::~Replace()
 	}
 }
 
-Replace &Replace::operator=(const Replace &name)
-{
-	_filename = name._filename;
-	_str1 = name._str1;
-	_str2 = name._str2;
-	_line = name._line;
-	return (*this);
-}
-
-Replace::Replace(const Replace &object)
-{
-	*this = object;
-}
-
 void Replace::openInFile()
 {
 	std::ifstream *inputFile = new std::ifstream(_filename.c_str());

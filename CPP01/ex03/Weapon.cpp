@@ -10,9 +10,7 @@ Weapon &Weapon::operator=(const Weapon &type)
 	return (*this);
 }
 
-Weapon::Weapon(const std::string &type) : _type(type)
-{
-}
+Weapon::Weapon(const std::string &type) : _type(type) {}
 
 const std::string &Weapon::getType(void) const
 {
