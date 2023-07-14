@@ -35,10 +35,10 @@ void Fixed::setRawBits(int const raw)
 	_value = raw;
 }
 
-Fixed &Fixed::operator=(const Fixed &rhs)
+Fixed &Fixed::operator=(const Fixed &object)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
-	_value = rhs.getRawBits();
+	_value = object.getRawBits();
 	return *this;
 }
 
@@ -57,8 +57,8 @@ int Fixed::toInt(void) const
 	return _value >> _bits;
 }
 
-std::ostream &operator<<(std::ostream &os, const Fixed &rhs)
+std::ostream &operator<<(std::ostream &os, const Fixed &object)
 {
-	os << rhs.toFloat();
+	os << object.toFloat();
 	return os;
 }
