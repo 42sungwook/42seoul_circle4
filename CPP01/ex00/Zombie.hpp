@@ -3,19 +3,21 @@
 
 #include <iostream>
 
-class Zombie {
-	private:
-		std::string _name;
-	public:
-		Zombie();
-		~Zombie();
-		Zombie &operator= (const Zombie &name);
-		Zombie(const Zombie &object);
-		Zombie(const std::string& name);
-		void	announce(void) const;
+class Zombie
+{
+private:
+	std::string _name;
+
+public:
+	Zombie();
+	~Zombie();
+	Zombie &operator=(const Zombie &name);
+	Zombie(const Zombie &object);
+	Zombie(const std::string &name);
+	void announce(void) const;
 };
 
-Zombie* newZombie(std::string name);
+Zombie *newZombie(std::string name);
 void randomChump(std::string name);
 
 #endif
