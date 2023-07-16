@@ -6,10 +6,12 @@ Point::Point(const float x, const float y) : _x(x), _y(y) {}
 
 Point::Point(const Point &src) : _x(src._x), _y(src._y) {}
 
-Point &Point::operator=(const Point &object)
+Point &Point::operator=(const Point &other)
 {
-	Point dup(object);
-	return dup;
+	const_cast<Fixed &>(_x) = other._x;
+	const_cast<Fixed &>(_y) = other._y;
+
+	return *this;
 }
 
 Point::~Point() {}
