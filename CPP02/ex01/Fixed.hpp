@@ -13,8 +13,8 @@ public:
 	Fixed();
 	Fixed(const int value);
 	Fixed(const float value);
-	Fixed(const Fixed &src);
-	Fixed &operator=(const Fixed &rhs);
+	Fixed(const Fixed &other);
+	Fixed &operator=(const Fixed &other);
 	~Fixed();
 
 	int getRawBits(void) const;
@@ -23,6 +23,6 @@ public:
 	int toInt(void) const;
 };
 
-std::ostream &operator<<(std::ostream &os, const Fixed &rhs);
+std::ostream &operator<<(std::ostream &os, const Fixed &other);
 
 #endif
