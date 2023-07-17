@@ -39,7 +39,14 @@ ScavTrap::~ScavTrap()
 
 void ScavTrap::attack(const std::string &target)
 {
+	if (_energyPoints == 0 || _hitPoints == 0)
+	{
+		std::cout << "ScavTrap" << _name << " can't do anything" << std::endl;
+		return;
+	}
+
 	std::cout << "ScavTrap " << _name << " attacks " << target << ", causing " << _attackDamage << " points of damage!" << std::endl;
+	_energyPoints--;
 }
 
 void ScavTrap::guardGate()
@@ -49,12 +56,33 @@ void ScavTrap::guardGate()
 
 void ScavTrap::takeDamage(unsigned int amount)
 {
+	if (_energyPoints == 0 || _hitPoints == 0)
+	{
+		std::cout << "ScavTrap" << _name << " can't do anything" << std::endl;
+		return;
+	}
+
 	std::cout << "ScavTrap " << _name << " takes " << amount << " points of damage!" << std::endl;
+
+	if (_hitPoints - amount < 0)
+		_hitPoints = 0;
+	else
+		_hitPoints -= amount;
+
+	_energyPoints--;
 }
 
 void ScavTrap::beRepaired(unsigned int amount)
 {
+	if (_energyPoints == 0 || _hitPoints == 0)
+	{
+		std::cout << "ScavTrap" << _name << " can't do anything" << std::endl;
+		return;
+	}
+
 	std::cout << "ScavTrap " << _name << " is repaired " << amount << " points of damage!" << std::endl;
+	_hitPoints += amount;
+	_energyPoints--;
 }
 
 std::ostream &operator<<(std::ostream &out, const ScavTrap &scavTrap)
