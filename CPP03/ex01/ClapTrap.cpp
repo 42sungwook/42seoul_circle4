@@ -35,7 +35,7 @@ void ClapTrap::attack(const std::string &target)
 {
 	if (_energyPoints == 0 || _hitPoints == 0)
 	{
-		std::cout << "ClapTrap" << _name << " can't do anything" << std::endl;
+		std::cout << "ClapTrap " << _name << " can't do anything" << std::endl;
 		return;
 	}
 
@@ -47,7 +47,7 @@ void ClapTrap::takeDamage(unsigned int amount)
 {
 	if (_energyPoints == 0 || _hitPoints == 0)
 	{
-		std::cout << "ClapTrap" << _name << " can't do anything" << std::endl;
+		std::cout << "ClapTrap " << _name << " can't do anything" << std::endl;
 		return;
 	}
 
@@ -64,7 +64,7 @@ void ClapTrap::beRepaired(unsigned int amount)
 {
 	if (_energyPoints == 0 || _hitPoints == 0)
 	{
-		std::cout << "ClapTrap" << _name << " can't do anything" << std::endl;
+		std::cout << "ClapTrap " << _name << " can't do anything" << std::endl;
 		return;
 	}
 
