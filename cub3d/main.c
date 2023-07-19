@@ -44,8 +44,8 @@ int is_wall(t_data *data, int x, int y)
 	int	j;
 
 	i = 0;
-	x--;
-	y--;
+	x -= 2;
+	y -= 2;
 	while (i < 18)
 	{
 		j = 0;
@@ -65,8 +65,15 @@ void draw_dot(t_data *data)
 	int	new_x;
 	int	new_y;
 
+
 	if (data->turn_dir != 0)
+	{
 		data->rotation_angle += data->turn_dir * PI / 180.0 * ROT_SPEED;
+		data->dot_x += cos(data->rotation_angle);
+		data->dot_y += sin(data->rotation_angle);
+	}
+	data->dot_x = data->x + 8 + 5 * cos(data->rotation_angle);
+	data->dot_y = data->y + 8 + 5 * sin(data->rotation_angle);
 	new_x = data->x + cos(data->rotation_angle + (PI / 180.0) * 90 * data->walk_dir) * MOVE_SPEED;
 	new_y = data->y + sin(data->rotation_angle + (PI / 180.0) * 90 * data->walk_dir) * MOVE_SPEED;
 	if (data->walk_dir != 0 && !is_wall(data, new_x, new_y))
@@ -75,6 +82,7 @@ void draw_dot(t_data *data)
 		data->y = new_y;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->dot, data->x, data->y);
+	mlx_put_image_to_window(data->mlx, data->win, data->dot_head, data->dot_x, data->dot_y);
 }
 
 void draw_map(t_data *data)
@@ -137,6 +145,7 @@ int		main(int ac, char **av)
 
 	data.dot = mlx_xpm_file_to_image(data.mlx, "./asset/circle.xpm", &w, &h);
 	data.map_tile = mlx_xpm_file_to_image(data.mlx, "./asset/tile00.xpm", &w, &h);
+	data.dot_head = mlx_xpm_file_to_image(data.mlx, "./asset/head.xpm", &w, &h);
 	mlx_hook(data.win, 2, 0, handle_key_press, &data);
 	mlx_hook(data.win, 3, 1, handle_key_release, &data);
 	mlx_hook(data.win, 17, 17, handle_destroy_win, &data);

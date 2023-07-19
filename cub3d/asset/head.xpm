@@ -1,0 +1,10 @@
+/* XPM */
+static char *circle[] = {
+"3 3 2 1",
+" 	c None",
+"x	c #FF0000",
+
+"xxx",
+"xxx",
+"xxx",
+};

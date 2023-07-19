@@ -11,7 +11,7 @@
 #define WIDTH 1000
 #define HEIGHT 1000
 #define PI 3.14159265
-#define MOVE_SPEED 4
+#define MOVE_SPEED 7
 #define ROT_SPEED 4
 #define TILE_SIZE 32
 
@@ -29,10 +29,10 @@ enum e_key
 enum e_dir
 {
 	STOP,
-	WALKFORWARD,
 	WALKRIGHT,
 	WALKBACKWARD,
-	WALKLEFT
+	WALKLEFT,
+	WALKFORWARD,
 };
 
 typedef struct s_data
@@ -40,19 +40,18 @@ typedef struct s_data
 	void *mlx;
 	void *win;
 	char **map;
+	//image
 	void *map_tile;
 	void *dot;
+	void *dot_head;
+	//draw var
 	double x;
 	double y;
+	double dot_x;
+	double dot_y;
 	double walk_dir;
 	double turn_dir;
-	double mouse_x;
-	double mouse_y;
 	float rotation_angle;
-	char *addr;
-	int bits_per_pixel;
-	int line_length;
-	int endian;
 	// fill circle
 	int center_x;
 	int center_y;
