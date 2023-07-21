@@ -4,17 +4,19 @@
 NAME		=	cub3D
 INC_FILES	=	cub3d.h
 SRC_FILES	=	main.c parsing.c ft_split.c
+INIT_FILES	=	init_base.c init_img.c
 
 # **************************************************************************** #
 # Directories && Paths                                                         #
 # **************************************************************************** #
 INC_DIR =	./
 SRC_DIR =	./
+INIT_DIR =	./init/
 OBJ_DIR =	.obj/
 DEP_DIR =	.dep/
-SRCS	=	$(addprefix $(SRC_DIR), $(SRC_FILES))
-OBJS	=	$(SRC_FILES:%.c=$(OBJ_DIR)%.o)
-DEPS	=	$(SRC_FILES:%.c=$(DEP_DIR)%.d)
+SRCS	=	$(addprefix $(SRC_DIR), $(SRC_FILES)) $(addprefix $(INIT_DIR), $(INIT_FILES))
+OBJS	=	$(SRC_FILES:%.c=$(OBJ_DIR)%.o) $(INIT_FILES:%.c=$(OBJ_DIR)%.o)
+DEPS	=	$(SRC_FILES:%.c=$(DEP_DIR)%.d) $(INIT_FILES:%.c=$(DEP_DIR)%.d)
 # **************************************************************************** #
 # Compiler && flags                                                            #
 # **************************************************************************** #
@@ -58,7 +60,7 @@ CLR =	\033[K
 .DEFAULT_GOAL   =   all
 -include $(DEPS)
 all				:	$(NAME)
-$(NAME)			:	$(OBJS)
+$(NAME)		:	$(OBJS)
 					$Q$(CXX) $(CXXFLAGS) $(MLXFLAGS) -o $@ $(OBJS)
 					@printf "$(CLR)$(GRN)%$Ns is Ready ✅\\n$(RST)" $(NAME)
 $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c
@@ -66,10 +68,14 @@ $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c
 					@printf \
 					"$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" $(NAME)
 					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
+$(OBJ_DIR)%.o : $(INIT_DIR)%.c
+					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
+					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" $(NAME)
+					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
 clean			:
 					$Q$(RM) $(OBJ_DIR) $(DEP_DIR) *.dSYM
 					@printf "$(CYN)%$Ns Objects! 🗑$(RST)\\n" Remove
-fclean			:   clean
+fclean		:   clean
 					$Q$(RM) $(NAME)
 					@printf "$(BCY)%$Ns Program! 🗑$(RST)\\n" Remove
 re				:	fclean

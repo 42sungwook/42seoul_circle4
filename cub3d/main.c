@@ -1,5 +1,26 @@
 #include "./cub3d.h"
 
+void	put_img_to_screen(t_data *g, t_img *imgs, int x, int y)
+{
+	int	i;
+	int	j;
+	int	color;
+
+	i = 0;
+	while (i < imgs->h)
+	{
+		j = 0;
+		while (j < imgs->w)
+		{
+			color = imgs->addr[i * imgs->w + j];
+			if (color != 0)
+				g->imgs[0].addr[(y + i) * g->imgs[0].w + (x + j)] = color;
+			j++;
+		}
+		i++;
+	}
+}
+
 int		handle_key_press(int keycode, t_data *data)
 {
 	if (keycode == ESC)
@@ -60,32 +81,33 @@ int is_wall(t_data *data, int x, int y)
 	return 0;
 }
 
-void draw_dot(t_data *data)
+void draw_dot(t_data *g)
 {
 	int	new_x;
 	int	new_y;
 
 
-	if (data->turn_dir != 0)
+	if (g->turn_dir != 0)
 	{
-		data->rotation_angle += data->turn_dir * PI / 180.0 * ROT_SPEED;
-		data->dot_x += cos(data->rotation_angle);
-		data->dot_y += sin(data->rotation_angle);
+		g->rotation_angle += g->turn_dir * PI / 180.0 * ROT_SPEED;
+		g->dot_x += cos(g->rotation_angle);
+		g->dot_y += sin(g->rotation_angle);
 	}
-	data->dot_x = data->x + 8 + 5 * cos(data->rotation_angle);
-	data->dot_y = data->y + 8 + 5 * sin(data->rotation_angle);
-	new_x = data->x + cos(data->rotation_angle + (PI / 180.0) * 90 * data->walk_dir) * MOVE_SPEED;
-	new_y = data->y + sin(data->rotation_angle + (PI / 180.0) * 90 * data->walk_dir) * MOVE_SPEED;
-	if (data->walk_dir != 0 && !is_wall(data, new_x, new_y))
+	new_x = g->x + cos(g->rotation_angle + (PI / 180.0) * 90.0 * g->walk_dir) * MOVE_SPEED;
+	new_y = g->y + sin(g->rotation_angle + (PI / 180.0) * 90.0 * g->walk_dir) * MOVE_SPEED;
+
+	if (g->walk_dir != STOP && !is_wall(g, new_x, new_y))
 	{
-		data->x = new_x;
-		data->y = new_y;
+		g->x = new_x;
+		g->y = new_y;
 	}
-	mlx_put_image_to_window(data->mlx, data->win, data->dot, data->x, data->y);
-	mlx_put_image_to_window(data->mlx, data->win, data->dot_head, data->dot_x, data->dot_y);
+	g->dot_x = g->x + 8 + 5 * cos(g->rotation_angle);
+	g->dot_y = g->y + 8 + 5 * sin(g->rotation_angle);
+	put_img_to_screen(g, &g->imgs[2], g->x, g->y);
+	put_img_to_screen(g, &g->imgs[3], g->dot_x, g->dot_y);
 }
 
-void draw_map(t_data *data)
+void draw_map(t_data *g)
 {
 	int i;
 	int j;
@@ -94,13 +116,15 @@ void draw_map(t_data *data)
 	int tile_color;
 
 	i = 0;
-	while (data->map[i])
+	while (g->map[i])
 	{
 		j = 0;
-		while (data->map[i][j])
+		while (g->map[i][j])
 		{
-			if (data->map[i][j] == '1')
-				mlx_put_image_to_window(data->mlx, data->win, data->map_tile, i * TILE_SIZE, j * TILE_SIZE);
+			if (g->map[i][j] == '1')
+				put_img_to_screen(g, &g->imgs[1], i * TILE_SIZE, j * TILE_SIZE);
+			else
+				put_img_to_screen(g, &g->imgs[4], i * TILE_SIZE, j * TILE_SIZE);
 			j++;
 		}
 		i++;
@@ -108,48 +132,31 @@ void draw_map(t_data *data)
 }
 
 
-int ft_loop(t_data *data)
+int ft_loop(t_data *g)
 {
-	double	angle_rad;
-	mlx_clear_window(data->mlx, data->win);
-	draw_map(data);
-	draw_dot(data);
-
+	mlx_clear_window(g->mlx, g->win);
+	draw_map(g);
+	draw_dot(g);
+	mlx_put_image_to_window(g->mlx, g->win, g->imgs[0].img, 0, 0);
 	return (0);
 }
 
 int		main(int ac, char **av)
 {
-	t_data	data;
+	t_data	*g;
 	int		w;
 	int		h;
 
 	if (ac < 2)
 		return (0);
-	data.mlx = mlx_init();
-	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Moving Circle");
-	data.x = 40;
-	data.y = 40;
-	data.center_x = data.x;
-	data.center_y = data.y;
-	data.radius = 10;
-	data.color = 0x0000FF00;
-	data.walk_dir = 0;
-	data.turn_dir = 0;
-	data.mouse_x = 0;
-	data.mouse_y = 0;
-	data.rotation_angle = 0;
-	//data.addr[] 배열에 애초에 xpm 파일의 색깔이 지정되어있음.
-	data.rotation_angle = PI / 2;
-	parse_map(av, &data);
-
-	data.dot = mlx_xpm_file_to_image(data.mlx, "./asset/circle.xpm", &w, &h);
-	data.map_tile = mlx_xpm_file_to_image(data.mlx, "./asset/tile00.xpm", &w, &h);
-	data.dot_head = mlx_xpm_file_to_image(data.mlx, "./asset/head.xpm", &w, &h);
-	mlx_hook(data.win, 2, 0, handle_key_press, &data);
-	mlx_hook(data.win, 3, 1, handle_key_release, &data);
-	mlx_hook(data.win, 17, 17, handle_destroy_win, &data);
-	mlx_loop_hook(data.mlx, ft_loop, &data);
-	mlx_loop(data.mlx);
+	g = (t_data *)malloc(sizeof(t_data));
+	parse_map(av, g);
+	init_base(g);
+	init_img(g);
+	mlx_hook(g->win, 2, 0, handle_key_press, g);
+	mlx_hook(g->win, 3, 1, handle_key_release, g);
+	mlx_hook(g->win, 17, 17, handle_destroy_win, g);
+	mlx_loop_hook(g->mlx, ft_loop, g);
+	mlx_loop(g->mlx);
 	exit(0);
 }

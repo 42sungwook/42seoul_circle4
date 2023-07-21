@@ -11,9 +11,10 @@
 #define WIDTH 1000
 #define HEIGHT 1000
 #define PI 3.14159265
-#define MOVE_SPEED 7
+#define MOVE_SPEED 5
 #define ROT_SPEED 4
 #define TILE_SIZE 32
+#define IMG_CNT 5
 
 enum e_key
 {
@@ -28,40 +29,45 @@ enum e_key
 
 enum e_dir
 {
-	STOP,
+	STOP = -1,
+	WALKFORWARD,
 	WALKRIGHT,
 	WALKBACKWARD,
 	WALKLEFT,
-	WALKFORWARD,
 };
+
+typedef struct s_img
+{
+	void *img;
+	int *addr;
+	int bpp;
+	int line_len;
+	int endian;
+	int w;
+	int h;
+} t_img;
 
 typedef struct s_data
 {
 	void *mlx;
 	void *win;
 	char **map;
-	//image
-	void *map_tile;
-	void *dot;
-	void *dot_head;
-	//draw var
-	double x;
-	double y;
-	double dot_x;
-	double dot_y;
-	double walk_dir;
-	double turn_dir;
+	t_img *imgs;
+	float x;
+	float y;
+	float dot_x;
+	float dot_y;
+	float walk_dir;
+	float turn_dir;
 	float rotation_angle;
-	// fill circle
-	int center_x;
-	int center_y;
-	int radius;
-	int radius_error;
-	int color;
 } t_data;
 
 char *ft_itoa(int n);
 char **ft_split(char const *s, char c);
 void parse_map(char **av, t_data *data);
+
+// init
+void init_img(t_data *g);
+void init_base(t_data *g);
 
 #endif
