@@ -11,7 +11,7 @@
 #define WIDTH 1000
 #define HEIGHT 1000
 #define PI 3.14159265
-#define MOVE_SPEED 5
+#define MOVE_SPEED 4
 #define ROT_SPEED 4
 #define TILE_SIZE 32
 #define IMG_CNT 5
@@ -53,13 +53,13 @@ typedef struct s_data
 	void *win;
 	char **map;
 	t_img *imgs;
-	float x;
-	float y;
-	float dot_x;
-	float dot_y;
-	float walk_dir;
-	float turn_dir;
-	float rotation_angle;
+	double x;
+	double y;
+	double dot_x;
+	double dot_y;
+	double walk_dir;
+	double turn_dir;
+	double rotation_angle;
 } t_data;
 
 char *ft_itoa(int n);

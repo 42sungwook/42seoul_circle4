@@ -86,15 +86,14 @@ void draw_dot(t_data *g)
 	int	new_x;
 	int	new_y;
 
-
 	if (g->turn_dir != 0)
 	{
-		g->rotation_angle += g->turn_dir * PI / 180.0 * ROT_SPEED;
+		g->rotation_angle += g->turn_dir * (PI / 180.0) * ROT_SPEED;
 		g->dot_x += cos(g->rotation_angle);
 		g->dot_y += sin(g->rotation_angle);
 	}
-	new_x = g->x + cos(g->rotation_angle + (PI / 180.0) * 90.0 * g->walk_dir) * MOVE_SPEED;
-	new_y = g->y + sin(g->rotation_angle + (PI / 180.0) * 90.0 * g->walk_dir) * MOVE_SPEED;
+	new_x = g->x + (int)(cos(g->rotation_angle + (PI / 180.0) * 90.0 * g->walk_dir) * MOVE_SPEED);
+	new_y = g->y + (int)(sin(g->rotation_angle + (PI / 180.0) * 90.0 * g->walk_dir) * MOVE_SPEED);
 
 	if (g->walk_dir != STOP && !is_wall(g, new_x, new_y))
 	{
