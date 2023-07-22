@@ -1,17 +1,17 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-#include "mlx.h"
-#include <stdlib.h>
+#include "./mlx/mlx.h"
+#include "./libft/libft.h"
+#include "./get_next_line/get_next_line.h"
 #include <stdio.h>
 #include <math.h>
-#include <unistd.h>
 #include <fcntl.h>
 
 #define WIDTH 1000
 #define HEIGHT 1000
 #define PI 3.14159265
-#define MOVE_SPEED 4
+#define MOVE_SPEED 2
 #define ROT_SPEED 4
 #define TILE_SIZE 32
 #define IMG_CNT 5
@@ -62,8 +62,6 @@ typedef struct s_data
 	double rotation_angle;
 } t_data;
 
-char *ft_itoa(int n);
-char **ft_split(char const *s, char c);
 void parse_map(char **av, t_data *data);
 
 // init

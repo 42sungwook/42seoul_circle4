@@ -65,8 +65,8 @@ int is_wall(t_data *data, int x, int y)
 	int	j;
 
 	i = 0;
-	x -= 2;
-	y -= 2;
+	x--;
+	y--;
 	while (i < 18)
 	{
 		j = 0;

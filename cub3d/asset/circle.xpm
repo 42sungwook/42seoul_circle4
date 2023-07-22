@@ -2,7 +2,7 @@
 static char *circle[] = {
 "16 16 2 1",
 " 	c #FFFFFF",
-"x	c #47858e",
+"x	c #9A2EFE",
 
 "                ",
 "     xxxxxxx    ",
