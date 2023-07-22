@@ -25,7 +25,7 @@ DRAW_FILES	=	draw_minimap.c draw_miniplayer.c
 # **************************************************************************** #
 # Directories && Paths                                                         #
 # **************************************************************************** #
-INC_DIR		=	./
+INC_DIR		=	./srcs/
 SRC_DIR		=	./srcs/
 INIT_DIR	=	./init/
 GNL_DIR		=	./get_next_line/
@@ -72,7 +72,7 @@ endif
 # **************************************************************************** #
 NAME_LEN = $(shell echo $(NAME) | tr -d '\n' | wc -c)
 ifeq ($(shell echo "$(NAME_LEN)-6" | bc | grep -c '-'), 1)
-	N = 10
+	N = 6
 else
 	N = $(NAME_LEN)
 endif
@@ -88,39 +88,29 @@ CLR =	\033[K
 .DEFAULT_GOAL   =   all
 -include $(DEPS)
 all				:	$(NAME)
-src_message:
-	@printf "$(CLR)$(GRN)%$Ns is Ready ✅\\n$(RST)" SRC_FILE
-init_message:
-	@printf "$(CLR)$(GRN)%$Ns is Ready ✅\\n$(RST)" INIT_FILE
-gnl_message:
-	@printf "$(CLR)$(GRN)%$Ns is Ready ✅\\n$(RST)" GNL_FILE
-libft_message:
-	@printf "$(CLR)$(GRN)%$Ns is Ready ✅\\n$(RST)" LIBFT_FILE
-draw_message:
-	@printf "$(CLR)$(GRN)%$Ns is Ready ✅\\n$(RST)" DRAW_FILE
 
-$(NAME)			:	$(OBJS) src_message
+$(NAME)			:	$(OBJS)
 					$Q$(CXX) $(CXXFLAGS) $(MLXFLAGS) -o $@ $(OBJS)
 					@printf "$(CLR)$(GRN)%$Ns is Ready ✅\\n$(RST)" $(NAME)
-$(OBJ_DIR)%.o	:	$(LIBFT_DIR)%.c 
+$(OBJ_DIR)%.o	:	$(LIBFT_DIR)%.c
 					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
-					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" $(NAME)
+					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" LIBFT
 					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
-$(OBJ_DIR)%.o	:	$(GNL_DIR)%.c libft_message
+$(OBJ_DIR)%.o	:	$(GNL_DIR)%.c
 					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
-					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" $(NAME)
+					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" GNL
 					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
-$(OBJ_DIR)%.o	:	$(INIT_DIR)%.c gnl_message
+$(OBJ_DIR)%.o	:	$(INIT_DIR)%.c
 					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
-					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" $(NAME)
+					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" INIT
 					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
-$(OBJ_DIR)%.o	:	$(DRAW_DIR)%.c init_message
+$(OBJ_DIR)%.o	:	$(DRAW_DIR)%.c
 					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
-					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" $(NAME)
+					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" DRAW
 					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
-$(OBJ_DIR)%.o	:	$(SRC_DIR)%.c draw_message
+$(OBJ_DIR)%.o	:	$(SRC_DIR)%.c
 					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
-					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" $(NAME)
+					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" SRC
 					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
 clean			:
 					$Q$(RM) $(OBJ_DIR) $(DEP_DIR) *.dSYM
