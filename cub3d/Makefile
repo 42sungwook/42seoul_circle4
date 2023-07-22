@@ -5,9 +5,10 @@ NAME		=	cub3D
 
 INC_FILES	=	cub3d.h
 
-SRC_FILES	=	main.c
+SRC_FILES	=	main.c handle_keys.c
 
 INIT_FILES	=	init_game.c init_img.c init_map.c set_color.c free_functions.c \
+				check_space.c
 
 GNL_FILES	=	get_next_line.c get_next_line_utils.c
 
@@ -19,22 +20,31 @@ LIBFT_FILES	=	ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 				ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c \
 				ft_tolower.c ft_toupper.c ft_calloc.c ft_strdup.c
 
+DRAW_FILES	=	draw_minimap.c draw_miniplayer.c
+
 # **************************************************************************** #
 # Directories && Paths                                                         #
 # **************************************************************************** #
 INC_DIR		=	./
-SRC_DIR		=	./
+SRC_DIR		=	./srcs/
 INIT_DIR	=	./init/
 GNL_DIR		=	./get_next_line/
 LIBFT_DIR	=	./libft/
+DRAW_DIR	=	./draw/
 OBJ_DIR		=	.obj/
 DEP_DIR		=	.dep/
 SRCS		=	$(addprefix $(LIBFT_DIR), $(LIBFT_FILES)) $(addprefix $(GNL_DIR), $(GNL_FILES)) \
-				$(addprefix $(INIT_DIR), $(INIT_FILES)) $(addprefix $(SRC_DIR), $(SRC_FILES)) 
+				$(addprefix $(INIT_DIR), $(INIT_FILES)) $(addprefix $(DRAW_DIR), $(DRAW_FILES)) \
+				$(addprefix $(SRC_DIR), $(SRC_FILES))
+
 OBJS		=	$(LIBFT_FILES:%.c=$(OBJ_DIR)%.o) $(GNL_FILES:%.c=$(OBJ_DIR)%.o) \
-				$(INIT_FILES:%.c=$(OBJ_DIR)%.o) $(SRC_FILES:%.c=$(OBJ_DIR)%.o)
+				$(INIT_FILES:%.c=$(OBJ_DIR)%.o) $(DRAW_FILES:%.c=$(OBJ_DIR)%.o) \
+				$(SRC_FILES:%.c=$(OBJ_DIR)%.o)
+
 DEPS		=	$(LIBFT_FILES:%.c=$(DEP_DIR)%.d) $(GNL_FILES:%.c=$(DEP_DIR)%.o) \
-				$(INIT_FILES:%.c=$(DEP_DIR)%.d) $(SRC_FILES:%.c=$(DEP_DIR)%.d)
+				$(INIT_FILES:%.c=$(DEP_DIR)%.d) $(DRAW_FILES:%.c=$(DEP_DIR)%.d) \
+				$(SRC_FILES:%.c=$(DEP_DIR)%.d)
+
 # **************************************************************************** #
 # Compiler && flags                                                            #
 # **************************************************************************** #
@@ -86,8 +96,10 @@ gnl_message:
 	@printf "$(CLR)$(GRN)%$Ns is Ready ✅\\n$(RST)" GNL_FILE
 libft_message:
 	@printf "$(CLR)$(GRN)%$Ns is Ready ✅\\n$(RST)" LIBFT_FILE
+draw_message:
+	@printf "$(CLR)$(GRN)%$Ns is Ready ✅\\n$(RST)" DRAW_FILE
 
-$(NAME)			:	$(OBJS)
+$(NAME)			:	$(OBJS) src_message
 					$Q$(CXX) $(CXXFLAGS) $(MLXFLAGS) -o $@ $(OBJS)
 					@printf "$(CLR)$(GRN)%$Ns is Ready ✅\\n$(RST)" $(NAME)
 $(OBJ_DIR)%.o	:	$(LIBFT_DIR)%.c 
@@ -102,7 +114,11 @@ $(OBJ_DIR)%.o	:	$(INIT_DIR)%.c gnl_message
 					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
 					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" $(NAME)
 					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
-$(OBJ_DIR)%.o	:	$(SRC_DIR)%.c init_message
+$(OBJ_DIR)%.o	:	$(DRAW_DIR)%.c init_message
+					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
+					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" $(NAME)
+					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
+$(OBJ_DIR)%.o	:	$(SRC_DIR)%.c draw_message
 					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
 					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" $(NAME)
 					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<

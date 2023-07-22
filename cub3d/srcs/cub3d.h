@@ -1,9 +1,9 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-#include "./mlx/mlx.h"
-#include "./libft/libft.h"
-#include "./get_next_line/get_next_line.h"
+#include "../mlx/mlx.h"
+#include "../libft/libft.h"
+#include "../get_next_line/get_next_line.h"
 #include <stdio.h>
 #include <math.h>
 #include <fcntl.h>
@@ -87,6 +87,10 @@ typedef struct s_data
 	t_player *player;
 } t_data;
 
+//draw
+void draw_minimap(t_data *g);
+void draw_miniplayer(t_data *g);
+
 // init
 void	init_game(t_data *g, int ac, char **av);
 void	init_img(t_data *g);
@@ -95,7 +99,12 @@ void	set_color(t_color *color, char *str_rgb);
 int		ft_free(char *str);
 void	free_chars(char **chars);
 void	print_error(char *str);
+int		check_space(char *one_line, char *buff);
 
-
+//srcs
+int		handle_key_press(int keycode, t_data *data);
+int		handle_key_release(int keycode, t_data *data);
+int		is_wall(t_data *g, int x, int y);
+void	put_img_to_screen(t_data *g, t_img *imgs, int x, int y);
 
 #endif

@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../srcs/cub3d.h"
 
 void init_img(t_data *g)
 {

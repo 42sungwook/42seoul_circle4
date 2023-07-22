@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "../srcs/cub3d.h"
 
 int	ft_free(char *str)
 {

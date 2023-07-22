@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "../srcs/cub3d.h"
 
 void	set_color(t_color *color, char *str_rgb)
 {

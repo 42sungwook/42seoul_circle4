@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "../srcs/cub3d.h"
 
 static char	*get_new_map(t_map *map_info, char *one_line, char *buff)
 {
@@ -15,27 +15,6 @@ static char	*get_new_map(t_map *map_info, char *one_line, char *buff)
 	free(buff);
 	free(one_line);
 	return (temp);
-}
-
-static int	check_space(char *one_line, char *buff)
-{
-	int	i;
-
-	i = 0;
-	if (one_line[0] == 0 && buff[0] == '\n')
-	{
-		free(buff);
-		return (1);
-	}
-	while (buff[i])
-	{
-		if (buff[i] == '0' || buff[i] == '1')
-			return (0);
-		else if (buff[i] == '\n' && one_line[0] != 0)
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 static int	set_map_setting(t_map *map_info, char **key_value)

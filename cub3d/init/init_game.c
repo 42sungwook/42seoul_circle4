@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "../srcs/cub3d.h"
 
 static void init_map(t_data *g, char **av)
 {
