@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	num_of_str(char const *str, char c)
+static int	num_of_str(char const *str, char c)
 {
 	int	i;
 	int	j;
@@ -36,7 +36,7 @@ int	num_of_str(char const *str, char c)
 	return (count);
 }
 
-void	ft_free(char **str)
+static void	ft_free(char **str)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ void	ft_free(char **str)
 	free(str);
 }
 
-void	ft_make_str(char *str, char const *s, int end_of_str, int len)
+static void	ft_make_str(char *str, char const *s, int end_of_str, int len)
 {
 	int	i;
 
@@ -62,7 +62,7 @@ void	ft_make_str(char *str, char const *s, int end_of_str, int len)
 	str[i] = 0;
 }
 
-char	**ft_cutstr(char const *s, char c, char **split_str, int count)
+static char	**ft_cutstr(char const *s, char c, char **split_str, int count)
 {
 	int	i;
 	int	j;

@@ -29,26 +29,26 @@ int		handle_key_press(int keycode, t_data *data)
 		exit(0);
 	}
 	else if (keycode == W)
-		data->walk_dir = WALKFORWARD;
+		data->player->walk_dir = WALKFORWARD;
 	else if (keycode == S)
-		data->walk_dir = WALKBACKWARD;
+		data->player->walk_dir = WALKBACKWARD;
 	else if (keycode == A)
-		data->walk_dir = WALKLEFT;
+		data->player->walk_dir = WALKLEFT;
 	else if (keycode == D)
-		data->walk_dir = WALKRIGHT;
+		data->player->walk_dir = WALKRIGHT;
 	else if (keycode == LEFT)
-		data->turn_dir = -1;
+		data->player->turn_dir = -1;
 	else if (keycode == RIGHT)
-		data->turn_dir = 1;
+		data->player->turn_dir = 1;
 	return (0);
 }
 
 int		handle_key_release(int keycode, t_data *data)
 {
 	if (keycode == W || keycode == S || keycode == A || keycode == D)
-		data->walk_dir = STOP;
+		data->player->walk_dir = STOP;
 	else if (keycode == LEFT || keycode == RIGHT)
-		data->turn_dir = 0;
+		data->player->turn_dir = 0;
 	return (0);
 }
 
@@ -72,7 +72,7 @@ int is_wall(t_data *data, int x, int y)
 		j = 0;
 		while (j < 18)
 		{
-			if (data->map[(x + i) / TILE_SIZE][(y + j) / TILE_SIZE] == '1')
+			if (data->map_info->map[(x + i) / TILE_SIZE][(y + j) / TILE_SIZE] == '1')
 				return (1);
 			j++;
 		} 
@@ -86,24 +86,24 @@ void draw_dot(t_data *g)
 	int	new_x;
 	int	new_y;
 
-	if (g->turn_dir != 0)
+	if (g->player->turn_dir != 0)
 	{
-		g->rotation_angle += g->turn_dir * (PI / 180.0) * ROT_SPEED;
-		g->dot_x += cos(g->rotation_angle);
-		g->dot_y += sin(g->rotation_angle);
+		g->player->rotation_angle += g->player->turn_dir * (PI / 180.0) * ROT_SPEED;
+		g->player->dot_x += cos(g->player->rotation_angle);
+		g->player->dot_y += sin(g->player->rotation_angle);
 	}
-	new_x = g->x + (int)(cos(g->rotation_angle + (PI / 180.0) * 90.0 * g->walk_dir) * MOVE_SPEED);
-	new_y = g->y + (int)(sin(g->rotation_angle + (PI / 180.0) * 90.0 * g->walk_dir) * MOVE_SPEED);
+	new_x = g->player->x + (int)(cos(g->player->rotation_angle + (PI / 180.0) * 90.0 * g->player->walk_dir) * MOVE_SPEED);
+	new_y = g->player->y + (int)(sin(g->player->rotation_angle + (PI / 180.0) * 90.0 * g->player->walk_dir) * MOVE_SPEED);
 
-	if (g->walk_dir != STOP && !is_wall(g, new_x, new_y))
+	if (g->player->walk_dir != STOP && !is_wall(g, new_x, new_y))
 	{
-		g->x = new_x;
-		g->y = new_y;
+		g->player->x = new_x;
+		g->player->y = new_y;
 	}
-	g->dot_x = g->x + 8 + 5 * cos(g->rotation_angle);
-	g->dot_y = g->y + 8 + 5 * sin(g->rotation_angle);
-	put_img_to_screen(g, &g->imgs[2], g->x, g->y);
-	put_img_to_screen(g, &g->imgs[3], g->dot_x, g->dot_y);
+	g->player->dot_x = g->player->x + 8 + 5 * cos(g->player->rotation_angle);
+	g->player->dot_y = g->player->y + 8 + 5 * sin(g->player->rotation_angle);
+	put_img_to_screen(g, &g->imgs[2], g->player->x, g->player->y);
+	put_img_to_screen(g, &g->imgs[3], g->player->dot_x, g->player->dot_y);
 }
 
 void draw_map(t_data *g)
@@ -115,12 +115,12 @@ void draw_map(t_data *g)
 	int tile_color;
 
 	i = 0;
-	while (g->map[i])
+	while (g->map_info->map[i])
 	{
 		j = 0;
-		while (g->map[i][j])
+		while (g->map_info->map[i][j])
 		{
-			if (g->map[i][j] == '1')
+			if (g->map_info->map[i][j] == '1')
 				put_img_to_screen(g, &g->imgs[1], i * TILE_SIZE, j * TILE_SIZE);
 			else
 				put_img_to_screen(g, &g->imgs[4], i * TILE_SIZE, j * TILE_SIZE);
@@ -146,12 +146,8 @@ int		main(int ac, char **av)
 	int		w;
 	int		h;
 
-	if (ac < 2)
-		return (0);
 	g = (t_data *)malloc(sizeof(t_data));
-	parse_map(av, g);
-	init_base(g);
-	init_img(g);
+	init_game(g, ac, av);
 	mlx_hook(g->win, 2, 0, handle_key_press, g);
 	mlx_hook(g->win, 3, 1, handle_key_release, g);
 	mlx_hook(g->win, 17, 17, handle_destroy_win, g);

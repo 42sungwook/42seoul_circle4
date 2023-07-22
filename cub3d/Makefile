@@ -2,44 +2,22 @@
 # ProgramName && Files                                                         #
 # **************************************************************************** #
 NAME		=	cub3D
+
 INC_FILES	=	cub3d.h
-SRC_FILES	=	main.c parsing.c
-INIT_FILES	=	init_base.c init_img.c
+
+SRC_FILES	=	main.c
+
+INIT_FILES	=	init_game.c init_img.c init_map.c set_color.c free_functions.c \
+
 GNL_FILES	=	get_next_line.c get_next_line_utils.c
-LIBFT_FILES	=	ft_atoi.c \
-				ft_bzero.c \
-				ft_isalnum.c \
-				ft_isalpha.c \
-				ft_isascii.c \
-				ft_isdigit.c \
-				ft_isprint.c \
-				ft_itoa.c \
-				ft_memchr.c \
-				ft_memcmp.c \
-				ft_memcpy.c \
-				ft_memmove.c \
-				ft_memset.c \
-				ft_putchar_fd.c \
-				ft_putendl_fd.c \
-				ft_putnbr_fd.c \
-				ft_putstr_fd.c \
-				ft_split.c \
-				ft_strchr.c \
-				ft_striteri.c \
-				ft_strjoin.c \
-				ft_strlcat.c \
-				ft_strlcpy.c \
-				ft_strlen.c \
-				ft_strmapi.c \
-				ft_strncmp.c \
-				ft_strnstr.c \
-				ft_strrchr.c \
-				ft_strtrim.c \
-				ft_substr.c \
-				ft_tolower.c \
-				ft_toupper.c \
-				ft_calloc.c \
-				ft_strdup.c
+
+LIBFT_FILES	=	ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
+				ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c ft_memcmp.c \
+				ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c \
+				ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strchr.c ft_striteri.c \
+				ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c \
+				ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c \
+				ft_tolower.c ft_toupper.c ft_calloc.c ft_strdup.c
 
 # **************************************************************************** #
 # Directories && Paths                                                         #

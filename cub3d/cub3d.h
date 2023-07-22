@@ -36,6 +36,13 @@ enum e_dir
 	WALKLEFT,
 };
 
+typedef struct s_color
+{
+	int r;
+	int g;
+	int b;
+} t_color;
+
 typedef struct s_img
 {
 	void *img;
@@ -47,12 +54,21 @@ typedef struct s_img
 	int h;
 } t_img;
 
-typedef struct s_data
+typedef struct s_map
 {
-	void *mlx;
-	void *win;
+	int w;
+	int h;
+	t_color color_c;
+	t_color color_f;
+	void *tex_n;
+	void *tex_e;
+	void *tex_w;
+	void *tex_s;
 	char **map;
-	t_img *imgs;
+} t_map;
+
+typedef struct s_player
+{
 	double x;
 	double y;
 	double dot_x;
@@ -60,12 +76,26 @@ typedef struct s_data
 	double walk_dir;
 	double turn_dir;
 	double rotation_angle;
+} t_player;
+
+typedef struct s_data
+{
+	void *mlx;
+	void *win;
+	t_img *imgs;
+	t_map *map_info;
+	t_player *player;
 } t_data;
 
-void parse_map(char **av, t_data *data);
-
 // init
-void init_img(t_data *g);
-void init_base(t_data *g);
+void	init_game(t_data *g, int ac, char **av);
+void	init_img(t_data *g);
+void	save_map_info(t_data *g, char **av);
+void	set_color(t_color *color, char *str_rgb);
+int		ft_free(char *str);
+void	free_chars(char **chars);
+void	print_error(char *str);
+
+
 
 #endif
