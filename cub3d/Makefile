@@ -22,6 +22,8 @@ LIBFT_FILES	=	ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 
 DRAW_FILES	=	draw_minimap.c draw_miniplayer.c
 
+RAY_FILES = cast_rays.c
+
 # **************************************************************************** #
 # Directories && Paths                                                         #
 # **************************************************************************** #
@@ -31,26 +33,27 @@ INIT_DIR	=	./init/
 GNL_DIR		=	./get_next_line/
 LIBFT_DIR	=	./libft/
 DRAW_DIR	=	./draw/
+RAY_DIR		=	./raycasting/
 OBJ_DIR		=	.obj/
 DEP_DIR		=	.dep/
 SRCS		=	$(addprefix $(LIBFT_DIR), $(LIBFT_FILES)) $(addprefix $(GNL_DIR), $(GNL_FILES)) \
 				$(addprefix $(INIT_DIR), $(INIT_FILES)) $(addprefix $(DRAW_DIR), $(DRAW_FILES)) \
-				$(addprefix $(SRC_DIR), $(SRC_FILES))
+				$(addprefix $(RAY_DIR), $(RAY_FILES)) $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 OBJS		=	$(LIBFT_FILES:%.c=$(OBJ_DIR)%.o) $(GNL_FILES:%.c=$(OBJ_DIR)%.o) \
 				$(INIT_FILES:%.c=$(OBJ_DIR)%.o) $(DRAW_FILES:%.c=$(OBJ_DIR)%.o) \
-				$(SRC_FILES:%.c=$(OBJ_DIR)%.o)
+				$(RAY_FILES:%.c=$(OBJ_DIR)%.o) $(SRC_FILES:%.c=$(OBJ_DIR)%.o)
 
 DEPS		=	$(LIBFT_FILES:%.c=$(DEP_DIR)%.d) $(GNL_FILES:%.c=$(DEP_DIR)%.o) \
 				$(INIT_FILES:%.c=$(DEP_DIR)%.d) $(DRAW_FILES:%.c=$(DEP_DIR)%.d) \
-				$(SRC_FILES:%.c=$(DEP_DIR)%.d)
+				$(RAY_FILES:%.c=$(DEP_DIR)%.d) $(SRC_FILES:%.c=$(DEP_DIR)%.d)
 
 # **************************************************************************** #
 # Compiler && flags                                                            #
 # **************************************************************************** #
 CXX			=	cc
 CXXFLAGS	=
-MLXFLAGS	=	-L./mlx -lmlx -framework OpenGL -framework AppKit
+MLXFLAGS	=	-lmlx -framework OpenGL -framework AppKit
 CPPFLAGS	=	-I$(INC_DIR)
 DEPFLAGS	=	-MMD -MP -MF $(@:$(OBJ_DIR)%.o=$(DEP_DIR)%.d)
 RM			=	rm -rf
@@ -66,6 +69,9 @@ endif
 Q = @
 ifdef PRINT
 	Q =
+endif
+ifdef MAC
+	MLXFLAGS = -L./mlx -lmlx -framework OpenGL -framework AppKit
 endif
 # **************************************************************************** #
 # Output controls                                                              #
@@ -107,6 +113,10 @@ $(OBJ_DIR)%.o	:	$(INIT_DIR)%.c
 $(OBJ_DIR)%.o	:	$(DRAW_DIR)%.c
 					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
 					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" DRAW
+					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
+$(OBJ_DIR)%.o	:	$(RAY_DIR)%.c
+					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
+					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" RAY
 					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
 $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c
 					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
