@@ -11,17 +11,17 @@
 #define WIDTH 1000
 #define HEIGHT 1000
 #define PI 3.14159265
-#define MOVE_SPEED 2
+#define MOVE_SPEED 4
 #define ROT_SPEED 4
 #define MINI_TILE 32
 #define IMG_CNT 5
 #define NUM_RAYS 100
 #define INT_MAX 2147483647
 #define FOV_ANGLE (60 * (PI / 180))
-#define DIST_PROJ_PLANE ((WIDTH / 2) / tan(FOV_ANGLE / 2))
 #define TRUE 1
 #define FALSE 0
 #define FLT_MAX 3.40282347e+38F
+#define P_ERROR 7
 
 enum e_key
 {
@@ -63,36 +63,36 @@ typedef struct s_img
 
 typedef struct s_ray
 {
-    float rayAngle;
-    float wallHitX;
-    float wallHitY;
-    float distance;
-    int wasHitVertical;
-    int isRayFacingUp;
-    int isRayFacingDown;
-    int isRayFacingLeft;
-    int isRayFacingRight;
-    int wallHitContent;
-		float xintercept;
-		float yintercept;
-		float xstep;
-		float ystep;
-		int foundHorzWallHit;
-		float horzWallHitX;
-		float horzWallHitY;
-		int horzWallContent;
-		int foundVertWallHit;
-		float vertWallHitX;
-		float vertWallHitY;
-		int vertWallContent;
-		float nextHorzTouchX;
-		float nextHorzTouchY;
-		float nextVertTouchX;
-		float nextVertTouchY;
-		float xToCheck;
-		float yToCheck;
-		float horzHitDistance;
-		float vertHitDistance;
+	float rayAngle;
+	float wallHitX;
+	float wallHitY;
+	float distance;
+	int wasHitVertical;
+	int isRayFacingUp;
+	int isRayFacingDown;
+	int isRayFacingLeft;
+	int isRayFacingRight;
+	int wallHitContent;
+	float xintercept;
+	float yintercept;
+	float xstep;
+	float ystep;
+	int foundHorzWallHit;
+	float horzWallHitX;
+	float horzWallHitY;
+	int horzWallContent;
+	int foundVertWallHit;
+	float vertWallHitX;
+	float vertWallHitY;
+	int vertWallContent;
+	float nextHorzTouchX;
+	float nextHorzTouchY;
+	float nextVertTouchX;
+	float nextVertTouchY;
+	float xToCheck;
+	float yToCheck;
+	float horzHitDistance;
+	float vertHitDistance;
 } t_ray;
 
 typedef struct s_map

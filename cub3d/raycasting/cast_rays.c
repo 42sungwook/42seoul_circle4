@@ -11,7 +11,7 @@ void	draw_line(t_data *g, int x0, int y0, int x1, int y1)
 
 	while (1)
 	{
-		put_pixel_to_screen(g, x0, y0, 0x00FF00FF); // white color
+		put_pixel_to_screen(g, x0, y0, 0x00FF00FF);
 		if (x0 == x1 && y0 == y1)
 			break;
 		e2 = err;
@@ -28,7 +28,7 @@ void	draw_line(t_data *g, int x0, int y0, int x1, int y1)
 	}
 }
 
-int mapHasWallAt(t_data *g, float x, float y) {
+int mapHasWallAt(t_data *g, double x, double y) {
     int mapGridIndexX = floor(x / MINI_TILE);
     int mapGridIndexY = floor(y / MINI_TILE);
     if (mapGridIndexX < 0 || mapGridIndexX >= g->map_info->w || mapGridIndexY < 0 || mapGridIndexY >= g->map_info->h) {
@@ -39,19 +39,21 @@ int mapHasWallAt(t_data *g, float x, float y) {
 		return FALSE;
 }
 
-float normalizeAngle(float angle) {
-    angle = remainder(angle, 2 * PI);
-    if (angle < 0) {
-        angle = 2 * PI + angle;
+double normalizeAngle(double angle) {
+    while (angle >= 2 * PI) {
+				angle -= 2 * PI;
+		}
+    while (angle < 0) {
+        angle += 2 * PI;
     }
     return angle;
 }
 
-float distanceBetweenPoints(float x1, float y1, float x2, float y2) {
+double distanceBetweenPoints(double x1, double y1, double x2, double y2) {
     return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 }
 
-void castRay(t_data *g, float rayAngle, int stripId) {
+void castRay(t_data *g, double rayAngle, int stripId) {
     rayAngle = normalizeAngle(rayAngle);
 
     g->rays[stripId].isRayFacingDown = rayAngle > 0 && rayAngle < PI;
@@ -69,11 +71,11 @@ void castRay(t_data *g, float rayAngle, int stripId) {
     g->rays[stripId].horzWallContent = 0;
 
     // Find the y-coordinate of the closest horizontal grid intersection
-    g->rays[stripId].yintercept = floor(g->player->y / MINI_TILE) * MINI_TILE;
+    g->rays[stripId].yintercept = floor((g->player->y + P_ERROR) / MINI_TILE) * MINI_TILE;
     g->rays[stripId].yintercept += g->rays[stripId].isRayFacingDown ? MINI_TILE : 0;
 
     // Find the x-coordinate of the closest horizontal grid intersection
-    g->rays[stripId].xintercept = g->player->x + (g->rays[stripId].yintercept - g->player->y) / tan(rayAngle);
+    g->rays[stripId].xintercept = (g->player->x + P_ERROR) + (g->rays[stripId].yintercept - (g->player->y + P_ERROR)) / tan(rayAngle);
 
     // Calculate the increment xstep and ystep
     g->rays[stripId].ystep = MINI_TILE;
@@ -109,11 +111,11 @@ void castRay(t_data *g, float rayAngle, int stripId) {
     ///////////////////////////////////////////
 
     // Find the x-coordinate of the closest horizontal grid intersection
-    g->rays[stripId].xintercept = floor(g->player->x / MINI_TILE) * MINI_TILE;
+    g->rays[stripId].xintercept = floor((g->player->x + P_ERROR) / MINI_TILE) * MINI_TILE;
     g->rays[stripId].xintercept += g->rays[stripId].isRayFacingRight ? MINI_TILE : 0;
 
     // Find the y-coordinate of the closest horizontal grid intersection
-    g->rays[stripId].yintercept = g->player->y + (g->rays[stripId].xintercept - g->player->x) * tan(rayAngle);
+    g->rays[stripId].yintercept = (g->player->y + P_ERROR) + (g->rays[stripId].xintercept - (g->player->x + P_ERROR)) * tan(rayAngle);
 
     // Calculate the increment xstep and ystep
     g->rays[stripId].xstep = MINI_TILE;
@@ -145,12 +147,16 @@ void castRay(t_data *g, float rayAngle, int stripId) {
     }
 
     // Calculate both horizontal and vertical hit distances and choose the smallest one
-    g->rays[stripId].horzHitDistance = g->rays[stripId].foundHorzWallHit
-        ? distanceBetweenPoints(g->player->x, g->player->y, g->rays[stripId].horzWallHitX, g->rays[stripId].horzWallHitY)
-        : FLT_MAX;
-    g->rays[stripId].vertHitDistance = g->rays[stripId].foundVertWallHit
-        ? distanceBetweenPoints(g->player->x, g->player->y, g->rays[stripId].vertWallHitX, g->rays[stripId].vertWallHitY)
-        : FLT_MAX;
+		g->rays[stripId].horzHitDistance = g->rays[stripId].foundHorzWallHit
+				? distanceBetweenPoints((g->player->x + P_ERROR), (g->player->y + P_ERROR), g->rays[stripId].horzWallHitX, g->rays[stripId].horzWallHitY)
+				: FLT_MAX;
+		g->rays[stripId].horzHitDistance *= cos(rayAngle - g->player->rotation_angle);
+
+		g->rays[stripId].vertHitDistance = g->rays[stripId].foundVertWallHit
+				? distanceBetweenPoints((g->player->x + P_ERROR), (g->player->y + P_ERROR), g->rays[stripId].vertWallHitX, g->rays[stripId].vertWallHitY)
+				: FLT_MAX;
+		g->rays[stripId].vertHitDistance *= cos(rayAngle - g->player->rotation_angle);
+
 
     if (g->rays[stripId].vertHitDistance < g->rays[stripId].horzHitDistance) {
         g->rays[stripId].distance = g->rays[stripId].vertHitDistance;
@@ -170,15 +176,17 @@ void castRay(t_data *g, float rayAngle, int stripId) {
     g->rays[stripId].isRayFacingUp = g->rays[stripId].isRayFacingUp;
     g->rays[stripId].isRayFacingLeft = g->rays[stripId].isRayFacingLeft;
     g->rays[stripId].isRayFacingRight = g->rays[stripId].isRayFacingRight;
-		draw_line(g, g->player->x + 7, g->player->y + 7, g->rays[stripId].wallHitX, g->rays[stripId].wallHitY);
+		draw_line(g, (g->player->x + P_ERROR), (g->player->y + P_ERROR), g->rays[stripId].wallHitX, g->rays[stripId].wallHitY);
 }
 
 void	cast_rays(t_data *g)
 {
-	float rayAngle = g->player->rotation_angle - (FOV_ANGLE / 2);
+	//double rayAngle = g->player->rotation_angle - (FOV_ANGLE / 2);
+	double fov_angle = (60 * (PI / 180));
+	double rayAngle = g->player->rotation_angle - (fov_angle / 2);
 	g->rays = (t_ray *)malloc(sizeof(t_ray) * NUM_RAYS);
 	for (int col = 0; col < NUM_RAYS; col++) {
-			rayAngle += FOV_ANGLE / NUM_RAYS;
-			castRay(g, rayAngle, col);
+		rayAngle += fov_angle / NUM_RAYS;
+		castRay(g, rayAngle, col);
 	}
 }
