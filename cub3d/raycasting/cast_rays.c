@@ -1,5 +1,52 @@
 #include "../srcs/cub3d.h"
 
+void    draw_bg(t_data *g)
+{
+    int i;
+    int j;
+    // g->rays[stripId].vertHitDistance; //벽 까지의 거리
+    //전체 창의 절반 윗 부분은 천장색으로 색칠, 아래는 바닥색으로 색칠
+    i = 0;
+    while (i < HEIGHT / 2)
+    {
+        j = 0;
+        while (j < WIDTH)
+        {
+            put_pixel_to_screen(g, j, i, 0XddFFFF);
+            ++j;
+        }
+        ++i;
+    }
+    while (i < HEIGHT)
+    {
+        j = 0;
+        while (j < WIDTH)
+        {
+            put_pixel_to_screen(g, j, i, 0X22BB44);
+            ++j;
+        }
+        ++i;
+    }
+}
+
+void    shot_ray(t_data *g, int stripId)
+{
+    //HEIGHT / 2 - 벽 크기 / 2 지점, 0 부터 WIDTH까지 ++ 하면서 한 개씩 벽 위치 그리기
+    // 벽 크기는 1000/ 거리 
+    // 거리가 1이면 1000, 2면 500
+    //문제가 있어 디스턴스가 0이 되면 벽의 크기가 무한대로 커진다 그래서 이미지 배열 인덱스에 - 안들어가게 만들어야 함.
+    int wall_size = HEIGHT / g->rays[stripId].distance;
+    wall_size *= 4;
+    int put_start = HEIGHT / 2 - wall_size / 2;
+
+    int i = 0;
+    while (i < wall_size)
+    {
+        put_pixel_to_screen(g, stripId, put_start + i, 0X888888);
+        ++i;
+    }
+}
+
 void	draw_line(t_data *g, int x0, int y0, int x1, int y1)
 {
 	int dx = abs(x1 - x0);
@@ -38,24 +85,28 @@ int mapHasWallAt(t_data *g, double x, double y) {
 				return TRUE;
 		return FALSE;
 }
-
+// 
 double normalizeAngle(double angle) {
-    while (angle >= 2 * PI) {
-				angle -= 2 * PI;
-		}
-    while (angle < 0) {
+    while (angle >= 2 * PI) 
+    {
+	angle -= 2 * PI;
+	}
+    while (angle < 0) 
+    {
         angle += 2 * PI;
     }
     return angle;
 }
-
+// 두 점 사이 거리 계산
 double distanceBetweenPoints(double x1, double y1, double x2, double y2) {
     return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 }
 
 void castRay(t_data *g, double rayAngle, int stripId) {
+    //각도 정규화
     rayAngle = normalizeAngle(rayAngle);
 
+    //레이 방향 상하좌우 중 어디로 향하는지 
     g->rays[stripId].isRayFacingDown = rayAngle > 0 && rayAngle < PI;
     g->rays[stripId].isRayFacingUp = !g->rays[stripId].isRayFacingDown;
 
@@ -176,7 +227,8 @@ void castRay(t_data *g, double rayAngle, int stripId) {
     g->rays[stripId].isRayFacingUp = g->rays[stripId].isRayFacingUp;
     g->rays[stripId].isRayFacingLeft = g->rays[stripId].isRayFacingLeft;
     g->rays[stripId].isRayFacingRight = g->rays[stripId].isRayFacingRight;
-		draw_line(g, (g->player->x + P_ERROR), (g->player->y + P_ERROR), g->rays[stripId].wallHitX, g->rays[stripId].wallHitY);
+        shot_ray(g, stripId);
+        draw_line(g, (g->player->x + P_ERROR), (g->player->y + P_ERROR), g->rays[stripId].wallHitX, g->rays[stripId].wallHitY);
 }
 
 void	cast_rays(t_data *g)
@@ -185,8 +237,9 @@ void	cast_rays(t_data *g)
 	double fov_angle = (60 * (PI / 180));
 	double rayAngle = g->player->rotation_angle - (fov_angle / 2);
 	g->rays = (t_ray *)malloc(sizeof(t_ray) * NUM_RAYS);
-	for (int col = 0; col < NUM_RAYS; col++) {
-		rayAngle += fov_angle / NUM_RAYS;
+    	draw_bg(g);
+	for (int col = 0; col < WIDTH; col++) {
+		rayAngle += fov_angle / WIDTH;
 		castRay(g, rayAngle, col);
 	}
 }

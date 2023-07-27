@@ -12,12 +12,12 @@
 #define HEIGHT 1024
 #define MINI_WIDTH 200
 #define MINI_HEIGHT 200
-#define PI 3.14159265
-#define MOVE_SPEED 4
+#define PI 3.141593
+#define MOVE_SPEED 2
 #define ROT_SPEED 4
 #define MINI_TILE 16
 #define IMG_CNT 5
-#define NUM_RAYS 100
+#define NUM_RAYS 1024
 #define INT_MAX 2147483647
 #define FOV_ANGLE (60 * (PI / 180))
 #define TRUE 1
@@ -167,4 +167,6 @@ int is_wall(t_data *g, int x, int y);
 // raycasting
 void cast_rays(t_data *g);
 
+
+void    draw_bg(t_data *g);
 #endif
