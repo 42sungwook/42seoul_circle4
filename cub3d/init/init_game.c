@@ -17,7 +17,7 @@ static void init_map(t_data *g, char **av)
 static void init_player(t_data *g)
 {
 	g->player = malloc(sizeof(t_player));
-	g->player->x = 40;
+	g->player->x = 80;
 	g->player->y = 40;
 	g->player->walk_dir = STOP;
 	g->player->turn_dir = 0;

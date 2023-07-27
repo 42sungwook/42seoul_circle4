@@ -1,35 +1,5 @@
 #include "./cub3d.h"
 
-void	put_pixel_to_screen(t_data *g, int x, int y, int color)
-{
-	if (x > WIDTH || y > HEIGHT || x < 0 || y < 0)
-		return ;
-	g->imgs[0].addr[y * g->imgs[0].w + x] = color;
-}
-
-void	put_img_to_screen(t_data *g, t_img *imgs, int x, int y)
-{
-	int	i;
-	int	j;
-	int	color;
-
-	i = 0;
-	if (x > WIDTH - MINI_TILE || y > WIDTH - MINI_TILE || x < 0 || y < 0)
-		return ;
-	while (i < imgs->h)
-	{
-		j = 0;
-		while (j < imgs->w)
-		{
-			color = imgs->addr[i * imgs->w + j];
-			if (color != 0)
-				put_pixel_to_screen(g, x + j, y + i, color);
-			j++;
-		}
-		i++;
-	}
-}
-
 int		handle_destroy_win(t_data *data)
 {
 	(void)data;
@@ -47,10 +17,10 @@ int is_wall(t_data *g, int x, int y)
 		return (0);
 	x--;
 	y--;
-	while (i < 18)
+	while (i < g->imgs[MINI_PLAYER].h + 2)
 	{
 		j = 0;
-		while (j < 18)
+		while (j < g->imgs[MINI_PLAYER].w + 2)
 		{
 			if (g->map_info->map[(y + i) / MINI_TILE][(x + j) / MINI_TILE] == '1')
 				return (1);
@@ -67,6 +37,7 @@ int ft_loop(t_data *g)
 	draw_minimap(g);
 	draw_miniplayer(g);
 	cast_rays(g);
+	put_minimap_to_screen(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->imgs[0].img, 0, 0);
 	return (0);
 }

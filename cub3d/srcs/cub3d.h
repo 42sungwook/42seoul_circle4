@@ -8,12 +8,14 @@
 #include <math.h>
 #include <fcntl.h>
 
-#define WIDTH 1000
-#define HEIGHT 1000
+#define WIDTH 1024
+#define HEIGHT 1024
+#define MINI_WIDTH 200
+#define MINI_HEIGHT 200
 #define PI 3.14159265
 #define MOVE_SPEED 4
 #define ROT_SPEED 4
-#define MINI_TILE 32
+#define MINI_TILE 16
 #define IMG_CNT 5
 #define NUM_RAYS 100
 #define INT_MAX 2147483647
@@ -21,7 +23,7 @@
 #define TRUE 1
 #define FALSE 0
 #define FLT_MAX 3.40282347e+38F
-#define P_ERROR 7
+#define P_ERROR 3
 
 enum e_key
 {
@@ -41,6 +43,15 @@ enum e_dir
 	WALKRIGHT,
 	WALKBACKWARD,
 	WALKLEFT,
+};
+
+enum e_img
+{
+	SCREEN,
+	MINI_MAP,
+	MINI_WALL,
+	MINI_PLAIN,
+	MINI_PLAYER,
 };
 
 typedef struct s_color
@@ -130,6 +141,11 @@ typedef struct s_data
 } t_data;
 
 // draw
+void put_img_to_screen(t_data *g, t_img *imgs, int x, int y);
+void put_pixel_to_screen(t_data *g, int x, int y, int color);
+void put_img_to_minimap(t_data *g, t_img *imgs, int x, int y);
+void put_pixel_to_minimap(t_data *g, int x, int y, int color);
+void	put_minimap_to_screen(t_data *g);
 void draw_minimap(t_data *g);
 void draw_miniplayer(t_data *g);
 
@@ -147,8 +163,6 @@ int check_space(char *one_line, char *buff);
 int handle_key_press(int keycode, t_data *data);
 int handle_key_release(int keycode, t_data *data);
 int is_wall(t_data *g, int x, int y);
-void put_img_to_screen(t_data *g, t_img *imgs, int x, int y);
-void put_pixel_to_screen(t_data *g, int x, int y, int color);
 
 // raycasting
 void cast_rays(t_data *g);

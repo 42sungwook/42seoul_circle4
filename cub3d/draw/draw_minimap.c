@@ -15,9 +15,9 @@ void draw_minimap(t_data *g)
 		while (g->map_info->map[i][j])
 		{
 			if (g->map_info->map[i][j] == '1')
-				put_img_to_screen(g, &g->imgs[1], j * MINI_TILE, i * MINI_TILE);
+				put_img_to_minimap(g, &g->imgs[MINI_WALL], j * MINI_TILE, i * MINI_TILE);
 			else
-				put_img_to_screen(g, &g->imgs[4], j * MINI_TILE, i * MINI_TILE);
+				put_img_to_minimap(g, &g->imgs[MINI_PLAIN], j * MINI_TILE, i * MINI_TILE);
 			j++;
 		}
 		i++;

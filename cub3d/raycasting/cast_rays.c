@@ -11,7 +11,7 @@ void	draw_line(t_data *g, int x0, int y0, int x1, int y1)
 
 	while (1)
 	{
-		put_pixel_to_screen(g, x0, y0, 0x00FF00FF);
+		put_pixel_to_minimap(g, x0, y0, 0x00FF00FF);
 		if (x0 == x1 && y0 == y1)
 			break;
 		e2 = err;
