@@ -31,25 +31,30 @@ void    draw_bg(t_data *g)
 void    shot_ray(t_data *g, int stripId)
 {
     double wall_size = HEIGHT / g->rays[stripId].distance;
-    wall_size *= 4;
+    wall_size *= 10;
+		int wallTopPixel = (HEIGHT / 2) - (wall_size / 2);
+		wallTopPixel = wallTopPixel < 0 ? 0 : wallTopPixel;
+
+		int wallBottomPixel = (HEIGHT / 2) + (wall_size / 2);
+		wallBottomPixel = wallBottomPixel > HEIGHT ? HEIGHT : wallBottomPixel;
+
+
     double put_start = HEIGHT / 2 - wall_size / 2 - 2;
 
-    double step_d;
-    double tex_pos;
-    double offset;
+		int textureOffsetX;
+		if (g->rays[stripId].wasHitVertical)
+			textureOffsetX = (int)g->rays[stripId].wallHitY % MINI_TILE;
+		else
+			textureOffsetX = (int)g->rays[stripId].wallHitX % MINI_TILE;
+		textureOffsetX *= 200 / MINI_TILE;
+		int tex_w = g->map_info->tex.w;
+		int tex_h = g->map_info->tex.h;
 
-    int i = 0;
-    step_d = 1.0 * g->map_info->tex.h / wall_size;
-    tex_pos = (put_start - WIDTH / 2 + wall_size / 2) * step_d;
- 
-    offset = g->rays->xintercept;
-
-    while (i < wall_size)
-    {
-        put_pixel_to_screen(g, stripId, put_start + i, g->map_info->texture[(int)(g->map_info->tex.w) + (int)(g->map_info->tex.w * tex_pos)]);
-        ++i;
-        tex_pos += step_d;
-    }
+		for (int y = wallTopPixel; y < wallBottomPixel; y++) {
+				int distanceFromTop = y + (wall_size / 2) - (HEIGHT / 2);
+				int textureOffsetY = distanceFromTop * ((float)tex_h / wall_size);
+				put_pixel_to_screen(g, stripId, y, g->map_info->tex.addr[(tex_w * textureOffsetY) + textureOffsetX]);
+		}
 }
 
 
@@ -243,8 +248,8 @@ void	cast_rays(t_data *g)
 	double rayAngle = g->player->rotation_angle - (fov_angle / 2);
 	g->rays = (t_ray *)malloc(sizeof(t_ray) * NUM_RAYS);
     	draw_bg(g);
-    g->map_info->tex.img = mlx_xpm_file_to_image(g->mlx, "./asset/that.xpm",&g->map_info->tex.w, &g->map_info->tex.h);
-    g->map_info->texture = (int *)mlx_get_data_addr(g->map_info->tex.img, &g->map_info->tex.bpp, &g->map_info->tex.line_len, &g->map_info->tex.endian);
+    g->map_info->tex.img = mlx_xpm_file_to_image(g->mlx, "./asset/this.xpm",&g->map_info->tex.w, &g->map_info->tex.h);
+    g->map_info->tex.addr = (int *)mlx_get_data_addr(g->map_info->tex.img, &g->map_info->tex.bpp, &g->map_info->tex.line_len, &g->map_info->tex.endian);
 	for (int col = 0; col < WIDTH; col++) {
 		rayAngle += fov_angle / WIDTH;
 		castRay(g, rayAngle, col);
