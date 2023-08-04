@@ -52,8 +52,8 @@ DEPS		=	$(LIBFT_FILES:%.c=$(DEP_DIR)%.d) $(GNL_FILES:%.c=$(DEP_DIR)%.o) \
 # Compiler && flags                                                            #
 # **************************************************************************** #
 CXX			=	cc
-CXXFLAGS	=
-MLXFLAGS	=	-lmlx -framework OpenGL -framework AppKit
+CXXFLAGS	=   #-pedantic -g -fsanitize=address,undefined
+MLXFLAGS	=	-lmlx -framework OpenGL -framework AppKit 
 CPPFLAGS	=	-I$(INC_DIR)
 DEPFLAGS	=	-MMD -MP -MF $(@:$(OBJ_DIR)%.o=$(DEP_DIR)%.d)
 RM			=	rm -rf

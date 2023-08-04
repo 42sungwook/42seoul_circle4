@@ -19,7 +19,6 @@
 #define IMG_CNT 5
 #define NUM_RAYS 1024
 #define INT_MAX 2147483647
-#define FOV_ANGLE (60 * (PI / 180))
 #define TRUE 1
 #define FALSE 0
 #define FLT_MAX 3.40282347e+38F
@@ -74,36 +73,36 @@ typedef struct s_img
 
 typedef struct s_ray
 {
-	float rayAngle;
-	float wallHitX;
-	float wallHitY;
-	float distance;
+	double rayAngle;
+	double wallHitX;
+	double wallHitY;
+	double distance;
 	int wasHitVertical;
 	int isRayFacingUp;
 	int isRayFacingDown;
 	int isRayFacingLeft;
 	int isRayFacingRight;
 	int wallHitContent;
-	float xintercept;
-	float yintercept;
-	float xstep;
-	float ystep;
+	double xintercept;
+	double yintercept;
+	double xstep;
+	double ystep;
 	int foundHorzWallHit;
-	float horzWallHitX;
-	float horzWallHitY;
+	double horzWallHitX;
+	double horzWallHitY;
 	int horzWallContent;
 	int foundVertWallHit;
-	float vertWallHitX;
-	float vertWallHitY;
+	double vertWallHitX;
+	double vertWallHitY;
 	int vertWallContent;
-	float nextHorzTouchX;
-	float nextHorzTouchY;
-	float nextVertTouchX;
-	float nextVertTouchY;
-	float xToCheck;
-	float yToCheck;
-	float horzHitDistance;
-	float vertHitDistance;
+	double nextHorzTouchX;
+	double nextHorzTouchY;
+	double nextVertTouchX;
+	double nextVertTouchY;
+	double xToCheck;
+	double yToCheck;
+	double horzHitDistance;
+	double vertHitDistance;
 } t_ray;
 
 typedef struct s_map
@@ -113,6 +112,8 @@ typedef struct s_map
 	t_color color_c;
 	t_color color_f;
 	void *tex_n;
+	t_img tex;
+	int	*texture;
 	void *tex_e;
 	void *tex_w;
 	void *tex_s;
