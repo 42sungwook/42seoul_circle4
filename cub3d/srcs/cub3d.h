@@ -8,16 +8,16 @@
 #include <math.h>
 #include <fcntl.h>
 
-#define WIDTH 1024
-#define HEIGHT 1024
+#define WIDTH 800
+#define HEIGHT 800
 #define MINI_WIDTH 200
 #define MINI_HEIGHT 200
 #define PI 3.141593
-#define MOVE_SPEED 2
+#define MOVE_SPEED 8
 #define ROT_SPEED 4
-#define MINI_TILE 16
-#define IMG_CNT 5
-#define NUM_RAYS 1024
+#define MINI_TILE 64
+#define IMG_CNT 6
+#define NUM_RAYS 800
 #define INT_MAX 2147483647
 #define TRUE 1
 #define FALSE 0
@@ -73,6 +73,7 @@ typedef struct s_img
 
 typedef struct s_ray
 {
+	int	stripId;
 	double rayAngle;
 	double wallHitX;
 	double wallHitY;
