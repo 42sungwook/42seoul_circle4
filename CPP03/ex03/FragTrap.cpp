@@ -16,19 +16,19 @@ FragTrap::FragTrap(const std::string &name) : ClapTrap(name)
 	std::cout << "FragTrap name constructor called" << std::endl;
 }
 
-FragTrap::FragTrap(const FragTrap &other)
+FragTrap::FragTrap(const FragTrap &object)
 {
 	std::cout << "FragTrap copy constructor called" << std::endl;
-	*this = other;
+	*this = object;
 }
 
-FragTrap &FragTrap::operator=(const FragTrap &other)
+FragTrap &FragTrap::operator=(const FragTrap &object)
 {
 	std::cout << "FragTrap copy assignment operator called" << std::endl;
-	_name = other._name;
-	_hitPoints = other._hitPoints;
-	_energyPoints = other._energyPoints;
-	_attackDamage = other._attackDamage;
+	_name = object._name;
+	_hitPoints = object._hitPoints;
+	_energyPoints = object._energyPoints;
+	_attackDamage = object._attackDamage;
 	return *this;
 }
 
@@ -40,6 +40,7 @@ FragTrap::~FragTrap()
 void FragTrap::highFivesGuys()
 {
 	std::cout << "FragTrap " << _name << " wants to high five!" << std::endl;
+	_energyPoints--;
 }
 
 void FragTrap::attack(const std::string &target)
@@ -51,35 +52,5 @@ void FragTrap::attack(const std::string &target)
 	}
 
 	std::cout << "FragTrap " << _name << " attacks " << target << ", causing " << _attackDamage << " points of damage!" << std::endl;
-	_energyPoints--;
-}
-
-void FragTrap::takeDamage(unsigned int amount)
-{
-	if (_energyPoints == 0 || _hitPoints == 0)
-	{
-		std::cout << "FragTrap" << _name << " can't do anything" << std::endl;
-		return;
-	}
-
-	std::cout << "FragTrap " << _name << " takes " << amount << " points of damage!" << std::endl;
-	if (_hitPoints - amount < 0)
-		_hitPoints = 0;
-	else
-		_hitPoints -= amount;
-
-	_energyPoints--;
-}
-
-void FragTrap::beRepaired(unsigned int amount)
-{
-	if (_energyPoints == 0 || _hitPoints == 0)
-	{
-		std::cout << "FragTrap" << _name << " can't do anything" << std::endl;
-		return;
-	}
-
-	std::cout << "FragTrap " << _name << " is repaired " << amount << " points of damage!" << std::endl;
-	_hitPoints += amount;
 	_energyPoints--;
 }

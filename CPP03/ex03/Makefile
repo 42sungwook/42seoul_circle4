@@ -1,9 +1,9 @@
 # **************************************************************************** #
 # ProgramName && Files                                                         #
 # **************************************************************************** #
-NAME		=	ex02
-INC_FILES	=	ClapTrap.hpp ScavTrap.hpp
-SRC_FILES	= ClapTrap.cpp ScavTrap.cpp main.cpp
+NAME		=	ex03
+INC_FILES	=	ClapTrap.hpp ScavTrap.hpp FragTrap.hpp DiamondTrap.hpp
+SRC_FILES	= ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp main.cpp
 # **************************************************************************** #
 # Directories && Paths                                                         #
 # **************************************************************************** #
