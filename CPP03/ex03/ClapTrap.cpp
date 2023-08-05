@@ -10,19 +10,19 @@ ClapTrap::ClapTrap(const std::string &name) : _name(name), _hitPoints(10), _ener
 	std::cout << "ClapTrap name constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap &other)
+ClapTrap::ClapTrap(const ClapTrap &object)
 {
 	std::cout << "ClapTrap copy constructor called" << std::endl;
-	*this = other;
+	*this = object;
 }
 
-ClapTrap &ClapTrap::operator=(const ClapTrap &other)
+ClapTrap &ClapTrap::operator=(const ClapTrap &object)
 {
 	std::cout << "ClapTrap copy assignment operator called" << std::endl;
-	_name = other._name;
-	_hitPoints = other._hitPoints;
-	_energyPoints = other._energyPoints;
-	_attackDamage = other._attackDamage;
+	_name = object._name;
+	_hitPoints = object._hitPoints;
+	_energyPoints = object._energyPoints;
+	_attackDamage = object._attackDamage;
 	return *this;
 }
 
@@ -71,4 +71,24 @@ void ClapTrap::beRepaired(unsigned int amount)
 	std::cout << "ClapTrap " << _name << " is repaired " << amount << " points of damage!" << std::endl;
 	_hitPoints += amount;
 	_energyPoints--;
+}
+
+std::string ClapTrap::getName() const
+{
+	return _name;
+}
+
+unsigned int ClapTrap::getHitPoints() const
+{
+	return _hitPoints;
+}
+
+unsigned int ClapTrap::getEnergyPoints() const
+{
+	return _energyPoints;
+}
+
+unsigned int ClapTrap::getAttackDamage() const
+{
+	return _attackDamage;
 }

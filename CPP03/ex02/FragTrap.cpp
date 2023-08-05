@@ -83,3 +83,8 @@ void FragTrap::beRepaired(unsigned int amount)
 	_hitPoints += amount;
 	_energyPoints--;
 }
+
+void FragTrap::highFivesGuys()
+{
+	std::cout << "FragTrap " << _name << " says who wants to high five!" << std::endl;
+}

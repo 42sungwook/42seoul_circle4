@@ -16,19 +16,19 @@ ScavTrap::ScavTrap(const std::string &name) : ClapTrap(name)
 	std::cout << "ScavTrap name constructor called" << std::endl;
 }
 
-ScavTrap::ScavTrap(const ScavTrap &other)
+ScavTrap::ScavTrap(const ScavTrap &object)
 {
 	std::cout << "ScavTrap copy constructor called" << std::endl;
-	*this = other;
+	*this = object;
 }
 
-ScavTrap &ScavTrap::operator=(const ScavTrap &other)
+ScavTrap &ScavTrap::operator=(const ScavTrap &object)
 {
 	std::cout << "ScavTrap copy assignment operator called" << std::endl;
-	_name = other._name;
-	_hitPoints = other._hitPoints;
-	_energyPoints = other._energyPoints;
-	_attackDamage = other._attackDamage;
+	_name = object._name;
+	_hitPoints = object._hitPoints;
+	_energyPoints = object._energyPoints;
+	_attackDamage = object._attackDamage;
 	return *this;
 }
 
@@ -52,41 +52,4 @@ void ScavTrap::attack(const std::string &target)
 void ScavTrap::guardGate()
 {
 	std::cout << "ScavTrap " << _name << " has entered in Gate keeper mode" << std::endl;
-}
-
-void ScavTrap::takeDamage(unsigned int amount)
-{
-	if (_energyPoints == 0 || _hitPoints == 0)
-	{
-		std::cout << "ScavTrap" << _name << " can't do anything" << std::endl;
-		return;
-	}
-
-	std::cout << "ScavTrap " << _name << " takes " << amount << " points of damage!" << std::endl;
-
-	if (_hitPoints - amount < 0)
-		_hitPoints = 0;
-	else
-		_hitPoints -= amount;
-
-	_energyPoints--;
-}
-
-void ScavTrap::beRepaired(unsigned int amount)
-{
-	if (_energyPoints == 0 || _hitPoints == 0)
-	{
-		std::cout << "ScavTrap" << _name << " can't do anything" << std::endl;
-		return;
-	}
-
-	std::cout << "ScavTrap " << _name << " is repaired " << amount << " points of damage!" << std::endl;
-	_hitPoints += amount;
-	_energyPoints--;
-}
-
-std::ostream &operator<<(std::ostream &out, const ScavTrap &scavTrap)
-{
-	out << scavTrap.getName();
-	return out;
 }
