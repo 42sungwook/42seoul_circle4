@@ -10,7 +10,10 @@
 class Harl
 {
 private:
-	std::map<std::string, void (Harl::*)()> levelFunctions;
+	static const int NUM_LEVELS = 4;
+	typedef void (Harl::*LevelFunction)();
+
+	LevelFunction levelFunctions[NUM_LEVELS];
 
 	void debug();
 	void info();

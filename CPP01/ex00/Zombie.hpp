@@ -3,14 +3,14 @@
 
 #include <iostream>
 
-class Zombie
-{
-private:
-	std::string _name;
+class Zombie {
+ private:
+  std::string _name;
 
-public:
-	Zombie(const std::string &name);
-	void announce(void) const;
+ public:
+  Zombie(const std::string &name);
+  ~Zombie();
+  void announce(void) const;
 };
 
 Zombie *newZombie(std::string name);

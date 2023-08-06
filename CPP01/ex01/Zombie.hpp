@@ -3,17 +3,15 @@
 
 #include <iostream>
 
-class Zombie
-{
-private:
-	std::string _name;
+class Zombie {
+ private:
+  std::string _name;
 
-public:
-	Zombie();
-	~Zombie();
-	Zombie(const std::string &name);
-	void announce(void) const;
-	void setName(std::string name);
+ public:
+  Zombie();
+  ~Zombie();
+  void announce(void) const;
+  void setName(std::string name);
 };
 
 Zombie *zombieHorde(int N, std::string name);

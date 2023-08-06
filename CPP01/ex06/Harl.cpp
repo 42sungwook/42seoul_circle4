@@ -1,5 +1,13 @@
 #include "Harl.hpp"
 
+Harl::Harl()
+{
+	levelFunctions[0] = &Harl::debug;
+	levelFunctions[1] = &Harl::info;
+	levelFunctions[2] = &Harl::warning;
+	levelFunctions[3] = &Harl::error;
+}
+
 void Harl::debug()
 {
 	std::cout << "[DEBUG]"
@@ -38,34 +46,24 @@ void Harl::error()
 
 void Harl::complain(std::string level)
 {
-	int levelCode = 0;
-	const std::string levelStrings[] = {"debug", "info", "warning", "error"};
 	std::transform(level.begin(), level.end(), level.begin(), ToLower());
-
-	for (int i = 0; i < LEVELS; ++i)
-	{
-		if (level == levelStrings[i])
-		{
-			levelCode = i + 1;
-			break;
-		}
-	}
+	int levelCode = ((level == "debug") * 1 + (level == "info") * 2 + (level == "warning") * 3 + (level == "error") * 4);
 
 	switch (levelCode)
 	{
 	case 1:
-		debug();
+		(this->*levelFunctions[0])();
 	case 2:
-		info();
+		(this->*levelFunctions[1])();
 	case 3:
-		warning();
+		(this->*levelFunctions[2])();
 	case 4:
-		error();
+		(this->*levelFunctions[3])();
 		break;
 	default:
 		std::cout << "[" << level << "]"
 							<< "\n"
-							<< "This level is invalid!"
+							<< "Probably complaining about insignificant problems"
 							<< "\n---------------------------------------------------------------------------------"
 							<< std::endl;
 		break;

@@ -18,12 +18,18 @@ struct ToLower
 class Harl
 {
 private:
+	static const int NUM_LEVELS = 4;
+	typedef void (Harl::*LevelFunction)();
+
+	LevelFunction levelFunctions[NUM_LEVELS];
+
 	void debug();
 	void info();
 	void warning();
 	void error();
 
 public:
+	Harl();
 	void complain(std::string level);
 };
 

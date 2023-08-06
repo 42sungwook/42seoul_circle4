@@ -2,10 +2,10 @@
 
 Harl::Harl()
 {
-	levelFunctions["debug"] = &Harl::debug;
-	levelFunctions["info"] = &Harl::info;
-	levelFunctions["warning"] = &Harl::warning;
-	levelFunctions["error"] = &Harl::error;
+	levelFunctions[0] = &Harl::debug;
+	levelFunctions[1] = &Harl::info;
+	levelFunctions[2] = &Harl::warning;
+	levelFunctions[3] = &Harl::error;
 }
 
 void Harl::debug()
@@ -46,12 +46,14 @@ void Harl::error()
 
 void Harl::complain(std::string level)
 {
-	if (levelFunctions.find(level) != levelFunctions.end())
-		(this->*levelFunctions[level])();
-	else
+	int levelCode = ((level == "DEBUG") * 1 + (level == "INFO") * 2 + (level == "WARNING") * 3 + (level == "ERROR") * 4);
+
+	if (levelCode == 0)
 		std::cout << "[" << level << "]"
 							<< "\n"
-							<< "This level is invalid!"
+							<< "Probably complaining about insignificant problems"
 							<< "\n"
 							<< std::endl;
+	else
+		(this->*levelFunctions[levelCode - 1])();
 }

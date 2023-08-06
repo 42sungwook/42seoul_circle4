@@ -1,26 +1,11 @@
 #include "Zombie.hpp"
 
-Zombie::Zombie()
-{
-	std::cout << "just made a normal zombie" << std::endl;
+Zombie::Zombie() : _name("Zombie") {}
+
+Zombie::~Zombie() { std::cout << _name << " is dead" << std::endl; }
+
+void Zombie::announce(void) const {
+  std::cout << _name << ": BraiiiiiiinnnzzzZ..." << std::endl;
 }
 
-Zombie::~Zombie()
-{
-	std::cout << _name << ": NooooOOOooo..." << std::endl;
-}
-
-Zombie::Zombie(const std::string &name) : _name(name)
-{
-	std::cout << _name << ": Arrrrrrrrrrrrr..." << std::endl;
-}
-
-void Zombie::announce(void) const
-{
-	std::cout << _name << ": BraiiiiiiinnnzzzZ..." << std::endl;
-}
-
-void Zombie::setName(std::string name)
-{
-	_name = name;
-}
+void Zombie::setName(std::string name) { _name = name; }

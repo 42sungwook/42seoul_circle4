@@ -3,15 +3,14 @@
 
 #include "Weapon.hpp"
 
-class HumanA
-{
-private:
-	std::string _name;
-	Weapon &_weapon;
+class HumanA {
+ private:
+  std::string _name;
+  Weapon &_weapon;
 
-public:
-	HumanA(const std::string &name, Weapon &weapon);
-	void attack(void) const;
+ public:
+  HumanA(const std::string &name, Weapon &weapon);
+  void attack(void) const;
 };
 
 #endif
