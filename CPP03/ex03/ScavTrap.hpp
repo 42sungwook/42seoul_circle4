@@ -3,19 +3,22 @@
 
 #include "ClapTrap.hpp"
 
-class ScavTrap : public virtual ClapTrap
-{
-public:
-	unsigned int scavTrapEnergyPoints;
+class ScavTrap : public virtual ClapTrap {
+ protected:
+  std::string _name;
+  unsigned int _hitPoints;
+  unsigned int _energyPoints;
+  unsigned int _attackDamage;
 
-	ScavTrap();
-	ScavTrap(const std::string &name);
-	ScavTrap(const ScavTrap &object);
-	ScavTrap &operator=(const ScavTrap &object);
-	virtual ~ScavTrap();
+ public:
+  ScavTrap();
+  ScavTrap(const std::string name);
+  ScavTrap(const ScavTrap &object);
+  ScavTrap &operator=(ScavTrap object);
+  virtual ~ScavTrap();
 
-	void guardGate();
-	virtual void attack(const std::string &target);
+  void guardGate();
+  void attack(const std::string &target);
 };
 
 #endif

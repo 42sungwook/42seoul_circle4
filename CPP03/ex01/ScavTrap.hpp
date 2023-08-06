@@ -13,7 +13,7 @@ public:
 	virtual ~ScavTrap();
 
 	void guardGate();
-	virtual void attack(const std::string &target);
+	void attack(const std::string &target);
 };
 
 #endif

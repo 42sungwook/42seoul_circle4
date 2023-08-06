@@ -3,17 +3,22 @@
 
 #include "ClapTrap.hpp"
 
-class FragTrap : public virtual ClapTrap
-{
-public:
-	FragTrap();
-	FragTrap(const std::string &name);
-	FragTrap(const FragTrap &object);
-	FragTrap &operator=(const FragTrap &object);
-	~FragTrap();
+class FragTrap : public virtual ClapTrap {
+ protected:
+  std::string _name;
+  unsigned int _hitPoints;
+  unsigned int _energyPoints;
+  unsigned int _attackDamage;
 
-	void highFivesGuys();
-	virtual void attack(const std::string &target);
+ public:
+  FragTrap();
+  FragTrap(const std::string name);
+  FragTrap(const FragTrap &object);
+  FragTrap &operator=(FragTrap object);
+  ~FragTrap();
+
+  void highFivesGuys();
+  void attack(const std::string &target);
 };
 
 #endif

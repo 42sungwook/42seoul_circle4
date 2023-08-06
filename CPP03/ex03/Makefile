@@ -18,7 +18,7 @@ DEPS	=	$(SRC_FILES:%.cpp=$(DEP_DIR)%.d)
 # Compiler && flags                                                            #
 # **************************************************************************** #
 CXX			=	c++
-CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
+CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 #-Wshadow -Wno-shadow
 CPPFLAGS	=	-I$(INC_DIR)
 DEPFLAGS	=	-MMD -MP -MF $(@:$(OBJ_DIR)%.o=$(DEP_DIR)%.d)
 RM			=	rm -rf
