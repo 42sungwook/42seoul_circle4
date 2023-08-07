@@ -89,7 +89,7 @@ void	draw_line(t_data *g, int x0, int y0, int x1, int y1)
 int mapHasWallAt(t_data *g, double x, double y) {
     int mapGridIndexX = floor(x / MINI_TILE);
     int mapGridIndexY = floor(y / MINI_TILE);
-    if (mapGridIndexX < 0 || mapGridIndexX >= g->map_info->w || mapGridIndexY < 0 || mapGridIndexY >= g->map_info->h) {
+    if (mapGridIndexX < 0 || mapGridIndexX > g->map_info->w || mapGridIndexY < 0 || mapGridIndexY > g->map_info->h) {
         return FALSE;
     }
     if(g->map_info->map[mapGridIndexY][mapGridIndexX] == '1')
@@ -98,15 +98,15 @@ int mapHasWallAt(t_data *g, double x, double y) {
 }
 // 
 double normalizeAngle(double angle) {
-    while (angle >= 2 * PI) 
-    {
-	angle -= 2 * PI;
+	while (angle >= 2 * PI) 
+	{
+		angle -= 2 * PI;
 	}
-    while (angle < 0) 
-    {
-        angle += 2 * PI;
-    }
-    return angle;
+	while (angle < 0) 
+	{
+			angle += 2 * PI;
+	}
+	return angle;
 }
 // 두 점 사이 거리 계산
 double distanceBetweenPoints(double x1, double y1, double x2, double y2) {
@@ -117,6 +117,8 @@ void castRay(t_data *g, double rayAngle) {
     //각도 정규화
     rayAngle = normalizeAngle(rayAngle);
 
+		if (rayAngle == 0 || rayAngle == PI)
+			rayAngle += 0.000001;
     //레이 방향 상하좌우 중 어디로 향하는지 
     g->rays->isRayFacingDown = rayAngle > 0 && rayAngle < PI;
     g->rays->isRayFacingUp = !g->rays->isRayFacingDown;
@@ -151,7 +153,7 @@ void castRay(t_data *g, double rayAngle) {
     g->rays->nextHorzTouchY = g->rays->yintercept;
 
     // Increment xstep and ystep until we find a wall
-    while (g->rays->nextHorzTouchX >= 0 && g->rays->nextHorzTouchX <= WIDTH && g->rays->nextHorzTouchY >= 0 && g->rays->nextHorzTouchY <= HEIGHT) {
+    while (g->rays->nextHorzTouchX >= 0 && g->rays->nextHorzTouchX < g->map_info->w * MINI_TILE && g->rays->nextHorzTouchY >= 0 && g->rays->nextHorzTouchY < g->map_info->h * MINI_TILE) {
         g->rays->xToCheck = g->rays->nextHorzTouchX;
         g->rays->yToCheck = g->rays->nextHorzTouchY + (g->rays->isRayFacingUp ? -1 : 0);
 
@@ -191,7 +193,7 @@ void castRay(t_data *g, double rayAngle) {
     g->rays->nextVertTouchY = g->rays->yintercept;
 
     // Increment xstep and ystep until we find a wall
-    while (g->rays->nextVertTouchX >= 0 && g->rays->nextVertTouchX <= WIDTH && g->rays->nextVertTouchY >= 0 && g->rays->nextVertTouchY <= HEIGHT) {
+    while (g->rays->nextVertTouchX >= 0 && g->rays->nextVertTouchX < g->map_info->w * MINI_TILE && g->rays->nextVertTouchY >= 0 && g->rays->nextVertTouchY < g->map_info->h * MINI_TILE) {
         g->rays->xToCheck = g->rays->nextVertTouchX + (g->rays->isRayFacingLeft ? -1 : 0);
         g->rays->yToCheck = g->rays->nextVertTouchY;
 

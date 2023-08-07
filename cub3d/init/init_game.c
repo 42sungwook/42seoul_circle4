@@ -35,4 +35,10 @@ void init_game(t_data *g, int ac, char **av)
 	init_map(g, av);
 	init_player(g);
 	init_img(g);
+	int i = 0;
+	while(g->map_info->map[i])
+	{
+		printf("%s\n", g->map_info->map[i]);
+		i++;
+	}
 }
