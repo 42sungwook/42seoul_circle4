@@ -21,7 +21,7 @@ FragTrap::FragTrap(const FragTrap &object) {
   *this = object;
 }
 
-FragTrap &FragTrap::operator=(FragTrap object) {
+FragTrap &FragTrap::operator=(FragTrap &object) {
   std::cout << "FragTrap copy assignment operator called" << std::endl;
   _name = object._name;
   _hitPoints = object._hitPoints;

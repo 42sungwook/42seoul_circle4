@@ -21,7 +21,7 @@ ScavTrap::ScavTrap(const ScavTrap &object) {
   *this = object;
 }
 
-ScavTrap &ScavTrap::operator=(ScavTrap object) {
+ScavTrap &ScavTrap::operator=(ScavTrap &object) {
   std::cout << "ScavTrap copy assignment operator called" << std::endl;
   _name = object._name;
   _hitPoints = object._hitPoints;

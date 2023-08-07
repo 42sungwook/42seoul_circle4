@@ -15,7 +15,7 @@ ClapTrap::ClapTrap(const ClapTrap &object) {
   *this = object;
 }
 
-ClapTrap &ClapTrap::operator=(ClapTrap object) {
+ClapTrap &ClapTrap::operator=(ClapTrap &object) {
   std::cout << "ClapTrap copy assignment operator called" << std::endl;
   _name = object._name;
   _hitPoints = object._hitPoints;

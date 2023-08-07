@@ -26,7 +26,7 @@ DiamondTrap::DiamondTrap(const DiamondTrap &object) {
   *this = object;
 }
 
-DiamondTrap &DiamondTrap::operator=(DiamondTrap object) {
+DiamondTrap &DiamondTrap::operator=(DiamondTrap &object) {
   std::cout << "DiamondTrap copy assignment operator called" << std::endl;
 
   _name = object._name;
