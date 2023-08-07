@@ -11,8 +11,8 @@
 
 #define WIDTH 800
 #define HEIGHT 800
-#define MINI_WIDTH 400
-#define MINI_HEIGHT 400
+#define MINI_WIDTH 200
+#define MINI_HEIGHT 200
 #define PI 3.141593
 #define MOVE_SPEED 8
 #define ROT_SPEED 4

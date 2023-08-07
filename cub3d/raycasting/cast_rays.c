@@ -57,7 +57,6 @@ void    shot_ray(t_data *g, int stripId)
 		}
 }
 
-
 void	draw_line(t_data *g, int x0, int y0, int x1, int y1)
 {
 	int dx = abs(x1 - x0);
@@ -96,13 +95,13 @@ int mapHasWallAt(t_data *g, double x, double y) {
 				return TRUE;
 		return FALSE;
 }
-// 
+
 double normalizeAngle(double angle) {
 	while (angle >= 2 * PI) 
 	{
 		angle -= 2 * PI;
 	}
-	while (angle < 0) 
+	while (angle < 0)
 	{
 			angle += 2 * PI;
 	}
@@ -117,8 +116,6 @@ void castRay(t_data *g, double rayAngle) {
     //각도 정규화
     rayAngle = normalizeAngle(rayAngle);
 
-		if (rayAngle == 0 || rayAngle == PI)
-			rayAngle += 0.000001;
     //레이 방향 상하좌우 중 어디로 향하는지 
     g->rays->isRayFacingDown = rayAngle > 0 && rayAngle < PI;
     g->rays->isRayFacingUp = !g->rays->isRayFacingDown;
@@ -253,8 +250,10 @@ void	cast_rays(t_data *g)
     g->map_info->tex.img = mlx_xpm_file_to_image(g->mlx, "./asset/this.xpm",&g->map_info->tex.w, &g->map_info->tex.h);
     g->map_info->tex.addr = (int *)mlx_get_data_addr(g->map_info->tex.img, &g->map_info->tex.bpp, &g->map_info->tex.line_len, &g->map_info->tex.endian);
 	for (int col = 0; col < WIDTH; col++) {
+		ft_memset(g->rays, 0, sizeof(t_ray));
 		rayAngle += fov_angle / WIDTH;
         g->rays->stripId = col;
 		castRay(g, rayAngle);
 	}
+	free(g->rays);
 }
