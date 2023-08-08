@@ -11,7 +11,7 @@ void    draw_bg(t_data *g)
         j = 0;
         while (j < WIDTH)
         {
-            put_pixel_to_screen(g, j, i, 0XddFFFF);
+            put_pixel_to_screen(g, j, i, 0X360000);
             ++j;
         }
         ++i;
@@ -21,7 +21,7 @@ void    draw_bg(t_data *g)
         j = 0;
         while (j < WIDTH)
         {
-            put_pixel_to_screen(g, j, i, 0X22BB44);
+            put_pixel_to_screen(g, j, i, 0X050f0a);
             ++j;
         }
         ++i;
