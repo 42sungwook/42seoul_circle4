@@ -17,7 +17,7 @@
 #define MOVE_SPEED 8
 #define ROT_SPEED 4
 #define MINI_TILE 64
-#define IMG_CNT 6
+#define IMG_CNT 9
 #define NUM_RAYS 800
 #define INT_MAX 2147483647
 #define TRUE 1
@@ -41,6 +41,10 @@ enum e_img {
   MINI_WALL,
   MINI_PLAIN,
   MINI_PLAYER,
+  EAST,
+  WEST,
+  SOUTH,
+  NORTH,
 };
 
 typedef struct s_color {
@@ -58,6 +62,30 @@ typedef struct s_img {
   int w;
   int h;
 } t_img;
+
+typedef struct s_map {
+  int w;
+  int h;
+  t_color color_c;
+  t_color color_f;
+  void *tex_n;
+  t_img tex;
+  int *texture;
+  void *tex_e;
+  void *tex_w;
+  void *tex_s;
+  char **map;
+} t_map;
+
+typedef struct s_player {
+  double x;
+  double y;
+  double dot_x;
+  double dot_y;
+  double walk_dir;
+  double turn_dir;
+  double rotation_angle;
+} t_player;
 
 typedef struct s_ray {
   int stripId;
@@ -93,30 +121,6 @@ typedef struct s_ray {
   double vertHitDistance;
 } t_ray;
 
-typedef struct s_map {
-  int w;
-  int h;
-  t_color color_c;
-  t_color color_f;
-  void *tex_n;
-  t_img tex;
-  int *texture;
-  void *tex_e;
-  void *tex_w;
-  void *tex_s;
-  char **map;
-} t_map;
-
-typedef struct s_player {
-  double x;
-  double y;
-  double dot_x;
-  double dot_y;
-  double walk_dir;
-  double turn_dir;
-  double rotation_angle;
-} t_player;
-
 typedef struct s_data {
   void *mlx;
   void *win;
@@ -125,6 +129,7 @@ typedef struct s_data {
   t_player *player;
   t_ray *rays;
 } t_data;
+
 
 // draw
 void put_img_to_screen(t_data *g, t_img *imgs, int x, int y);

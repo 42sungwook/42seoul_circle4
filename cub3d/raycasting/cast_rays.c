@@ -53,9 +53,24 @@ void    shot_ray(t_data *g, int stripId)
 		for (int y = wallTopPixel; y < wallBottomPixel; y++) {
 				int distanceFromTop = y + (wall_size / 2) - (HEIGHT / 2);
 				int textureOffsetY = distanceFromTop * ((float)tex_h / wall_size);
-				put_pixel_to_screen(g, stripId, y, g->map_info->tex.addr[(tex_w * textureOffsetY) + textureOffsetX]);
-		}
+                //동서남북 텍스쳐 결정
+                if (g->rays->wasHitVertical)
+                {
+                    if ((g->rays->isRayFacingLeft))
+                        put_pixel_to_screen(g, stripId, y, g->imgs[EAST].addr[(g->imgs[EAST].w * textureOffsetY) + textureOffsetX]);
+                    else
+                        put_pixel_to_screen(g, stripId, y, g->imgs[WEST].addr[(g->imgs[WEST].w * textureOffsetY) + textureOffsetX]);
+
+                }
+                else
+                {
+                    if ((g->rays->isRayFacingDown))
+                        put_pixel_to_screen(g, stripId, y, g->imgs[SOUTH].addr[(g->imgs[SOUTH].w * textureOffsetY) + textureOffsetX]);
+                    else
+                        put_pixel_to_screen(g, stripId, y, g->imgs[NORTH].addr[(g->imgs[NORTH].w * textureOffsetY) + textureOffsetX]);
+                }
 }
+		}
 
 void	draw_line(t_data *g, int x0, int y0, int x1, int y1)
 {

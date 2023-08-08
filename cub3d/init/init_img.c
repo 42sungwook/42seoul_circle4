@@ -2,7 +2,7 @@
 
 void init_img(t_data *g)
 {
-	g->imgs = (t_img *)malloc(sizeof(t_img) * IMG_CNT);
+	//g->imgs = (t_img *)malloc(sizeof(t_img) * IMG_CNT);
 	g->imgs[SCREEN].img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
 	g->imgs[SCREEN].w = WIDTH;
 	g->imgs[SCREEN].h = HEIGHT;
@@ -22,4 +22,12 @@ void init_img(t_data *g)
 																			&g->imgs[MINI_PLAIN].line_len, &g->imgs[MINI_PLAIN].endian);
 	g->imgs[MINI_PLAYER].addr = (int *)mlx_get_data_addr(g->imgs[MINI_PLAYER].img, &g->imgs[MINI_PLAYER].bpp, \
 																			&g->imgs[MINI_PLAYER].line_len, &g->imgs[MINI_PLAYER].endian);
+	g->imgs[SOUTH].addr = (int *)mlx_get_data_addr(g->imgs[SOUTH].img, &g->imgs[SOUTH].bpp, \
+																			&g->imgs[SOUTH].line_len, &g->imgs[SOUTH].endian);
+	g->imgs[NORTH].addr = (int *)mlx_get_data_addr(g->imgs[NORTH].img, &g->imgs[NORTH].bpp, \
+																			&g->imgs[NORTH].line_len, &g->imgs[NORTH].endian);																																						
+	g->imgs[EAST].addr = (int *)mlx_get_data_addr(g->imgs[EAST].img, &g->imgs[EAST].bpp, \
+																			&g->imgs[EAST].line_len, &g->imgs[EAST].endian);
+	g->imgs[WEST].addr = (int *)mlx_get_data_addr(g->imgs[WEST].img, &g->imgs[WEST].bpp, \
+																			&g->imgs[WEST].line_len, &g->imgs[WEST].endian);
 }

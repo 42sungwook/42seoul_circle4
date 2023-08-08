@@ -17,31 +17,30 @@ static char	*get_new_map(t_map *map_info, char *one_line, char *buff)
 	return (temp);
 }
 
-static int	set_map_setting(t_map *map_info, char **key_value)
+static int	set_map_setting(t_data *g, char **key_value)
 {
 	if (ft_strlen(key_value[0]) == 2
-		&& !ft_strncmp(key_value[0], "NO", 2) && map_info->tex_n == NULL)
-		map_info->tex_n = ft_strdup(key_value[1]);
+		&& !ft_strncmp(key_value[0], "NO", 2) && g->imgs[NORTH].img == NULL)
+		g->imgs[NORTH].img = mlx_xpm_file_to_image(g->mlx, key_value[1], &g->imgs[NORTH].w , &g->imgs[NORTH].h);
 	else if (ft_strlen(key_value[0]) == 2
-		&& !ft_strncmp(key_value[0], "SO", 2) && map_info->tex_s == NULL)
-		map_info->tex_s = ft_strdup(key_value[1]);
+		&& !ft_strncmp(key_value[0], "SO", 2) && g->imgs[SOUTH].img == NULL)
+		g->imgs[SOUTH].img = mlx_xpm_file_to_image(g->mlx, key_value[1], &g->imgs[SOUTH].w , &g->imgs[SOUTH].h);
 	else if (ft_strlen(key_value[0]) == 2
-		&& !ft_strncmp(key_value[0], "WE", 2) && map_info->tex_w == NULL)
-		map_info->tex_w = ft_strdup(key_value[1]);
+		&& !ft_strncmp(key_value[0], "WE", 2) && g->imgs[WEST].img == NULL)
+		g->imgs[WEST].img = mlx_xpm_file_to_image(g->mlx, key_value[1], &g->imgs[WEST].w , &g->imgs[WEST].h);
 	else if (ft_strlen(key_value[0]) == 2
-		&& !ft_strncmp(key_value[0], "EA", 2) && map_info->tex_e == NULL)
-		map_info->tex_e = ft_strdup(key_value[1]);
+		&& !ft_strncmp(key_value[0], "EA", 2) && g->imgs[EAST].img == NULL)
+		g->imgs[EAST].img = mlx_xpm_file_to_image(g->mlx, key_value[1], &g->imgs[EAST].w , &g->imgs[EAST].h);
 	else if (ft_strlen(key_value[0]) == 1
-		&& !ft_strncmp(key_value[0], "F", 1) && map_info->color_f.r == -1)
-		set_color(&map_info->color_f, key_value[1]);
+		&& !ft_strncmp(key_value[0], "F", 1) && g->map_info->color_f.r == -1)
+		set_color(&g->map_info->color_f, key_value[1]);
 	else if (ft_strlen(key_value[0]) == 1
-		&& !ft_strncmp(key_value[0], "C", 1) && map_info->color_c.r == -1)
-		set_color(&map_info->color_c, key_value[1]);
+		&& !ft_strncmp(key_value[0], "C", 1) && g->map_info->color_c.r == -1)
+		set_color(&g->map_info->color_c, key_value[1]);
 	else
 		print_error("Input Error\n");
 	return (0);
 }
-
 
 static void	make_map_rec(t_map *map_info, char *one_line)
 {
@@ -70,7 +69,7 @@ static void	make_map_rec(t_map *map_info, char *one_line)
 	}
 }
 
-static int	get_map_setting(t_map *map_info, int fd)
+static int	get_map_setting(t_data *g, int fd)
 {
 	int		line_cnt;
 	int		len_value;
@@ -91,7 +90,7 @@ static int	get_map_setting(t_map *map_info, int fd)
 		len_value = ft_strlen(key_value[1]);
 		if (key_value[1][len_value - 1] == '\n')
 			key_value[1][len_value - 1] = '\0';
-		if (!set_map_setting(map_info, key_value))
+		if (!set_map_setting(g, key_value))
 			line_cnt++;
 		free_chars(key_value);
 		free(line);
@@ -108,7 +107,7 @@ void save_map_info(t_data *g, char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		print_error("Opening File");
-	get_map_setting(g->map_info, fd);
+	get_map_setting(g, fd);
 	one_line = malloc(1);
 	one_line[0] = 0;
 	while (fd >= 0)

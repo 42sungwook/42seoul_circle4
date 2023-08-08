@@ -55,9 +55,3 @@ int		main(int ac, char **av)
 	mlx_loop(g->mlx);
 	exit(0);
 }
-
-
-
-//raycasting
-//minimap 따로 이미지로
-//minimap은 주인공 기준으로 map screen에 원하는 부분에 옮겨줄 것

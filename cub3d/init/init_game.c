@@ -2,15 +2,16 @@
 
 static void init_map(t_data *g, char **av)
 {
+	g->imgs = (t_img *)malloc(sizeof(t_img) * IMG_CNT);
 	g->map_info = malloc(sizeof(t_map));
 	g->map_info->w = -1;
 	g->map_info->h = 0;
 	g->map_info->color_c.r = -1;
 	g->map_info->color_f.r = -1;
-	g->map_info->tex_n = NULL;
-	g->map_info->tex_e = NULL;
-	g->map_info->tex_w = NULL;
-	g->map_info->tex_s = NULL;
+	g->imgs[EAST].img = NULL;
+	g->imgs[WEST].img = NULL;
+	g->imgs[SOUTH].img = NULL;
+	g->imgs[NORTH].img = NULL;
 	save_map_info(g, av);
 }
 
