@@ -3,6 +3,7 @@
     "ewA.C": "cpp",
     "algorithm": "c",
     "memory": "c",
-    "optional": "c"
+    "optional": "c",
+    "cub3d.h": "c"
   }
 }
