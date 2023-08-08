@@ -1,5 +1,5 @@
 #include "../srcs/cub3d.h"
-
+//  배경색 그리기 - 나중에 draw.c로 이동
 void    draw_bg(t_data *g)
 {
     int i;
@@ -11,7 +11,7 @@ void    draw_bg(t_data *g)
         j = 0;
         while (j < WIDTH)
         {
-            put_pixel_to_screen(g, j, i, 0X360000);
+            put_pixel_to_screen(g, j, i, 0X190200);
             ++j;
         }
         ++i;
