@@ -14,8 +14,8 @@
 #define MINI_WIDTH 200
 #define MINI_HEIGHT 200
 #define PI 3.141593
-#define MOVE_SPEED 8
-#define ROT_SPEED 4
+#define MOVE_SPEED 16
+#define ROT_SPEED 8
 #define MINI_TILE 64
 #define IMG_CNT 9
 #define NUM_RAYS 800
@@ -68,12 +68,7 @@ typedef struct s_map {
   int h;
   t_color color_c;
   t_color color_f;
-  void *tex_n;
   t_img tex;
-  int *texture;
-  void *tex_e;
-  void *tex_w;
-  void *tex_s;
   char **map;
 } t_map;
 

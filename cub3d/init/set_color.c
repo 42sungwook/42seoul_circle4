@@ -6,6 +6,7 @@ void	set_color(t_color *color, char *str_rgb)
 	char	**rgb;
 	char	**tmp_rgb;
 
+
 	rgb = ft_split(str_rgb, ',');
 	tmp_rgb = rgb;
 	color_cnt = 0;

@@ -1,5 +1,8 @@
 #include "../srcs/cub3d.h"
-
+static void check_map(t_map	*map_info)
+{
+	;
+}
 static void init_map(t_data *g, char **av)
 {
 	g->imgs = (t_img *)malloc(sizeof(t_img) * IMG_CNT);
@@ -13,6 +16,7 @@ static void init_map(t_data *g, char **av)
 	g->imgs[SOUTH].img = NULL;
 	g->imgs[NORTH].img = NULL;
 	save_map_info(g, av);
+	check_map(g->map_info);
 }
 
 static void init_player(t_data *g)
