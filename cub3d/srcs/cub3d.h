@@ -68,7 +68,9 @@ typedef struct s_map {
   int h;
   t_color color_c;
   t_color color_f;
-  t_img tex;
+  int character_x;
+  int character_y;
+  double  character_angle;
   char **map;
 } t_map;
 

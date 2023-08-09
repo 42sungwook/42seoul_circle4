@@ -4,6 +4,26 @@
     "algorithm": "c",
     "memory": "c",
     "optional": "c",
-    "cub3d.h": "c"
+    "cub3d.h": "c",
+    "__config": "c",
+    "__debug": "c",
+    "array": "c",
+    "bit": "c",
+    "bitset": "c",
+    "chrono": "c",
+    "cmath": "c",
+    "complex": "c",
+    "functional": "c",
+    "istream": "c",
+    "iterator": "c",
+    "mutex": "c",
+    "ostream": "c",
+    "sstream": "c",
+    "string": "c",
+    "string_view": "c",
+    "tuple": "c",
+    "unordered_map": "c",
+    "utility": "c",
+    "vector": "c"
   }
 }
