@@ -1,9 +1,9 @@
 # **************************************************************************** #
 # ProgramName && Files                                                         #
 # **************************************************************************** #
-NAME		=	ex00
-INC_FILES	=	
-SRC_FILES	= main.cpp
+NAME		=	ex02
+INC_FILES	=	AAnimal.hpp Dog.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp Brain.hpp
+SRC_FILES	= AAnimal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp main.cpp
 # **************************************************************************** #
 # Directories && Paths                                                         #
 # **************************************************************************** #

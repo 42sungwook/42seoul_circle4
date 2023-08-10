@@ -1,19 +1,19 @@
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
 
 int main() {
-  Animal* j = new Dog();
-  Animal* i = new Cat();
+  AAnimal* j = new Dog();
+  AAnimal* i = new Cat();
 
   delete i;
   delete j;
 
   std::cout << std::endl;
 
-  Animal* animals[4];
+  AAnimal* animals[4];
   for (int k = 0; k < 4; k++) {
     if (k % 2 == 0)
       animals[k] = new Dog();
