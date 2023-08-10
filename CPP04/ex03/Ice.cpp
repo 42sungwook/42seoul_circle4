@@ -10,6 +10,7 @@ Ice& Ice::operator=(Ice const& object) {
   if (this != &object) {
     AMateria::operator=(object);
   }
+
   return *this;
 }
 

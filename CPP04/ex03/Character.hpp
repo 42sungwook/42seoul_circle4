@@ -4,11 +4,10 @@
 #include <iostream>
 
 #include "ICharacter.hpp"
-
 class Character : public ICharacter {
  private:
   std::string _name;
-  AMateria* _inventory[4]; // 수정필요
+  AMateria* _inventory[4];  // 수정필요
 
  public:
   Character();

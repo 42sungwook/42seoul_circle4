@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "ICharacter.hpp"
-
+class ICharacter;
 class AMateria {
  protected:
   std::string _type;

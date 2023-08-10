@@ -19,8 +19,3 @@ void AMateria::use(ICharacter& target) {
   std::cout << "* Materia has no effect on " << target.getName() << "*"
             << std::endl;
 }
-
-std::ostream& operator<<(std::ostream& out, AMateria const& object) {
-  out << object.getType();
-  return out;
-}

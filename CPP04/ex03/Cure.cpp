@@ -10,6 +10,7 @@ Cure& Cure::operator=(Cure const& object) {
   if (this != &object) {
     AMateria::operator=(object);
   }
+
   return *this;
 }
 
