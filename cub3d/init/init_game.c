@@ -6,57 +6,12 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 17:33:23 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/09 18:41:01 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/11 16:19:04 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/cub3d.h"
 
-static double	angle_set(char c)
-{
-	if (c == 'E')
-		return (0);
-	else if (c == 'W')
-		return (PI);
-	else if (c == 'S')
-		return (PI / 2);
-	else
-		return (PI + (PI / 2));
-}
-static void check_map(t_data *g)
-{
-	int	i;
-	int	j;
-	int	flag;
-	char **map;
-
-	map = g->map_info->map;
-	flag = 0;
-	j = 0;
-	while (j < g->map_info->h)
-	{
-		i = 0;
-		while ( i < g->map_info->w)
-		{
-			if (map[j][i] == 'E' || map[j][i] == 'W' || map[j][i] == 'S' || map[j][i] == 'N')
-			{
-				if (flag != 0)
-					print_error("Error_currupted map");
-				else
-				{
-					flag = 1;
-					g->map_info->character_x = i;
-					g->map_info->character_y = j;
-					g->map_info->character_angle = angle_set(map[j][i]);
-					
-				}
-			}
-			i++;
-		}
-		j++;
-	}
-
-}
 static void init_map(t_data *g, char **av)
 {
 	g->imgs = (t_img *)malloc(sizeof(t_img) * IMG_CNT);
@@ -70,7 +25,8 @@ static void init_map(t_data *g, char **av)
 	g->imgs[SOUTH].img = NULL;
 	g->imgs[NORTH].img = NULL;
 	save_map_info(g, av);
-	check_map(g);
+	if (check_map(g))
+		print_error("invalid map");
 }
 
 static void init_player(t_data *g)

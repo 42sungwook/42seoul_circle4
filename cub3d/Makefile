@@ -24,6 +24,8 @@ DRAW_FILES	=	draw.c draw_minimap.c draw_miniplayer.c
 
 RAY_FILES = cast_rays.c
 
+VALID_FILES = check_map.c
+
 # **************************************************************************** #
 # Directories && Paths                                                         #
 # **************************************************************************** #
@@ -34,19 +36,23 @@ GNL_DIR		=	./get_next_line/
 LIBFT_DIR	=	./libft/
 DRAW_DIR	=	./draw/
 RAY_DIR		=	./raycasting/
+VALID_DIR	=	./valid/
 OBJ_DIR		=	.obj/
 DEP_DIR		=	.dep/
 SRCS		=	$(addprefix $(LIBFT_DIR), $(LIBFT_FILES)) $(addprefix $(GNL_DIR), $(GNL_FILES)) \
 				$(addprefix $(INIT_DIR), $(INIT_FILES)) $(addprefix $(DRAW_DIR), $(DRAW_FILES)) \
-				$(addprefix $(RAY_DIR), $(RAY_FILES)) $(addprefix $(SRC_DIR), $(SRC_FILES))
+				$(addprefix $(RAY_DIR), $(RAY_FILES)) $(addprefix $(VALID_DIR), $(VALID_FILES)) \
+				$(addprefix $(SRC_DIR), $(SRC_FILES))
 
 OBJS		=	$(LIBFT_FILES:%.c=$(OBJ_DIR)%.o) $(GNL_FILES:%.c=$(OBJ_DIR)%.o) \
 				$(INIT_FILES:%.c=$(OBJ_DIR)%.o) $(DRAW_FILES:%.c=$(OBJ_DIR)%.o) \
-				$(RAY_FILES:%.c=$(OBJ_DIR)%.o) $(SRC_FILES:%.c=$(OBJ_DIR)%.o)
+				$(RAY_FILES:%.c=$(OBJ_DIR)%.o) $(VALID_FILES:%.c=$(OBJ_DIR)%.o) \
+				$(SRC_FILES:%.c=$(OBJ_DIR)%.o)
 
 DEPS		=	$(LIBFT_FILES:%.c=$(DEP_DIR)%.d) $(GNL_FILES:%.c=$(DEP_DIR)%.o) \
 				$(INIT_FILES:%.c=$(DEP_DIR)%.d) $(DRAW_FILES:%.c=$(DEP_DIR)%.d) \
-				$(RAY_FILES:%.c=$(DEP_DIR)%.d) $(SRC_FILES:%.c=$(DEP_DIR)%.d)
+				$(RAY_FILES:%.c=$(DEP_DIR)%.d) $(VALID_FILES:%.c=$(DEP_DIR)%.d) \
+				$(SRC_FILES:%.c=$(DEP_DIR)%.d)
 
 # **************************************************************************** #
 # Compiler && flags                                                            #
@@ -117,6 +123,10 @@ $(OBJ_DIR)%.o	:	$(DRAW_DIR)%.c
 $(OBJ_DIR)%.o	:	$(RAY_DIR)%.c
 					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
 					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" RAY
+					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
+$(OBJ_DIR)%.o	:	$(VALID_DIR)%.c
+					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
+					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" VALID
 					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
 $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c
 					@mkdir -p $(OBJ_DIR) $(DEP_DIR)

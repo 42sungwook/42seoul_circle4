@@ -155,5 +155,8 @@ int is_wall(t_data *g, int x, int y);
 // raycasting
 void cast_rays(t_data *g);
 
+// valid
+int check_map(t_data *g);
+
 void draw_bg(t_data *g);
 #endif

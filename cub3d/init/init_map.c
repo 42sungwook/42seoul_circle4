@@ -5,9 +5,14 @@ static char	*get_new_map(t_map *map_info, char *one_line, char *buff)
 	char	*temp;
 	int		len;
 
-	len = (int)ft_strlen(buff) - 1;
-	if (len == 0)
-		print_error("Error empty line");
+	if (buff[0] != ' ')
+	{
+		len = (int)ft_strlen(buff);
+		if (len == 0)
+			print_error("Error empty line");
+	}
+	else
+		len = (int)ft_strlen(buff) - 1;
 	if (map_info->w < len)
 		map_info->w = len;
 	map_info->h++;
