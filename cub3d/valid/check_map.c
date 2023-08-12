@@ -12,13 +12,8 @@ static double	angle_set(char c)
 		return (PI + (PI / 2));
 }
 
-static int valid_check(t_data *g, int y, int x)
+static int check_ver(t_data *g, int j, int i, int x)
 {
-    int i;
-    int j;
-
-    i = x;
-    j = y;
     while (i >= 0)
     {
         if (g->map_info->map[j][i] == ' ')
@@ -40,8 +35,12 @@ static int valid_check(t_data *g, int y, int x)
     }
     if (!g->map_info->map[j][i])
         return (1);
-    i = x;
-    while (j >= 0)
+		return (0);
+}
+
+static int check_hor(t_data *g, int j, int i, int y)
+{
+	  while (j >= 0)
     {
         if (g->map_info->map[j][i] == ' ')
             return (1);
@@ -63,6 +62,15 @@ static int valid_check(t_data *g, int y, int x)
     if (!g->map_info->map[j])
         return (1);
     return (0);
+}
+
+static int valid_check(t_data *g, int y, int x)
+{
+	if (check_ver(g, y, x, x))
+		return (1);
+	if (check_hor(g, y, x, y))
+		return (1);
+	return (0);
 }
 
 int check_map(t_data *g)
