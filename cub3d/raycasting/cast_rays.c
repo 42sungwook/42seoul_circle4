@@ -40,7 +40,7 @@ static void	cal_hor_ray(t_data *g, double ray_angle)
 	g->map_info->w * TILE && g->rays->yintercept >= 0 && \
 	g->rays->yintercept < g->map_info->h * TILE)
 	{
-		if (mapHasWallAt(g, g->rays->xintercept, \
+		if (map_has_wall_at(g, g->rays->xintercept, \
 		g->rays->yintercept - g->rays->is_ray_up))
 		{
 			g->rays->horz_wall_hit_x = g->rays->xintercept;
@@ -77,7 +77,7 @@ static void	cal_ver_ray(t_data *g, double ray_angle)
 	g->map_info->w * TILE && g->rays->yintercept >= 0 && \
 	g->rays->yintercept < g->map_info->h * TILE)
 	{
-		if (mapHasWallAt(g, g->rays->xintercept - \
+		if (map_has_wall_at(g, g->rays->xintercept - \
 		g->rays->is_ray_left, g->rays->yintercept))
 		{
 			g->rays->vert_wall_hit_x = g->rays->xintercept;
@@ -120,7 +120,7 @@ void	cast_rays(t_data *g)
 		ft_memset(g->rays, 0, sizeof(t_ray));
 		ray_angle += fov_angle / WIDTH;
 		g->rays->strip_id = col;
-		castRay(g, ray_angle);
+		cast_ray(g, ray_angle);
 		col++;
 	}
 	free(g->rays);

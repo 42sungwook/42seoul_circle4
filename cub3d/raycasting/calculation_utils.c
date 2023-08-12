@@ -47,13 +47,13 @@ void	ray_dir(t_data *g, double ray_angle)
 void	compare_hv_distance(t_data *g, double ray_angle)
 {
 	if (g->rays->horz_wall_hit)
-		g->rays->horz_hit_distance = distanceBetweenPoints((g->player->x \
+		g->rays->horz_hit_distance = distance_between_points((g->player->x \
 		+ P_ERROR), (g->player->y + P_ERROR), g->rays->horz_wall_hit_x, \
 		g->rays->horz_wall_hit_y);
 	else
 		g->rays->horz_hit_distance = FLT_MAX;
 	if (g->rays->vert_wall_hit)
-		g->rays->vert_hit_distance = distanceBetweenPoints((g->player->x \
+		g->rays->vert_hit_distance = distance_between_points((g->player->x \
 		+ P_ERROR), (g->player->y + P_ERROR), g->rays->vert_wall_hit_x, \
 		g->rays->vert_wall_hit_y);
 	else
