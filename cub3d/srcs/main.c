@@ -35,10 +35,10 @@ int	is_wall(t_data *g, int x, int y)
 int	ft_loop(t_data *g)
 {
 	mlx_clear_window(g->mlx, g->win);
-	draw_minimap(g);
 	draw_miniplayer(g);
 	cast_rays(g);
 	put_minimap_to_screen(g);
+	draw_line(g, 0xFFFFFFFF);
 	mlx_put_image_to_window(g->mlx, g->win, g->imgs[0].img, 0, 0);
 	return (0);
 }
@@ -49,6 +49,7 @@ int	main(int ac, char **av)
 
 	g = (t_data *)malloc(sizeof(t_data));
 	init_game(g, ac, av);
+	draw_minimap(g);
 	mlx_hook(g->win, 2, 0, handle_key_press, g);
 	mlx_hook(g->win, 3, 1, handle_key_release, g);
 	mlx_hook(g->win, 17, 17, handle_destroy_win, g);

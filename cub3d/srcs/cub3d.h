@@ -115,6 +115,10 @@ typedef struct s_ray {
 	double	vert_wall_hit_y;
 	double	horz_hit_distance;
 	double	vert_hit_distance;
+	int		x0;
+	int		y0;
+	int		x1;
+	int		y1;
 }	t_ray;
 
 typedef struct s_data {
@@ -126,6 +130,14 @@ typedef struct s_data {
 	t_ray		*rays;
 }	t_data;
 
+typedef struct s_mini_line {
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	e2;
+}	t_mini_line;
 
 // draw
 void	put_img_to_screen(t_data *g, t_img *imgs, int x, int y);
@@ -135,7 +147,7 @@ void	put_pixel_to_minimap(t_data *g, int x, int y, int color);
 void	put_minimap_to_screen(t_data *g);
 void	draw_minimap(t_data *g);
 void	draw_miniplayer(t_data *g);
-void	draw_line(t_data *g, int x0, int y0, int x1, int y1);
+void	draw_line(t_data *g, int color);
 void	draw_texture(t_data *g, int wall_size, int wallTopPixel, \
 		int wallBottomPixel);
 

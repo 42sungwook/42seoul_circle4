@@ -100,8 +100,15 @@ static void	cast_ray(t_data *g, double ray_angle)
 	cal_ver_ray(g, ray_angle);
 	compare_hv_distance(g, ray_angle);
 	shot_ray(g, g->rays->strip_id);
-	draw_line(g, (g->player->x + P_ERROR), (g->player->y + P_ERROR), \
-	g->rays->wall_hit_x, g->rays->wall_hit_y);
+	g->rays->x0 = g->player->x + P_ERROR;
+	g->rays->y0 = g->player->y + P_ERROR;
+	g->rays->x1 = g->rays->wall_hit_x;
+	g->rays->y1 = g->rays->wall_hit_y;
+	draw_line(g, 0x00FF00FF);
+	g->rays->x0 = g->player->x + P_ERROR;
+	g->rays->y0 = g->player->y + P_ERROR;
+	g->rays->x1 = g->rays->wall_hit_x;
+	g->rays->y1 = g->rays->wall_hit_y;
 }
 
 void	cast_rays(t_data *g)

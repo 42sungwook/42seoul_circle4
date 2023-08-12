@@ -1,41 +1,49 @@
 #include "../srcs/cub3d.h"
 
 
-void	draw_line(t_data *g, int x0, int y0, int x1, int y1)
+void	draw_line(t_data *g, int color)
 {
-	int dx = abs(x1 - x0);
-	int dy = abs(y1 - y0);
-	int sx = (x0 < x1) ? 1 : -1;
-	int sy = (y0 < y1) ? 1 : -1;
-	int err = (dx > dy ? dx : -dy) / 2;
-	int e2;
+	t_mini_line	line;
 
+	line.dx = abs(g->rays->x1 - g->rays->x0);
+	line.dy = abs(g->rays->y1 - g->rays->y0);
+	if (g->rays->x0 < g->rays->x1)
+		line.sx = 1;
+	else
+		line.sx = -1;
+	if (g->rays->y0 < g->rays->y1)
+		line.sy = 1;
+	else
+		line.sy = -1;
+	if (line.dx > line.dy)
+		line.err = line.dx / 2;
+	else
+		line.err = -1 * line.dy / 2;
 	while (1)
 	{
-		put_pixel_to_minimap(g, x0, y0, 0x00FF00FF);
-		if (x0 == x1 && y0 == y1)
-			break;
-		e2 = err;
-		if (e2 > -dx)
+		put_pixel_to_minimap(g, g->rays->x0, g->rays->y0, color);
+		if (g->rays->x0 == g->rays->x1 && g->rays->y0 == g->rays->y1)
+			break ;
+		line.e2 = line.err;
+		if (line.e2 > -line.dx)
 		{
-			err -= dy;
-			x0 += sx;
+			line.err -= line.dy;
+			g->rays->x0 += line.sx;
 		}
-		if (e2 < dy)
+		if (line.e2 < line.dy)
 		{
-			err += dx;
-			y0 += sy;
+			line.err += line.dx;
+			g->rays->y0 += line.sy;
 		}
 	}
 }
 
-void draw_minimap(t_data *g)
+void	draw_minimap(t_data *g)
 {
-	int i;
-	int j;
-	int tile_x;
-	int tile_y;
-	int tile_color;
+	int	i;
+	int	j;
+	int	x;
+	int	y;
 
 	i = 0;
 	while (g->map_info->map[i])
@@ -53,7 +61,7 @@ void draw_minimap(t_data *g)
 	}
 }
 
+void revert_minimap(t_data *g)
+{
 
-
-//플레이어 주변맵을 확인
-//주변 기준으로 끝이 나온다면 처리-> 그냥 맵의 앞부분부터 그려야함
+}
