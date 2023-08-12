@@ -39,3 +39,28 @@ void rayDir(t_data *g, double rayAngle)
     g->rays->isRayFacingRight = rayAngle < 0.5 * PI || rayAngle > 1.5 * PI;
     g->rays->isRayFacingLeft = !g->rays->isRayFacingRight;
 }
+
+void compare_hv_distance(t_data *g, double rayAngle)
+{
+		if (g->rays->foundHorzWallHit)
+			g->rays->horzHitDistance = distanceBetweenPoints((g->player->x + P_ERROR), (g->player->y + P_ERROR), g->rays->horzWallHitX, g->rays->horzWallHitY);
+		else
+			g->rays->horzHitDistance = FLT_MAX;
+		if (g->rays->foundVertWallHit)
+			g->rays->vertHitDistance = distanceBetweenPoints((g->player->x + P_ERROR), (g->player->y + P_ERROR), g->rays->vertWallHitX, g->rays->vertWallHitY);
+		else
+			g->rays->vertHitDistance = FLT_MAX;
+		g->rays->horzHitDistance *= cos(rayAngle - g->player->rotation_angle);
+		g->rays->vertHitDistance *= cos(rayAngle - g->player->rotation_angle);
+    if (g->rays->vertHitDistance < g->rays->horzHitDistance) {
+        g->rays->distance = g->rays->vertHitDistance;
+        g->rays->wallHitX = g->rays->vertWallHitX;
+        g->rays->wallHitY = g->rays->vertWallHitY;
+        g->rays->wasHitVertical = TRUE;
+    } else {
+        g->rays->distance = g->rays->horzHitDistance;
+        g->rays->wallHitX = g->rays->horzWallHitX;
+        g->rays->wallHitY = g->rays->horzWallHitY;
+        g->rays->wasHitVertical = FALSE;
+    }
+}

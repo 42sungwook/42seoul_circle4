@@ -95,7 +95,6 @@ typedef struct s_ray {
   int isRayFacingDown;
   int isRayFacingLeft;
   int isRayFacingRight;
-  int wallHitContent;
   double xintercept;
   double yintercept;
   double xstep;
@@ -103,17 +102,9 @@ typedef struct s_ray {
   int foundHorzWallHit;
   double horzWallHitX;
   double horzWallHitY;
-  int horzWallContent;
   int foundVertWallHit;
   double vertWallHitX;
   double vertWallHitY;
-  int vertWallContent;
-  double nextHorzTouchX;
-  double nextHorzTouchY;
-  double nextVertTouchX;
-  double nextVertTouchY;
-  double xToCheck;
-  double yToCheck;
   double horzHitDistance;
   double vertHitDistance;
 } t_ray;
@@ -160,6 +151,8 @@ int mapHasWallAt(t_data *g, double x, double y);
 double normalizeAngle(double angle);
 double distanceBetweenPoints(double x1, double y1, double x2, double y2);
 void rayDir(t_data *g, double rayAngle);
+void compare_hv_distance(t_data *g, double rayAngle);
+
 
 
 // valid
