@@ -1,36 +1,4 @@
 #include "../srcs/cub3d.h"
-//  배경색 그리기 - 나중에 draw.c로 이동
-void    draw_bg(t_data *g)
-{
-    int i;
-    int j;
-    int floor;
-    int ceil;
-
-    floor = g->map_info->color_f.r << 16 | g->map_info->color_f.g << 8 | g->map_info->color_f.b;
-    ceil = g->map_info->color_c.r << 16 | g->map_info->color_c.r << 8 | g->map_info->color_c.r;
-    i = 0;
-    while (i < HEIGHT / 2)
-    {
-        j = 0;
-        while (j < WIDTH)
-        {
-            put_pixel_to_screen(g, j, i, floor);
-            ++j;
-        }
-        ++i;
-    }
-    while (i < HEIGHT)
-    {
-        j = 0;
-        while (j < WIDTH)
-        {
-            put_pixel_to_screen(g, j, i, ceil);
-            ++j;
-        }
-        ++i;
-    }
-}
 
 void    shot_ray(t_data *g, int stripId)
 {
@@ -73,72 +41,8 @@ void    shot_ray(t_data *g, int stripId)
     }
 }
 
-void	draw_line(t_data *g, int x0, int y0, int x1, int y1)
+void calHorRay(t_data *g, double rayAngle)
 {
-	int dx = abs(x1 - x0);
-	int dy = abs(y1 - y0);
-	int sx = (x0 < x1) ? 1 : -1;
-	int sy = (y0 < y1) ? 1 : -1;
-	int err = (dx > dy ? dx : -dy) / 2;
-	int e2;
-
-	while (1)
-	{
-		put_pixel_to_minimap(g, x0, y0, 0x00FF00FF);
-		if (x0 == x1 && y0 == y1)
-			break;
-		e2 = err;
-		if (e2 > -dx)
-		{
-			err -= dy;
-			x0 += sx;
-		}
-		if (e2 < dy)
-		{
-			err += dx;
-			y0 += sy;
-		}
-	}
-}
-
-int mapHasWallAt(t_data *g, double x, double y) {
-    int mapGridIndexX = floor(x / MINI_TILE);
-    int mapGridIndexY = floor(y / MINI_TILE);
-    if (mapGridIndexX < 0 || mapGridIndexX > g->map_info->w || mapGridIndexY < 0 || mapGridIndexY > g->map_info->h) {
-        return FALSE;
-    }
-    if(g->map_info->map[mapGridIndexY][mapGridIndexX] == '1')
-				return TRUE;
-		return FALSE;
-}
-
-double normalizeAngle(double angle) {
-	while (angle >= 2 * PI) 
-	{
-		angle -= 2 * PI;
-	}
-	while (angle < 0)
-	{
-			angle += 2 * PI;
-	}
-	return angle;
-}
-// 두 점 사이 거리 계산
-double distanceBetweenPoints(double x1, double y1, double x2, double y2) {
-    return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-}
-
-void castRay(t_data *g, double rayAngle) {
-    //각도 정규화
-    rayAngle = normalizeAngle(rayAngle);
-
-    //레이 방향 상하좌우 중 어디로 향하는지 
-    g->rays->isRayFacingDown = rayAngle > 0 && rayAngle < PI;
-    g->rays->isRayFacingUp = !g->rays->isRayFacingDown;
-
-    g->rays->isRayFacingRight = rayAngle < 0.5 * PI || rayAngle > 1.5 * PI;
-    g->rays->isRayFacingLeft = !g->rays->isRayFacingRight;
-
     ///////////////////////////////////////////
     // HORIZONTAL RAY-GRID INTERSECTION CODE
     ///////////////////////////////////////////
@@ -182,7 +86,10 @@ void castRay(t_data *g, double rayAngle) {
             g->rays->nextHorzTouchY += g->rays->ystep;
         }
     }
+}
 
+void calVerRay(t_data *g, double rayAngle)
+{
     ///////////////////////////////////////////
     // VERTICAL RAY-GRID INTERSECTION CODE
     ///////////////////////////////////////////
@@ -222,7 +129,12 @@ void castRay(t_data *g, double rayAngle) {
             g->rays->nextVertTouchY += g->rays->ystep;
         }
     }
+}
 
+void castRay(t_data *g, double rayAngle) {
+	rayDir(g, rayAngle);
+	calHorRay(g, rayAngle);
+	calVerRay(g, rayAngle);
     // Calculate both horizontal and vertical hit distances and choose the smallest one
 		g->rays->horzHitDistance = g->rays->foundHorzWallHit
 				? distanceBetweenPoints((g->player->x + P_ERROR), (g->player->y + P_ERROR), g->rays->horzWallHitX, g->rays->horzWallHitY)
@@ -233,8 +145,6 @@ void castRay(t_data *g, double rayAngle) {
 				? distanceBetweenPoints((g->player->x + P_ERROR), (g->player->y + P_ERROR), g->rays->vertWallHitX, g->rays->vertWallHitY)
 				: FLT_MAX;
 		g->rays->vertHitDistance *= cos(rayAngle - g->player->rotation_angle);
-
-
     if (g->rays->vertHitDistance < g->rays->horzHitDistance) {
         g->rays->distance = g->rays->vertHitDistance;
         g->rays->wallHitX = g->rays->vertWallHitX;
@@ -253,8 +163,8 @@ void castRay(t_data *g, double rayAngle) {
     g->rays->isRayFacingUp = g->rays->isRayFacingUp;
     g->rays->isRayFacingLeft = g->rays->isRayFacingLeft;
     g->rays->isRayFacingRight = g->rays->isRayFacingRight;
-        shot_ray(g, g->rays->stripId);
-       draw_line(g, (g->player->x + P_ERROR), (g->player->y + P_ERROR), g->rays->wallHitX, g->rays->wallHitY);
+    shot_ray(g, g->rays->stripId);
+    draw_line(g, (g->player->x + P_ERROR), (g->player->y + P_ERROR), g->rays->wallHitX, g->rays->wallHitY);
 }
 
 void	cast_rays(t_data *g)

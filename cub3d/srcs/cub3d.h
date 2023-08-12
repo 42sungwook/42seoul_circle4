@@ -136,6 +136,8 @@ void put_pixel_to_minimap(t_data *g, int x, int y, int color);
 void put_minimap_to_screen(t_data *g);
 void draw_minimap(t_data *g);
 void draw_miniplayer(t_data *g);
+void	draw_line(t_data *g, int x0, int y0, int x1, int y1);
+
 
 // init
 void init_game(t_data *g, int ac, char **av);
@@ -154,6 +156,11 @@ int is_wall(t_data *g, int x, int y);
 
 // raycasting
 void cast_rays(t_data *g);
+int mapHasWallAt(t_data *g, double x, double y);
+double normalizeAngle(double angle);
+double distanceBetweenPoints(double x1, double y1, double x2, double y2);
+void rayDir(t_data *g, double rayAngle);
+
 
 // valid
 int check_map(t_data *g);
