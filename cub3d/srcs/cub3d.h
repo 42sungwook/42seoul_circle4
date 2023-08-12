@@ -156,10 +156,10 @@ int		is_wall(t_data *g, int x, int y);
 
 // raycasting
 void	cast_rays(t_data *g);
-int		mapHasWallAt(t_data *g, double x, double y);
-double	normalizeAngle(double angle);
-double	distanceBetweenPoints(double x1, double y1, double x2, double y2);
-void	rayDir(t_data *g, double ray_angle);
+int		map_has_wall_at(t_data *g, double x, double y);
+double	normalize_angle(double angle);
+double	distance_between_points(double x1, double y1, double x2, double y2);
+void	ray_dir(t_data *g, double ray_angle);
 void	compare_hv_distance(t_data *g, double ray_angle);
 
 // valid
