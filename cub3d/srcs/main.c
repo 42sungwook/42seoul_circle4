@@ -1,19 +1,20 @@
 #include "./cub3d.h"
 
-int		handle_destroy_win(t_data *data)
+int	handle_destroy_win(t_data *data)
 {
 	(void)data;
 	exit(0);
 	return (0);
 }
 
-int is_wall(t_data *g, int x, int y)
+int	is_wall(t_data *g, int x, int y)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	if (x < 0 || y < 0 || x > g->map_info->w * TILE || y > g->map_info->h * TILE)
+	if (x < 0 || y < 0 || x > g->map_info->w * TILE || \
+		y > g->map_info->h * TILE)
 		return (0);
 	x--;
 	y--;
@@ -25,13 +26,13 @@ int is_wall(t_data *g, int x, int y)
 			if (g->map_info->map[(y + i) / TILE][(x + j) / TILE] == '1')
 				return (1);
 			j++;
-		} 
+		}
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
-int ft_loop(t_data *g)
+int	ft_loop(t_data *g)
 {
 	mlx_clear_window(g->mlx, g->win);
 	draw_minimap(g);
@@ -42,7 +43,7 @@ int ft_loop(t_data *g)
 	return (0);
 }
 
-int		main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_data	*g;
 

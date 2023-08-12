@@ -1,6 +1,6 @@
 #include "./cub3d.h"
 
-int		handle_key_press(int keycode, t_data *data)
+int	handle_key_press(int keycode, t_data *data)
 {
 	if (keycode == ESC)
 	{
@@ -22,7 +22,7 @@ int		handle_key_press(int keycode, t_data *data)
 	return (0);
 }
 
-int		handle_key_release(int keycode, t_data *data)
+int	handle_key_release(int keycode, t_data *data)
 {
 	if (keycode == W || keycode == S || keycode == A || keycode == D)
 		data->player->walk_dir = STOP;

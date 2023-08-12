@@ -26,16 +26,20 @@ static int	set_map_setting(t_data *g, char **key_value)
 {
 	if (ft_strlen(key_value[0]) == 2
 		&& !ft_strncmp(key_value[0], "NO", 2) && g->imgs[NORTH].img == NULL)
-		g->imgs[NORTH].img = mlx_xpm_file_to_image(g->mlx, key_value[1], &g->imgs[NORTH].w , &g->imgs[NORTH].h);
+		g->imgs[NORTH].img = mlx_xpm_file_to_image(g->mlx, key_value[1], \
+		&g->imgs[NORTH].w, &g->imgs[NORTH].h);
 	else if (ft_strlen(key_value[0]) == 2
 		&& !ft_strncmp(key_value[0], "SO", 2) && g->imgs[SOUTH].img == NULL)
-		g->imgs[SOUTH].img = mlx_xpm_file_to_image(g->mlx, key_value[1], &g->imgs[SOUTH].w , &g->imgs[SOUTH].h);
+		g->imgs[SOUTH].img = mlx_xpm_file_to_image(g->mlx, key_value[1], \
+		&g->imgs[SOUTH].w, &g->imgs[SOUTH].h);
 	else if (ft_strlen(key_value[0]) == 2
 		&& !ft_strncmp(key_value[0], "WE", 2) && g->imgs[WEST].img == NULL)
-		g->imgs[WEST].img = mlx_xpm_file_to_image(g->mlx, key_value[1], &g->imgs[WEST].w , &g->imgs[WEST].h);
+		g->imgs[WEST].img = mlx_xpm_file_to_image(g->mlx, key_value[1], \
+		&g->imgs[WEST].w, &g->imgs[WEST].h);
 	else if (ft_strlen(key_value[0]) == 2
 		&& !ft_strncmp(key_value[0], "EA", 2) && g->imgs[EAST].img == NULL)
-		g->imgs[EAST].img = mlx_xpm_file_to_image(g->mlx, key_value[1], &g->imgs[EAST].w , &g->imgs[EAST].h);
+		g->imgs[EAST].img = mlx_xpm_file_to_image(g->mlx, key_value[1], \
+		&g->imgs[EAST].w, &g->imgs[EAST].h);
 	else if (ft_strlen(key_value[0]) == 1
 		&& !ft_strncmp(key_value[0], "F", 1) && g->map_info->color_f.r == -1)
 		set_color(&g->map_info->color_f, key_value[1]);
@@ -103,7 +107,7 @@ static int	get_map_setting(t_data *g, int fd)
 	return (0);
 }
 
-void save_map_info(t_data *g, char **av)
+void	save_map_info(t_data *g, char **av)
 {
 	int		fd;
 	char	*buff;

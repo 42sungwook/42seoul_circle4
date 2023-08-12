@@ -12,7 +12,7 @@
 
 #include "../srcs/cub3d.h"
 
-static void init_map(t_data *g, char **av)
+static void	init_map(t_data *g, char **av)
 {
 	g->imgs = (t_img *)malloc(sizeof(t_img) * IMG_CNT);
 	g->map_info = malloc(sizeof(t_map));
@@ -29,7 +29,7 @@ static void init_map(t_data *g, char **av)
 		print_error("invalid map");
 }
 
-static void init_player(t_data *g)
+static void	init_player(t_data *g)
 {
 	g->player = malloc(sizeof(t_player));
 	g->player->x = TILE * g->map_info->character_x + TILE / 2;
@@ -39,7 +39,7 @@ static void init_player(t_data *g)
 	g->player->rotation_angle = g->map_info->character_angle;
 }
 
-void init_game(t_data *g, int ac, char **av)
+void	init_game(t_data *g, int ac, char **av)
 {
 	if (ac != 2)
 		print_error("NEED ONE ARGUMENT\n");
