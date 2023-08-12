@@ -6,9 +6,9 @@ void init_img(t_data *g)
 	g->imgs[SCREEN].img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
 	g->imgs[SCREEN].w = WIDTH;
 	g->imgs[SCREEN].h = HEIGHT;
-	g->imgs[MINI_MAP].img = mlx_new_image(g->mlx, (g->map_info->w) * MINI_TILE, (g->map_info->h) * MINI_TILE);
-	g->imgs[MINI_MAP].w = g->map_info->w * MINI_TILE;
-	g->imgs[MINI_MAP].h = g->map_info->h * MINI_TILE;
+	g->imgs[MINI_MAP].img = mlx_new_image(g->mlx, (g->map_info->w) * TILE, (g->map_info->h) * TILE);
+	g->imgs[MINI_MAP].w = g->map_info->w * TILE;
+	g->imgs[MINI_MAP].h = g->map_info->h * TILE;
 	g->imgs[MINI_WALL].img = mlx_xpm_file_to_image(g->mlx, "./asset/tile00.xpm", &g->imgs[MINI_WALL].w, &g->imgs[MINI_WALL].h);
 	g->imgs[MINI_PLAIN].img = mlx_xpm_file_to_image(g->mlx, "./asset/tile01.xpm", &g->imgs[MINI_PLAIN].w, &g->imgs[MINI_PLAIN].h);
 	g->imgs[MINI_PLAYER].img = mlx_xpm_file_to_image(g->mlx, "./asset/circle.xpm", &g->imgs[MINI_PLAYER].w, &g->imgs[MINI_PLAYER].h);

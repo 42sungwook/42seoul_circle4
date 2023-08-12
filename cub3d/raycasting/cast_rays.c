@@ -23,22 +23,22 @@ void calHorRay(t_data *g, double rayAngle)
 {
     // Find the y-coordinate of the closest horizontal grid intersection
 		if (g->rays->isRayFacingDown)
-    	g->rays->yintercept = floor((g->player->y + P_ERROR) / MINI_TILE) * MINI_TILE + MINI_TILE;
+    	g->rays->yintercept = floor((g->player->y + P_ERROR) / TILE) * TILE + TILE;
 		else
-			g->rays->yintercept = floor((g->player->y + P_ERROR) / MINI_TILE) * MINI_TILE;
+			g->rays->yintercept = floor((g->player->y + P_ERROR) / TILE) * TILE;
     // Find the x-coordinate of the closest horizontal grid intersection
     g->rays->xintercept = (g->player->x + P_ERROR) + (g->rays->yintercept - (g->player->y + P_ERROR)) / tan(rayAngle);
     // Calculate the increment xstep and ystep
-		g->rays->ystep = MINI_TILE;
+		g->rays->ystep = TILE;
 		if (g->rays->isRayFacingUp)
 				g->rays->ystep *= -1;
-		g->rays->xstep = MINI_TILE / tan(rayAngle);
+		g->rays->xstep = TILE / tan(rayAngle);
 		if (g->rays->isRayFacingLeft && g->rays->xstep > 0)
 				g->rays->xstep *= -1;
 		if (g->rays->isRayFacingRight && g->rays->xstep < 0)
 				g->rays->xstep *= -1;
     // Increment xstep and ystep until we find a wall
-    while (g->rays->xintercept >= 0 && g->rays->xintercept < g->map_info->w * MINI_TILE && g->rays->yintercept >= 0 && g->rays->yintercept < g->map_info->h * MINI_TILE)
+    while (g->rays->xintercept >= 0 && g->rays->xintercept < g->map_info->w * TILE && g->rays->yintercept >= 0 && g->rays->yintercept < g->map_info->h * TILE)
 		{
         if (mapHasWallAt(g, g->rays->xintercept, g->rays->yintercept - g->rays->isRayFacingUp)) {
             // found a wall hit
@@ -57,22 +57,22 @@ void calVerRay(t_data *g, double rayAngle)
 {
     // Find the x-coordinate of the closest horizontal grid intersection
 		if (g->rays->isRayFacingRight)
-    	g->rays->xintercept = floor((g->player->x + P_ERROR) / MINI_TILE) * MINI_TILE + MINI_TILE;
+    	g->rays->xintercept = floor((g->player->x + P_ERROR) / TILE) * TILE + TILE;
 		else
-			g->rays->xintercept = floor((g->player->x + P_ERROR) / MINI_TILE) * MINI_TILE;
+			g->rays->xintercept = floor((g->player->x + P_ERROR) / TILE) * TILE;
     // Find the y-coordinate of the closest horizontal grid intersection
     g->rays->yintercept = (g->player->y + P_ERROR) + (g->rays->xintercept - (g->player->x + P_ERROR)) * tan(rayAngle);
     // Calculate the increment xstep and ystep
-    g->rays->xstep = MINI_TILE;
+    g->rays->xstep = TILE;
 		if (g->rays->isRayFacingLeft)
     	g->rays->xstep *= -1;
-    g->rays->ystep = MINI_TILE * tan(rayAngle);
+    g->rays->ystep = TILE * tan(rayAngle);
 		if (g->rays->isRayFacingUp && g->rays->ystep > 0)
 			g->rays->ystep *= -1;
 		if (g->rays->isRayFacingDown && g->rays->ystep < 0)
 			g->rays->ystep *= -1;
     // Increment xstep and ystep until we find a wall
-    while (g->rays->xintercept >= 0 && g->rays->xintercept < g->map_info->w * MINI_TILE && g->rays->yintercept >= 0 && g->rays->yintercept < g->map_info->h * MINI_TILE) {
+    while (g->rays->xintercept >= 0 && g->rays->xintercept < g->map_info->w * TILE && g->rays->yintercept >= 0 && g->rays->yintercept < g->map_info->h * TILE) {
         if (mapHasWallAt(g, g->rays->xintercept - g->rays->isRayFacingLeft, g->rays->yintercept)) {
             // found a wall hit
             g->rays->vertWallHitX = g->rays->xintercept;

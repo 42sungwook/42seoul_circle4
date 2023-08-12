@@ -32,8 +32,8 @@ static void init_map(t_data *g, char **av)
 static void init_player(t_data *g)
 {
 	g->player = malloc(sizeof(t_player));
-	g->player->x = MINI_TILE * g->map_info->character_x + MINI_TILE / 2;
-	g->player->y = MINI_TILE * g->map_info->character_y + MINI_TILE / 2;
+	g->player->x = TILE * g->map_info->character_x + TILE / 2;
+	g->player->y = TILE * g->map_info->character_y + TILE / 2;
 	g->player->walk_dir = STOP;
 	g->player->turn_dir = 0;
 	g->player->rotation_angle = g->map_info->character_angle;

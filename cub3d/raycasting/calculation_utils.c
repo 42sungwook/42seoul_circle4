@@ -1,8 +1,8 @@
 #include "../srcs/cub3d.h"
 
 int mapHasWallAt(t_data *g, double x, double y) {
-    int mapGridIndexX = floor(x / MINI_TILE);
-    int mapGridIndexY = floor(y / MINI_TILE);
+    int mapGridIndexX = floor(x / TILE);
+    int mapGridIndexY = floor(y / TILE);
     if (mapGridIndexX < 0 || mapGridIndexX > g->map_info->w || mapGridIndexY < 0 || mapGridIndexY > g->map_info->h) {
         return FALSE;
     }

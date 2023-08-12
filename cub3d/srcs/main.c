@@ -13,7 +13,7 @@ int is_wall(t_data *g, int x, int y)
 	int	j;
 
 	i = 0;
-	if (x < 0 || y < 0 || x > g->map_info->w * MINI_TILE || y > g->map_info->h * MINI_TILE)
+	if (x < 0 || y < 0 || x > g->map_info->w * TILE || y > g->map_info->h * TILE)
 		return (0);
 	x--;
 	y--;
@@ -22,7 +22,7 @@ int is_wall(t_data *g, int x, int y)
 		j = 0;
 		while (j < g->imgs[MINI_PLAYER].w + 2)
 		{
-			if (g->map_info->map[(y + i) / MINI_TILE][(x + j) / MINI_TILE] == '1')
+			if (g->map_info->map[(y + i) / TILE][(x + j) / TILE] == '1')
 				return (1);
 			j++;
 		} 

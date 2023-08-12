@@ -16,7 +16,7 @@
 #define PI 3.141593
 #define MOVE_SPEED 16
 #define ROT_SPEED 8
-#define MINI_TILE 64
+#define TILE 64
 #define IMG_CNT 9
 #define NUM_RAYS 800
 #define INT_MAX 2147483647

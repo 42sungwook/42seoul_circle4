@@ -32,7 +32,7 @@ void	put_img_to_screen(t_data *g, t_img *imgs, int x, int y)
 
 void	put_pixel_to_minimap(t_data *g, int x, int y, int color)
 {
-	if (x > g->map_info->w * MINI_TILE || y > g->map_info->h * MINI_TILE || x < 0 || y < 0)
+	if (x > g->map_info->w * TILE || y > g->map_info->h * TILE || x < 0 || y < 0)
 		return ;
 	g->imgs[MINI_MAP].addr[y * g->imgs[MINI_MAP].w + x] = color;
 }
@@ -67,14 +67,14 @@ void	put_minimap_to_screen(t_data *g)
 
 	if (g->player->x + P_ERROR < MINI_WIDTH / 2)
 		x = 0;
-	else if (g->player->x + P_ERROR > (g->map_info->w * MINI_TILE) - (MINI_WIDTH / 2))
-		x = (g->map_info->w * MINI_TILE) - MINI_WIDTH;
+	else if (g->player->x + P_ERROR > (g->map_info->w * TILE) - (MINI_WIDTH / 2))
+		x = (g->map_info->w * TILE) - MINI_WIDTH;
 	else
 		x = g->player->x + P_ERROR - (MINI_WIDTH / 2);
 	if (g->player->y + P_ERROR < MINI_HEIGHT / 2)
 		y = 0;
-	else if (g->player->y + P_ERROR > (g->map_info->h * MINI_TILE) - (MINI_HEIGHT / 2))
-		y = (g->map_info->h * MINI_TILE) - MINI_HEIGHT;
+	else if (g->player->y + P_ERROR > (g->map_info->h * TILE) - (MINI_HEIGHT / 2))
+		y = (g->map_info->h * TILE) - MINI_HEIGHT;
 	else
 		y = g->player->y + P_ERROR - (MINI_HEIGHT / 2);
 	i = -1;
@@ -82,7 +82,7 @@ void	put_minimap_to_screen(t_data *g)
 	{
 		j = -1;
 		while (++j < MINI_WIDTH)
-			put_pixel_to_screen(g, j, i, g->imgs[MINI_MAP].addr[(y + i) * g->map_info->w * MINI_TILE + x + j]);
+			put_pixel_to_screen(g, j, i, g->imgs[MINI_MAP].addr[(y + i) * g->map_info->w * TILE + x + j]);
 	}
 	//put_img_to_screen(g, &g->imgs[MINI_MAP], 0, 0);
 }

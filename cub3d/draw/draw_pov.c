@@ -36,10 +36,10 @@ void draw_texture(t_data *g, int wall_size, int wallTopPixel, int wallBottomPixe
 {
     int textureOffsetX;
     if (g->rays->wasHitVertical)
-        textureOffsetX = (int)g->rays->wallHitY % MINI_TILE;
+        textureOffsetX = (int)g->rays->wallHitY % TILE;
     else
-        textureOffsetX = (int)g->rays->wallHitX % MINI_TILE;
-    textureOffsetX *= 200 / MINI_TILE;
+        textureOffsetX = (int)g->rays->wallHitX % TILE;
+    textureOffsetX *= 200 / TILE;
 
     for (int y = wallTopPixel; y < wallBottomPixel; y++)
     {
