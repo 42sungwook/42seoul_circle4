@@ -2,43 +2,21 @@
 
 void    shot_ray(t_data *g, int stripId)
 {
-    double wall_size = HEIGHT / g->rays->distance;
+    double wall_size;
+		int wallTopPixel;
+		int wallBottomPixel;
+		double put_start;
+
+		wall_size = HEIGHT / g->rays->distance;
     wall_size *= 60;
-    int wallTopPixel = (HEIGHT / 2) - (wall_size / 2);
-    wallTopPixel = wallTopPixel < 0 ? 0 : wallTopPixel;
-
-    int wallBottomPixel = (HEIGHT / 2) + (wall_size / 2);
-    wallBottomPixel = wallBottomPixel > HEIGHT ? HEIGHT : wallBottomPixel;
-
-    double put_start = HEIGHT / 2 - wall_size / 2 - 2;
-
-    int textureOffsetX;
-    if (g->rays->wasHitVertical)
-        textureOffsetX = (int)g->rays->wallHitY % MINI_TILE;
-    else
-        textureOffsetX = (int)g->rays->wallHitX % MINI_TILE;
-    textureOffsetX *= 200 / MINI_TILE;
-
-    for (int y = wallTopPixel; y < wallBottomPixel; y++)
-    {
-        int distanceFromTop = y + (wall_size / 2) - (HEIGHT / 2);
-        int textureOffsetY = distanceFromTop * ((float)200.0 / wall_size);
-        // 동서남북 텍스쳐 결정
-        if (g->rays->wasHitVertical)
-        {
-            if ((g->rays->isRayFacingLeft))
-                put_pixel_to_screen(g, stripId, y, g->imgs[WEST].addr[(g->imgs[WEST].w * (textureOffsetY + 1)) - textureOffsetX]);
-            else
-                put_pixel_to_screen(g, stripId, y, g->imgs[EAST].addr[(g->imgs[EAST].w * textureOffsetY) + textureOffsetX]);
-        }
-        else
-        {
-            if ((g->rays->isRayFacingDown))
-                put_pixel_to_screen(g, stripId, y, g->imgs[SOUTH].addr[(g->imgs[SOUTH].w * (textureOffsetY + 1)) - textureOffsetX]);
-            else
-                put_pixel_to_screen(g, stripId, y, g->imgs[NORTH].addr[(g->imgs[NORTH].w * textureOffsetY) + textureOffsetX]);
-        }
-    }
+    wallTopPixel = (HEIGHT / 2) - (wall_size / 2);
+		if (wallTopPixel < 0)
+			wallTopPixel = 0;
+    wallBottomPixel = (HEIGHT / 2) + (wall_size / 2);
+		if (wallBottomPixel > HEIGHT)
+			wallBottomPixel = HEIGHT;
+    put_start = HEIGHT / 2 - wall_size / 2 - 2;
+		draw_texture(g, wall_size, wallTopPixel, wallBottomPixel);
 }
 
 void calHorRay(t_data *g, double rayAngle)
