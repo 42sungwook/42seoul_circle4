@@ -1,7 +1,7 @@
 #include "../srcs/cub3d.h"
 
 
-void	draw_line(t_data *g, int color)
+void	draw_line(t_data *g)
 {
 	t_mini_line	line;
 
@@ -21,7 +21,7 @@ void	draw_line(t_data *g, int color)
 		line.err = -1 * line.dy / 2;
 	while (1)
 	{
-		put_pixel_to_minimap(g, g->rays->x0, g->rays->y0, color);
+		put_pixel_to_minimap(g, g->rays->x0, g->rays->y0, 0x00FF00FF);
 		if (g->rays->x0 == g->rays->x1 && g->rays->y0 == g->rays->y1)
 			break ;
 		line.e2 = line.err;
@@ -61,7 +61,24 @@ void	draw_minimap(t_data *g)
 	}
 }
 
-void revert_minimap(t_data *g)
+void	revert_minimap(t_data *g)
 {
+	int	i;
+	int	j;
 
+	i = 0;
+	while (i < g->imgs[MINI_MAP].h)
+	{
+		j = 0;
+		while (j < g->imgs[MINI_MAP].w)
+		{
+			if (g->imgs[MINI_MAP].addr[i * g->imgs[MINI_MAP].w + j] == \
+			0x00FF00FF || g->imgs[MINI_MAP].addr[i * g->imgs[MINI_MAP].w + j] \
+			== 0x9A2EFE)
+				g->imgs[MINI_MAP].addr[i * g->imgs[MINI_MAP].w + j] = \
+				0xFFFFFF;
+			j++;
+		}
+		i++;
+	}
 }

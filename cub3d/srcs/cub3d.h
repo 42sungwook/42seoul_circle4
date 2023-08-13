@@ -147,9 +147,10 @@ void	put_pixel_to_minimap(t_data *g, int x, int y, int color);
 void	put_minimap_to_screen(t_data *g);
 void	draw_minimap(t_data *g);
 void	draw_miniplayer(t_data *g);
-void	draw_line(t_data *g, int color);
+void	draw_line(t_data *g);
 void	draw_texture(t_data *g, int wall_size, int wallTopPixel, \
 		int wallBottomPixel);
+void	revert_minimap(t_data *g);
 
 // init
 void	init_game(t_data *g, int ac, char **av);

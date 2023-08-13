@@ -12,7 +12,6 @@ void	draw_miniplayer(t_data *g)
 			(PI / 180.0) * 90.0 * g->player->walk_dir) * MOVE_SPEED);
 	new_y = g->player->y + (int)(sin(g->player->rotation_angle + \
 			(PI / 180.0) * 90.0 * g->player->walk_dir) * MOVE_SPEED);
-
 	if (g->player->walk_dir != STOP && !is_wall(g, new_x, new_y))
 	{
 		g->player->x = new_x;

@@ -38,7 +38,7 @@ int	ft_loop(t_data *g)
 	draw_miniplayer(g);
 	cast_rays(g);
 	put_minimap_to_screen(g);
-	draw_line(g, 0xFFFFFFFF);
+	revert_minimap(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->imgs[0].img, 0, 0);
 	return (0);
 }

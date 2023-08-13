@@ -104,11 +104,7 @@ static void	cast_ray(t_data *g, double ray_angle)
 	g->rays->y0 = g->player->y + P_ERROR;
 	g->rays->x1 = g->rays->wall_hit_x;
 	g->rays->y1 = g->rays->wall_hit_y;
-	draw_line(g, 0x00FF00FF);
-	g->rays->x0 = g->player->x + P_ERROR;
-	g->rays->y0 = g->player->y + P_ERROR;
-	g->rays->x1 = g->rays->wall_hit_x;
-	g->rays->y1 = g->rays->wall_hit_y;
+	draw_line(g);
 }
 
 void	cast_rays(t_data *g)
