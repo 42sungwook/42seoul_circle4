@@ -1,5 +1,25 @@
 #include "../srcs/cub3d.h"
 
+static void	draw_ray_line(t_data *g, t_mini_line *line)
+{
+	while (1)
+	{
+		put_pixel_to_minimap(g, g->rays->x0, g->rays->y0, 0x00FF00FF);
+		if (g->rays->x0 == g->rays->x1 && g->rays->y0 == g->rays->y1)
+			break ;
+		line->e2 = line->err;
+		if (line->e2 > -line->dx)
+		{
+			line->err -= line->dy;
+			g->rays->x0 += line->sx;
+		}
+		if (line->e2 < line->dy)
+		{
+			line->err += line->dx;
+			g->rays->y0 += line->sy;
+		}
+	}
+}
 
 void	draw_line(t_data *g)
 {
@@ -19,23 +39,7 @@ void	draw_line(t_data *g)
 		line.err = line.dx / 2;
 	else
 		line.err = -1 * line.dy / 2;
-	while (1)
-	{
-		put_pixel_to_minimap(g, g->rays->x0, g->rays->y0, 0x00FF00FF);
-		if (g->rays->x0 == g->rays->x1 && g->rays->y0 == g->rays->y1)
-			break ;
-		line.e2 = line.err;
-		if (line.e2 > -line.dx)
-		{
-			line.err -= line.dy;
-			g->rays->x0 += line.sx;
-		}
-		if (line.e2 < line.dy)
-		{
-			line.err += line.dx;
-			g->rays->y0 += line.sy;
-		}
-	}
+	draw_ray_line(g, &line);
 }
 
 void	draw_minimap(t_data *g)

@@ -28,6 +28,25 @@ static void	init_addr(t_data *g)
 	&g->imgs[WEST].bpp, &g->imgs[WEST].line_len, &g->imgs[WEST].endian);
 }
 
+static void	init_mini_player(t_data *g)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < g->imgs[MINI_PLAYER].h)
+	{
+		j = 0;
+		while (j < g->imgs[MINI_PLAYER].w)
+		{
+			g->imgs[MINI_PLAYER].addr[i * g->imgs[MINI_PLAYER].w + j] = \
+			0x9A2EFE;
+			j++;
+		}
+		i++;
+	}
+}
+
 void	init_img(t_data *g)
 {
 	g->imgs[SCREEN].img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
@@ -37,11 +56,13 @@ void	init_img(t_data *g)
 	(g->map_info->h) * TILE);
 	g->imgs[MINI_MAP].w = g->map_info->w * TILE;
 	g->imgs[MINI_MAP].h = g->map_info->h * TILE;
+	g->imgs[MINI_PLAYER].img = mlx_new_image(g->mlx, 7, 7);
+	g->imgs[MINI_PLAYER].w = 7;
+	g->imgs[MINI_PLAYER].h = 7;
 	g->imgs[MINI_WALL].img = mlx_xpm_file_to_image(g->mlx, \
 	"./asset/tile00.xpm", &g->imgs[MINI_WALL].w, &g->imgs[MINI_WALL].h);
 	g->imgs[MINI_PLAIN].img = mlx_xpm_file_to_image(g->mlx, \
 	"./asset/tile01.xpm", &g->imgs[MINI_PLAIN].w, &g->imgs[MINI_PLAIN].h);
-	g->imgs[MINI_PLAYER].img = mlx_xpm_file_to_image(g->mlx, \
-	"./asset/circle.xpm", &g->imgs[MINI_PLAYER].w, &g->imgs[MINI_PLAYER].h);
 	init_addr(g);
+	init_mini_player(g);
 }
