@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 19:28:49 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/14 20:39:50 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/14 20:57:25 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,6 @@ int	map_has_wall_at(t_data *g, double x, double y)
 	return (FALSE);
 }
 
-double	normalize_angle(double angle)
-{
-	while (angle >= 2 * PI)
-		angle -= 2 * PI;
-	while (angle < 0)
-		angle += 2 * PI;
-	return (angle);
-}
-
 double	distance_between_points(double x1, double y1, double x2, double y2)
 {
 	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
@@ -43,8 +34,14 @@ double	distance_between_points(double x1, double y1, double x2, double y2)
 
 void	ray_dir(t_data *g, double ray_angle)
 {
-	ray_angle = normalize_angle(ray_angle);
-	while( ray_angle >= 2 * PI || ray_angle < 0)
+	while (ray_angle >= 2 * PI || ray_angle < 0)
+	{
+		if (ray_angle >= 2 * PI)
+		ray_angle -= 2 * PI;
+		else if (ray_angle < 0)
+		ray_angle += 2 * PI;
+	}
+	while (ray_angle >= 2 * PI || ray_angle < 0)
 	{
 		if (ray_angle >= 2 * PI)
 			ray_angle -= 2 * PI;
@@ -65,7 +62,7 @@ void	ray_dir(t_data *g, double ray_angle)
 
 void	set_distance(t_data *g, int ver)
 {
-	if (ver == 1)
+	if (ver == VERTICAL)
 	{
 		g->rays->distance = g->rays->vert_hit_distance;
 		g->rays->wall_hit_x = g->rays->vert_wall_hit_x;
@@ -98,7 +95,7 @@ void	compare_hv_distance(t_data *g, double ray_angle)
 	g->rays->horz_hit_distance *= cos(ray_angle - g->player->rotation_angle);
 	g->rays->vert_hit_distance *= cos(ray_angle - g->player->rotation_angle);
 	if (g->rays->vert_hit_distance < g->rays->horz_hit_distance)
-		set_distance(g, 1);	
+		set_distance(g, VERTICAL);
 	else
-		set_distance(g, 2);
+		set_distance(g, HORIZONTAL);
 }

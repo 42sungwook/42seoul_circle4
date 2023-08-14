@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:15:41 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/14 20:51:03 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/14 20:54:48 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ enum e_dir {
 	WALKRIGHT,
 	WALKBACKWARD,
 	WALKLEFT,
+	VERTICAL,
+	HORIZONTAL
 };
 
 enum e_img {
