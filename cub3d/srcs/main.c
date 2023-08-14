@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 18:15:08 by seulee2           #+#    #+#             */
+/*   Updated: 2023/08/14 19:19:19 by seulee2          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./cub3d.h"
 
 int	handle_destroy_win(t_data *data)
@@ -18,10 +30,10 @@ int	is_wall(t_data *g, int x, int y)
 		return (0);
 	x--;
 	y--;
-	while (i < g->imgs[MINI_PLAYER].h + 2)
+	while (i < g->imgs[M_PLAYER].h + 2)
 	{
 		j = 0;
-		while (j < g->imgs[MINI_PLAYER].w + 2)
+		while (j < g->imgs[M_PLAYER].w + 2)
 		{
 			if (g->map_info->map[(y + i) / TILE][(x + j) / TILE] == '1')
 				return (1);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calculation_utils.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 19:28:49 by seulee2           #+#    #+#             */
+/*   Updated: 2023/08/14 20:39:50 by seulee2          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/cub3d.h"
 
 int	map_has_wall_at(t_data *g, double x, double y)
@@ -32,6 +44,13 @@ double	distance_between_points(double x1, double y1, double x2, double y2)
 void	ray_dir(t_data *g, double ray_angle)
 {
 	ray_angle = normalize_angle(ray_angle);
+	while( ray_angle >= 2 * PI || ray_angle < 0)
+	{
+		if (ray_angle >= 2 * PI)
+			ray_angle -= 2 * PI;
+		else if (ray_angle < 0)
+			ray_angle += 2 * PI;
+	}
 	if (ray_angle > 0 && ray_angle < PI)
 		g->rays->is_ray_down = TRUE;
 	else
@@ -42,6 +61,24 @@ void	ray_dir(t_data *g, double ray_angle)
 	else
 		g->rays->is_ray_right = FALSE;
 	g->rays->is_ray_left = !g->rays->is_ray_right;
+}
+
+void	set_distance(t_data *g, int ver)
+{
+	if (ver == 1)
+	{
+		g->rays->distance = g->rays->vert_hit_distance;
+		g->rays->wall_hit_x = g->rays->vert_wall_hit_x;
+		g->rays->wall_hit_y = g->rays->vert_wall_hit_y;
+		g->rays->was_hit_vertical = TRUE;
+	}
+	else
+	{
+		g->rays->distance = g->rays->horz_hit_distance;
+		g->rays->wall_hit_x = g->rays->horz_wall_hit_x;
+		g->rays->wall_hit_y = g->rays->horz_wall_hit_y;
+		g->rays->was_hit_vertical = FALSE;
+	}
 }
 
 void	compare_hv_distance(t_data *g, double ray_angle)
@@ -61,17 +98,7 @@ void	compare_hv_distance(t_data *g, double ray_angle)
 	g->rays->horz_hit_distance *= cos(ray_angle - g->player->rotation_angle);
 	g->rays->vert_hit_distance *= cos(ray_angle - g->player->rotation_angle);
 	if (g->rays->vert_hit_distance < g->rays->horz_hit_distance)
-	{
-		g->rays->distance = g->rays->vert_hit_distance;
-		g->rays->wall_hit_x = g->rays->vert_wall_hit_x;
-		g->rays->wall_hit_y = g->rays->vert_wall_hit_y;
-		g->rays->was_hit_vertical = TRUE;
-	}
+		set_distance(g, 1);	
 	else
-	{
-		g->rays->distance = g->rays->horz_hit_distance;
-		g->rays->wall_hit_x = g->rays->horz_wall_hit_x;
-		g->rays->wall_hit_y = g->rays->horz_wall_hit_y;
-		g->rays->was_hit_vertical = FALSE;
-	}
+		set_distance(g, 2);
 }

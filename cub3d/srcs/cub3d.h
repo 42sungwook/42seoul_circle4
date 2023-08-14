@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 18:15:41 by seulee2           #+#    #+#             */
+/*   Updated: 2023/08/14 20:51:03 by seulee2          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -9,10 +21,10 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 
-# define WIDTH 800
-# define HEIGHT 800
-# define MINI_WIDTH 200
-# define MINI_HEIGHT 200
+# define WIDTH 1000
+# define HEIGHT 1000
+# define M_WIDTH 300
+# define M_HEIGHT 300
 # define PI 3.141593
 # define MOVE_SPEED 16
 # define ROT_SPEED 8
@@ -45,10 +57,10 @@ enum e_dir {
 
 enum e_img {
 	SCREEN,
-	MINI_MAP,
-	MINI_WALL,
-	MINI_PLAIN,
-	MINI_PLAYER,
+	M_MAP,
+	M_WALL,
+	M_PLAIN,
+	M_PLAYER,
 	EAST,
 	WEST,
 	SOUTH,
@@ -170,7 +182,6 @@ int		is_wall(t_data *g, int x, int y);
 // raycasting
 void	cast_rays(t_data *g);
 int		map_has_wall_at(t_data *g, double x, double y);
-double	normalize_angle(double angle);
 double	distance_between_points(double x1, double y1, double x2, double y2);
 void	ray_dir(t_data *g, double ray_angle);
 void	compare_hv_distance(t_data *g, double ray_angle);

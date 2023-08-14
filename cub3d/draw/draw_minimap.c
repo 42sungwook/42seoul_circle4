@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_minimap.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 19:06:39 by seulee2           #+#    #+#             */
+/*   Updated: 2023/08/14 19:19:19 by seulee2          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/cub3d.h"
 
 static void	draw_ray_line(t_data *g, t_mini_line *line)
@@ -56,9 +68,9 @@ void	draw_minimap(t_data *g)
 		while (g->map_info->map[i][j])
 		{
 			if (g->map_info->map[i][j] == '1')
-				put_img_to_minimap(g, &g->imgs[MINI_WALL], j * TILE, i * TILE);
+				put_img_to_minimap(g, &g->imgs[M_WALL], j * TILE, i * TILE);
 			else
-				put_img_to_minimap(g, &g->imgs[MINI_PLAIN], j * TILE, i * TILE);
+				put_img_to_minimap(g, &g->imgs[M_PLAIN], j * TILE, i * TILE);
 			j++;
 		}
 		i++;
@@ -71,15 +83,15 @@ void	revert_minimap(t_data *g)
 	int	j;
 
 	i = 0;
-	while (i < g->imgs[MINI_MAP].h)
+	while (i < g->imgs[M_MAP].h)
 	{
 		j = 0;
-		while (j < g->imgs[MINI_MAP].w)
+		while (j < g->imgs[M_MAP].w)
 		{
-			if (g->imgs[MINI_MAP].addr[i * g->imgs[MINI_MAP].w + j] == \
-			0x00FF00FF || g->imgs[MINI_MAP].addr[i * g->imgs[MINI_MAP].w + j] \
+			if (g->imgs[M_MAP].addr[i * g->imgs[M_MAP].w + j] == \
+			0x00FF00FF || g->imgs[M_MAP].addr[i * g->imgs[M_MAP].w + j] \
 			== 0x9A2EFE)
-				g->imgs[MINI_MAP].addr[i * g->imgs[MINI_MAP].w + j] = \
+				g->imgs[M_MAP].addr[i * g->imgs[M_MAP].w + j] = \
 				0xFFFFFF;
 			j++;
 		}

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_miniplayer.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 19:09:05 by seulee2           #+#    #+#             */
+/*   Updated: 2023/08/14 19:19:19 by seulee2          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/cub3d.h"
 
 void	draw_miniplayer(t_data *g)
@@ -17,5 +29,5 @@ void	draw_miniplayer(t_data *g)
 		g->player->x = new_x;
 		g->player->y = new_y;
 	}
-	put_img_to_minimap(g, &g->imgs[MINI_PLAYER], g->player->x, g->player->y);
+	put_img_to_minimap(g, &g->imgs[M_PLAYER], g->player->x, g->player->y);
 }

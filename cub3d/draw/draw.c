@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 19:17:08 by seulee2           #+#    #+#             */
+/*   Updated: 2023/08/14 19:21:36 by seulee2          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../srcs/cub3d.h"
 
 void	put_pixel_to_screen(t_data *g, int x, int y, int color)
@@ -35,7 +47,7 @@ void	put_pixel_to_minimap(t_data *g, int x, int y, int color)
 	if (x > g->map_info->w * TILE || y > g->map_info->h * TILE || \
 		x < 0 || y < 0)
 		return ;
-	g->imgs[MINI_MAP].addr[y * g->imgs[MINI_MAP].w + x] = color;
+	g->imgs[M_MAP].addr[y * g->imgs[M_MAP].w + x] = color;
 }
 
 void	put_img_to_minimap(t_data *g, t_img *imgs, int x, int y)
@@ -66,26 +78,24 @@ void	put_minimap_to_screen(t_data *g)
 	int	i;
 	int	j;
 
-	if (g->player->x + P_ERROR < MINI_WIDTH / 2)
+	if (g->player->x + P_ERROR < M_WIDTH / 2)
 		x = 0;
-	else if (g->player->x + P_ERROR > \
-		(g->map_info->w * TILE) - (MINI_WIDTH / 2))
-		x = (g->map_info->w * TILE) - MINI_WIDTH;
+	else if (g->player->x + P_ERROR > (g->map_info->w * TILE) - (M_WIDTH / 2))
+		x = (g->map_info->w * TILE) - M_WIDTH;
 	else
-		x = g->player->x + P_ERROR - (MINI_WIDTH / 2);
-	if (g->player->y + P_ERROR < MINI_HEIGHT / 2)
+		x = g->player->x + P_ERROR - (M_WIDTH / 2);
+	if (g->player->y + P_ERROR < M_HEIGHT / 2)
 		y = 0;
-	else if (g->player->y + P_ERROR > \
-		(g->map_info->h * TILE) - (MINI_HEIGHT / 2))
-		y = (g->map_info->h * TILE) - MINI_HEIGHT;
+	else if (g->player->y + P_ERROR > (g->map_info->h * TILE) - (M_HEIGHT / 2))
+		y = (g->map_info->h * TILE) - M_HEIGHT;
 	else
-		y = g->player->y + P_ERROR - (MINI_HEIGHT / 2);
+		y = g->player->y + P_ERROR - (M_HEIGHT / 2);
 	i = -1;
-	while (++i < MINI_HEIGHT)
+	while (++i < M_HEIGHT)
 	{
 		j = -1;
-		while (++j < MINI_WIDTH)
-			put_pixel_to_screen(g, j, i, g->imgs[MINI_MAP].addr[(y + i) * \
+		while (++j < M_WIDTH)
+			put_pixel_to_screen(g, j, i, g->imgs[M_MAP].addr[(y + i) * \
 			g->map_info->w * TILE + x + j]);
 	}
 }
