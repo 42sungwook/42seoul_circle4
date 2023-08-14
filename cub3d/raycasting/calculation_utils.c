@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 19:28:49 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/14 20:57:25 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/14 20:58:48 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,6 @@ double	distance_between_points(double x1, double y1, double x2, double y2)
 
 void	ray_dir(t_data *g, double ray_angle)
 {
-	while (ray_angle >= 2 * PI || ray_angle < 0)
-	{
-		if (ray_angle >= 2 * PI)
-		ray_angle -= 2 * PI;
-		else if (ray_angle < 0)
-		ray_angle += 2 * PI;
-	}
 	while (ray_angle >= 2 * PI || ray_angle < 0)
 	{
 		if (ray_angle >= 2 * PI)
