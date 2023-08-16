@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 17:33:23 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/14 18:16:46 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/16 14:09:11 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	init_map(t_data *g, char **av)
 	g->imgs[NORTH].img = NULL;
 	save_map_info(g, av);
 	if (check_map(g))
-		print_error("invalid map");
+		print_error("INVALID MAP");
 }
 
 static void	init_player(t_data *g)
@@ -42,9 +42,9 @@ static void	init_player(t_data *g)
 void	init_game(t_data *g, int ac, char **av)
 {
 	if (ac != 2)
-		print_error("NEED ONE ARGUMENT\n");
+		print_error("NEED ONE ARGUMENT");
 	if (ft_strncmp(av[1] + ft_strlen(av[1]) - 4, ".cub", 4) != 0)
-		print_error("ARGUMENT NOT CUB FILE\n");
+		print_error("ARGUMENT NOT CUB FILE");
 	g->mlx = mlx_init();
 	g->win = mlx_new_window(g->mlx, WIDTH, HEIGHT, "cub3d");
 	init_map(g, av);

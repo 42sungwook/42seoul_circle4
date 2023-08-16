@@ -6,11 +6,19 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:16:49 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/14 19:19:19 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/16 14:37:58 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/cub3d.h"
+
+void	check_file(char *str, int is_valid)
+{
+	if (is_valid > 3)
+		return ;
+	if (open(str, O_RDONLY) == -1)
+		print_error("FILE OPEN");
+}
 
 static void	init_addr(t_data *g)
 {
@@ -56,6 +64,8 @@ void	init_img(t_data *g)
 	g->imgs[M_PLAYER].img = mlx_new_image(g->mlx, 7, 7);
 	g->imgs[M_PLAYER].w = 7;
 	g->imgs[M_PLAYER].h = 7;
+	check_file("./asset/tile00.xpm", 0);
+	check_file("./asset/tile01.xpm", 0);
 	g->imgs[M_WALL].img = mlx_xpm_file_to_image(g->mlx, \
 	"./asset/tile00.xpm", &g->imgs[M_WALL].w, &g->imgs[M_WALL].h);
 	g->imgs[M_PLAIN].img = mlx_xpm_file_to_image(g->mlx, \

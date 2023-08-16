@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:15:41 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/16 14:03:00 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/16 14:53:30 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define M_WIDTH 300
 # define M_HEIGHT 300
 # define PI 3.141593
-# define MOVE_SPEED 16
+# define MOVE_SPEED 10
 # define ROT_SPEED 8
 # define TILE 64
 # define IMG_CNT 9
@@ -165,6 +165,7 @@ void	draw_line(t_data *g);
 void	draw_texture(t_data *g, int wall_size, int wallTopPixel, \
 		int wallBottomPixel);
 void	revert_minimap(t_data *g);
+void	minimap_define_xy(t_data *g, int *x, int *y);
 
 // init
 void	init_game(t_data *g, int ac, char **av);
@@ -175,6 +176,7 @@ int		ft_free(char *str);
 void	free_chars(char **chars);
 void	print_error(char *str);
 int		check_space(char *one_line, char *buff);
+void	check_file(char *str, int is_valid);
 
 // srcs
 int		handle_key_press(int keycode, t_data *data);

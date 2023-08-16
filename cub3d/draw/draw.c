@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 19:17:08 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/14 19:21:36 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/16 14:55:34 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,25 +77,21 @@ void	put_minimap_to_screen(t_data *g)
 	int	y;
 	int	i;
 	int	j;
+	int	color_idx;
 
-	if (g->player->x + P_ERROR < M_WIDTH / 2)
-		x = 0;
-	else if (g->player->x + P_ERROR > (g->map_info->w * TILE) - (M_WIDTH / 2))
-		x = (g->map_info->w * TILE) - M_WIDTH;
-	else
-		x = g->player->x + P_ERROR - (M_WIDTH / 2);
-	if (g->player->y + P_ERROR < M_HEIGHT / 2)
-		y = 0;
-	else if (g->player->y + P_ERROR > (g->map_info->h * TILE) - (M_HEIGHT / 2))
-		y = (g->map_info->h * TILE) - M_HEIGHT;
-	else
-		y = g->player->y + P_ERROR - (M_HEIGHT / 2);
 	i = -1;
+	minimap_define_xy(g, &x, &y);
 	while (++i < M_HEIGHT)
 	{
 		j = -1;
 		while (++j < M_WIDTH)
-			put_pixel_to_screen(g, j, i, g->imgs[M_MAP].addr[(y + i) * \
-			g->map_info->w * TILE + x + j]);
+		{
+			color_idx = (y + i) * g->map_info->w * TILE + x + j;
+			if (color_idx < 0 || color_idx > \
+				g->imgs[M_MAP].w * g->imgs[M_MAP].h)
+				put_pixel_to_screen(g, j, i, 0x000000);
+			else
+				put_pixel_to_screen(g, j, i, g->imgs[M_MAP].addr[color_idx]);
+		}
 	}
 }

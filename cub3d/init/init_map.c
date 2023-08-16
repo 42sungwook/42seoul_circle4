@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:16:52 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/14 19:05:29 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/16 14:31:18 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*get_new_map(t_map *map_info, char *one_line, char *buff)
 	{
 		len = (int)ft_strlen(buff);
 		if (len == 0)
-			print_error("Error empty line");
+			print_error("EMPTY LINE");
 	}
 	else
 		len = (int)ft_strlen(buff) - 1;
@@ -59,7 +59,7 @@ static int	set_map_setting(t_data *g, char **key_value)
 		&& !ft_strncmp(key_value[0], "C", 1) && g->map_info->color_c.r == -1)
 		set_color(&g->map_info->color_c, key_value[1]);
 	else
-		print_error("Input Error\n");
+		print_error("INPUT ERROR");
 	return (0);
 }
 
@@ -90,7 +90,7 @@ static void	make_map_rec(t_map *map_info, char *one_line)
 	}
 }
 
-static int	get_map_setting(t_data *g, int fd)
+static void	get_map_setting(t_data *g, int fd)
 {
 	int		line_cnt;
 	int		len_value;
@@ -107,16 +107,16 @@ static int	get_map_setting(t_data *g, int fd)
 			continue ;
 		key_value = ft_split(line, ' ');
 		if (*(key_value + 1) == NULL)
-			print_error("Invalid Input\n");
+			print_error("INVALID INPUT");
 		len_value = ft_strlen(key_value[1]);
 		if (key_value[1][len_value - 1] == '\n')
 			key_value[1][len_value - 1] = '\0';
+		check_file(key_value[1], line_cnt);
 		if (!set_map_setting(g, key_value))
 			line_cnt++;
 		free_chars(key_value);
 		free(line);
 	}
-	return (0);
 }
 
 void	save_map_info(t_data *g, char **av)
@@ -127,7 +127,7 @@ void	save_map_info(t_data *g, char **av)
 
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
-		print_error("Opening File");
+		print_error("OPENING FILE");
 	get_map_setting(g, fd);
 	one_line = malloc(1);
 	one_line[0] = 0;

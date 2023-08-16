@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:16:16 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/14 18:17:21 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/16 14:20:45 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	free_chars(char **chars)
 
 void	print_error(char *str)
 {
+	write(2, "Error\n", 6);
 	write(2, str, ft_strlen(str));
+	write(2, "\n", 1);
 	exit(1);
 }
