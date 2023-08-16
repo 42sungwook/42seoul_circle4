@@ -26,6 +26,8 @@
     "utility": "c",
     "vector": "c",
     "get_next_line.h": "c",
-    "math.h": "c"
+    "math.h": "c",
+    "mlx.h": "c",
+    "libft.h": "c"
   }
 }

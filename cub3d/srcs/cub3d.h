@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:15:41 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/16 14:53:30 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/16 20:06:18 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ typedef struct s_player {
 	double	walk_dir;
 	double	turn_dir;
 	double	rotation_angle;
+	int		mouse_x;
+	int		mouse_y;
 }	t_player;
 
 typedef struct s_ray {
