@@ -6,29 +6,34 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 19:28:46 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/14 20:40:45 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/16 14:04:01 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/cub3d.h"
 
-static void	shot_ray(t_data *g, int strip_id)
+static int	find_wall_at(t_data *g, int is_horz)
 {
-	double	wall_size;
-	int		wall_top_pixel;
-	int		wall_bottom_pixel;
-	double	put_start;
-
-	wall_size = HEIGHT / g->rays->distance;
-	wall_size *= 60;
-	wall_top_pixel = (HEIGHT / 2) - (wall_size / 2);
-	if (wall_top_pixel < 0)
-		wall_top_pixel = 0;
-	wall_bottom_pixel = (HEIGHT / 2) + (wall_size / 2);
-	if (wall_bottom_pixel > HEIGHT)
-		wall_bottom_pixel = HEIGHT;
-	put_start = HEIGHT / 2 - wall_size / 2 - 2;
-	draw_texture(g, wall_size, wall_top_pixel, wall_bottom_pixel);
+	while (g->rays->xintercept >= 0 && g->rays->xintercept < \
+	g->map_info->w * TILE && g->rays->yintercept >= 0 && \
+	g->rays->yintercept < g->map_info->h * TILE)
+	{
+		if (is_horz == TRUE)
+		{
+			if (map_has_wall_at(g, g->rays->xintercept, \
+			g->rays->yintercept - g->rays->is_ray_up))
+				return (1);
+		}
+		else
+		{
+			if (map_has_wall_at(g, g->rays->xintercept - \
+			g->rays->is_ray_left, g->rays->yintercept))
+				return (1);
+		}
+		g->rays->xintercept += g->rays->xstep;
+		g->rays->yintercept += g->rays->ystep;
+	}
+	return (0);
 }
 
 static void	cal_hor_ray(t_data *g, double ray_angle)
@@ -48,23 +53,11 @@ static void	cal_hor_ray(t_data *g, double ray_angle)
 		g->rays->xstep *= -1;
 	if (g->rays->is_ray_right && g->rays->xstep < 0)
 		g->rays->xstep *= -1;
-	while (g->rays->xintercept >= 0 && g->rays->xintercept < \
-	g->map_info->w * TILE && g->rays->yintercept >= 0 && \
-	g->rays->yintercept < g->map_info->h * TILE)
+	if (find_wall_at(g, TRUE))
 	{
-		if (map_has_wall_at(g, g->rays->xintercept, \
-		g->rays->yintercept - g->rays->is_ray_up))
-		{
-			g->rays->horz_wall_hit_x = g->rays->xintercept;
-			g->rays->horz_wall_hit_y = g->rays->yintercept;
-			g->rays->horz_wall_hit = TRUE;
-			break ;
-		}
-		else
-		{
-			g->rays->xintercept += g->rays->xstep;
-			g->rays->yintercept += g->rays->ystep;
-		}
+		g->rays->horz_wall_hit_x = g->rays->xintercept;
+		g->rays->horz_wall_hit_y = g->rays->yintercept;
+		g->rays->horz_wall_hit = TRUE;
 	}
 }
 
@@ -81,27 +74,14 @@ static void	cal_ver_ray(t_data *g, double ray_angle)
 	if (g->rays->is_ray_left)
 		g->rays->xstep *= -1;
 	g->rays->ystep = TILE * tan(ray_angle);
-	if (g->rays->is_ray_up && g->rays->ystep > 0)
+	if (g->rays->is_ray_up && g->rays->ystep > 0 || \
+		g->rays->is_ray_down && g->rays->ystep < 0)
 		g->rays->ystep *= -1;
-	if (g->rays->is_ray_down && g->rays->ystep < 0)
-		g->rays->ystep *= -1;
-	while (g->rays->xintercept >= 0 && g->rays->xintercept < \
-	g->map_info->w * TILE && g->rays->yintercept >= 0 && \
-	g->rays->yintercept < g->map_info->h * TILE)
+	if (find_wall_at(g, FALSE))
 	{
-		if (map_has_wall_at(g, g->rays->xintercept - \
-		g->rays->is_ray_left, g->rays->yintercept))
-		{
-			g->rays->vert_wall_hit_x = g->rays->xintercept;
-			g->rays->vert_wall_hit_y = g->rays->yintercept;
-			g->rays->vert_wall_hit = TRUE;
-			break ;
-		}
-		else
-		{
-			g->rays->xintercept += g->rays->xstep;
-			g->rays->yintercept += g->rays->ystep;
-		}
+		g->rays->vert_wall_hit_x = g->rays->xintercept;
+		g->rays->vert_wall_hit_y = g->rays->yintercept;
+		g->rays->vert_wall_hit = TRUE;
 	}
 }
 

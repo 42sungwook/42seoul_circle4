@@ -22,7 +22,7 @@ LIBFT_FILES	=	ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 
 DRAW_FILES	=	draw.c draw_minimap.c draw_miniplayer.c draw_pov.c
 
-RAY_FILES = cast_rays.c calculation_utils.c
+RAY_FILES = cast_rays.c calculation_utils.c shoot_ray.c
 
 VALID_FILES = check_map.c
 
