@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:15:41 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/16 20:06:18 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/18 15:50:25 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ enum e_key {
 	D = 2,
 	LEFT = 123,
 	RIGHT = 124,
-	ESC = 53
+	ESC = 53,
+	MOUSE = 50
 };
 
 enum e_dir {
@@ -104,6 +105,7 @@ typedef struct s_player {
 	double	walk_dir;
 	double	turn_dir;
 	double	rotation_angle;
+	int		mouse_mode;
 	int		mouse_x;
 	int		mouse_y;
 }	t_player;

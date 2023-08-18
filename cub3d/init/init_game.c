@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 17:33:23 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/16 14:09:11 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/18 14:18:04 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	init_player(t_data *g)
 	g->player->walk_dir = STOP;
 	g->player->turn_dir = 0;
 	g->player->rotation_angle = g->map_info->character_angle;
+	g->player->mouse_mode = 0;
 }
 
 void	init_game(t_data *g, int ac, char **av)

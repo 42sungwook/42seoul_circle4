@@ -59,7 +59,7 @@ DEPS		=	$(LIBFT_FILES:%.c=$(DEP_DIR)%.d) $(GNL_FILES:%.c=$(DEP_DIR)%.o) \
 # **************************************************************************** #
 CXX			=	cc
 CXXFLAGS	=   #-pedantic -g -fsanitize=address,undefined
-MLXFLAGS	=	-lmlx -framework OpenGL -framework AppKit 
+MLXFLAGS	=	-lm -Lmlx -lmlx -framework OpenGL -framework Appkit -Imlx 
 CPPFLAGS	=	-I$(INC_DIR)
 DEPFLAGS	=	-MMD -MP -MF $(@:$(OBJ_DIR)%.o=$(DEP_DIR)%.d)
 RM			=	rm -rf
@@ -103,6 +103,7 @@ all				:	$(NAME)
 
 $(NAME)			:	$(OBJS)
 					$Q$(CXX) $(CXXFLAGS) $(MLXFLAGS) -o $@ $(OBJS)
+					install_name_tool -change libmlx.dylib mlx/libmlx.dylib $(NAME)
 					@printf "$(CLR)$(GRN)%$Ns is Ready ✅\\n$(RST)" $(NAME)
 $(OBJ_DIR)%.o	:	$(LIBFT_DIR)%.c
 					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
