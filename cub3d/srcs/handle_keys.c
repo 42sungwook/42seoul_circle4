@@ -23,7 +23,6 @@ static int	handle_mouse_move(int x, int y, t_data *g)
 		tmp_x = x;
 		mlx_mouse_get_pos(g->win, &g->player->mouse_x, &g->player->mouse_y);
 		tmp_x -= g->player->mouse_x;
-		printf("%d, %d, %f\n", x, g->player->mouse_x, tmp_x / (PI * 80));
 		g->player->rotation_angle += tmp_x / (PI * 80);
 	}
 	return (0);
