@@ -138,6 +138,8 @@ void	save_map_info(t_data *g, char **av)
 			break ;
 		if (check_space(one_line, buff))
 			continue ;
+		if (buff[0] == '\n')
+			break ;
 		one_line = get_new_map(g->map_info, one_line, buff);
 	}
 	make_map_rec(g->map_info, one_line);
