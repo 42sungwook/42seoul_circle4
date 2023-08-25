@@ -60,15 +60,15 @@ enum e_dir {
 };
 
 enum e_img {
-	SCREEN,
-	M_MAP,
 	M_WALL,
 	M_PLAIN,
-	M_PLAYER,
 	EAST,
 	WEST,
 	SOUTH,
 	NORTH,
+	M_MAP,
+	M_PLAYER,
+	SCREEN,
 };
 
 typedef struct s_color {
@@ -182,7 +182,7 @@ int		ft_free(char *str);
 void	free_chars(char **chars);
 void	print_error(char *str);
 int		check_space(char *one_line, char *buff);
-void	check_file(char *str, int is_valid);
+void	check_file(t_data *g, char *str, int idx);
 
 // srcs
 int		handle_key_press(int keycode, t_data *data);

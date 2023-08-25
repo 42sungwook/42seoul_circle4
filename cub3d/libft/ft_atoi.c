@@ -42,7 +42,7 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	if (ft_isdigit(str[i]) == 0)
-		return (0);
+		return (-1);
 	while (ft_isdigit(str[i]) == 1)
 	{
 		result = result * 10 + (str[i] - '0');

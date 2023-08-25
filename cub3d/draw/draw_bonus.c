@@ -88,7 +88,8 @@ void	put_minimap_to_screen(t_data *g)
 		{
 			color_idx = (y + i * 4) * g->map_info->w * TILE + x + j * 4;
 			if (color_idx < 0 || color_idx > \
-				g->imgs[M_MAP].w * g->imgs[M_MAP].h)
+				g->imgs[M_MAP].w * g->imgs[M_MAP].h || \
+				g->imgs[M_MAP].w < j * 4 + x)
 				put_pixel_to_screen(g, j, i, 0x000000);
 			else
 				put_pixel_to_screen(g, j, i, g->imgs[M_MAP].addr[color_idx]);

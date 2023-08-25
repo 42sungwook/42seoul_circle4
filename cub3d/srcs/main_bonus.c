@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:15:08 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/18 15:49:56 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/25 13:12:35 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_loop(t_data *g)
 	cast_rays(g);
 	put_minimap_to_screen(g);
 	revert_minimap(g);
-	mlx_put_image_to_window(g->mlx, g->win, g->imgs[0].img, 0, 0);
+	mlx_put_image_to_window(g->mlx, g->win, g->imgs[SCREEN].img, 0, 0);
 	return (0);
 }
 

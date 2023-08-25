@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_game.c                                        :+:      :+:    :+:   */
+/*   init_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 17:33:23 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/18 14:18:04 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/25 12:56:25 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	init_map(t_data *g, char **av)
 	g->map_info->h = 0;
 	g->map_info->color_c.r = -1;
 	g->map_info->color_f.r = -1;
+	g->map_info->mini_ray = 1;
 	g->imgs[EAST].img = NULL;
 	g->imgs[WEST].img = NULL;
 	g->imgs[SOUTH].img = NULL;

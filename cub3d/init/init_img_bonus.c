@@ -12,12 +12,12 @@
 
 #include "../srcs/cub3d_bonus.h"
 
-void	check_file(char *str, int is_valid)
+void	check_file(t_data *g, char *str, int idx)
 {
-	if (is_valid > 3)
-		return ;
 	if (open(str, O_RDONLY) == -1)
 		print_error("FILE OPEN");
+	g->imgs[idx].img = mlx_xpm_file_to_image(g->mlx, str, \
+		&g->imgs[idx].w, &g->imgs[idx].h);
 }
 
 static void	init_addr(t_data *g)
@@ -28,8 +28,8 @@ static void	init_addr(t_data *g)
 	while (i < 9)
 	{
 		g->imgs[i].addr = (int *)mlx_get_data_addr(g->imgs[i].img, \
-	&g->imgs[i].bpp, &g->imgs[i].line_len, &g->imgs[i].endian);
-	i++;
+		&g->imgs[i].bpp, &g->imgs[i].line_len, &g->imgs[i].endian);
+		i++;
 	}
 }
 
@@ -64,12 +64,8 @@ void	init_img(t_data *g)
 	g->imgs[M_PLAYER].img = mlx_new_image(g->mlx, 7, 7);
 	g->imgs[M_PLAYER].w = 7;
 	g->imgs[M_PLAYER].h = 7;
-	check_file("./asset/tile00.xpm", 0);
-	check_file("./asset/tile01.xpm", 0);
-	g->imgs[M_WALL].img = mlx_xpm_file_to_image(g->mlx, \
-	"./asset/tile00.xpm", &g->imgs[M_WALL].w, &g->imgs[M_WALL].h);
-	g->imgs[M_PLAIN].img = mlx_xpm_file_to_image(g->mlx, \
-	"./asset/tile01.xpm", &g->imgs[M_PLAIN].w, &g->imgs[M_PLAIN].h);
+	check_file(g, "./asset/tile00.xpm", M_WALL);
+	check_file(g, "./asset/tile01.xpm", M_PLAIN);
 	init_addr(g);
 	init_mini_player(g);
 }

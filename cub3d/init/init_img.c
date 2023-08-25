@@ -12,12 +12,12 @@
 
 #include "../srcs/cub3d.h"
 
-void	check_file(char *str, int is_valid)
+void	check_file(t_data *g, char *str, int idx)
 {
-	if (is_valid > 3)
-		return ;
 	if (open(str, O_RDONLY) == -1)
 		print_error("FILE OPEN");
+	g->imgs[idx].img = mlx_xpm_file_to_image(g->mlx, str, \
+		&g->imgs[idx].w, &g->imgs[idx].h);
 }
 
 static void	init_addr(t_data *g)
@@ -28,8 +28,8 @@ static void	init_addr(t_data *g)
 	while (i < 5)
 	{
 		g->imgs[i].addr = (int *)mlx_get_data_addr(g->imgs[i].img, \
-	&g->imgs[i].bpp, &g->imgs[i].line_len, &g->imgs[i].endian);
-	i++;
+		&g->imgs[i].bpp, &g->imgs[i].line_len, &g->imgs[i].endian);
+		i++;
 	}
 }
 

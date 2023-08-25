@@ -29,6 +29,7 @@ void	free_chars(char **chars)
 	while (chars[i])
 	{
 		free(chars[i]);
+		chars[i] = 0;
 		i++;
 	}
 	free(chars);

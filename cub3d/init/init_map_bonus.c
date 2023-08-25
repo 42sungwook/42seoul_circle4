@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_map.c                                         :+:      :+:    :+:   */
+/*   init_map_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:16:52 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/16 14:31:18 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/25 13:31:23 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,7 @@ static char	*get_new_map(t_map *map_info, char *one_line, char *buff)
 	char	*temp;
 	int		len;
 
-	if (buff[0] != ' ')
-	{
-		len = (int)ft_strlen(buff);
-		if (len == 0)
-			print_error("EMPTY LINE");
-	}
-	else
-		len = (int)ft_strlen(buff) - 1;
+	len = (int)ft_strlen(buff) - 1;
 	if (map_info->w < len)
 		map_info->w = len;
 	map_info->h++;
@@ -38,20 +31,16 @@ static int	set_map_setting(t_data *g, char **key_value)
 {
 	if (ft_strlen(key_value[0]) == 2
 		&& !ft_strncmp(key_value[0], "NO", 2) && g->imgs[NORTH].img == NULL)
-		g->imgs[NORTH].img = mlx_xpm_file_to_image(g->mlx, key_value[1], \
-		&g->imgs[NORTH].w, &g->imgs[NORTH].h);
+		check_file(g, key_value[1], NORTH);
 	else if (ft_strlen(key_value[0]) == 2
 		&& !ft_strncmp(key_value[0], "SO", 2) && g->imgs[SOUTH].img == NULL)
-		g->imgs[SOUTH].img = mlx_xpm_file_to_image(g->mlx, key_value[1], \
-		&g->imgs[SOUTH].w, &g->imgs[SOUTH].h);
+		check_file(g, key_value[1], SOUTH);
 	else if (ft_strlen(key_value[0]) == 2
 		&& !ft_strncmp(key_value[0], "WE", 2) && g->imgs[WEST].img == NULL)
-		g->imgs[WEST].img = mlx_xpm_file_to_image(g->mlx, key_value[1], \
-		&g->imgs[WEST].w, &g->imgs[WEST].h);
+		check_file(g, key_value[1], WEST);
 	else if (ft_strlen(key_value[0]) == 2
 		&& !ft_strncmp(key_value[0], "EA", 2) && g->imgs[EAST].img == NULL)
-		g->imgs[EAST].img = mlx_xpm_file_to_image(g->mlx, key_value[1], \
-		&g->imgs[EAST].w, &g->imgs[EAST].h);
+		check_file(g, key_value[1], EAST);
 	else if (ft_strlen(key_value[0]) == 1
 		&& !ft_strncmp(key_value[0], "F", 1) && g->map_info->color_f.r == -1)
 		set_color(&g->map_info->color_f, key_value[1]);
@@ -111,7 +100,6 @@ static void	get_map_setting(t_data *g, int fd)
 		len_value = ft_strlen(key_value[1]);
 		if (key_value[1][len_value - 1] == '\n')
 			key_value[1][len_value - 1] = '\0';
-		check_file(key_value[1], line_cnt);
 		if (!set_map_setting(g, key_value))
 			line_cnt++;
 		free_chars(key_value);
@@ -142,5 +130,7 @@ void	save_map_info(t_data *g, char **av)
 			break ;
 		one_line = get_new_map(g->map_info, one_line, buff);
 	}
+	if (buff)
+		free(buff);
 	make_map_rec(g->map_info, one_line);
 }

@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:16:40 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/14 18:17:09 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/25 13:32:12 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int	check_space(char *one_line, char *buff)
 			return (0);
 		i++;
 	}
+	free(buff);
 	return (1);
 }
