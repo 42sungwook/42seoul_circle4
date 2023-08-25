@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:15:08 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/18 15:49:56 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/25 12:28:05 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	handle_destroy_win(t_data *data)
 {
 	(void)data;
 	exit(0);
-	return (0);
 }
 
 int	ft_loop(t_data *g)
