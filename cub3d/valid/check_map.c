@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 12:49:22 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/16 13:15:56 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/21 14:04:53 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static int	valid_check(t_data *g, int j, int i)
 	int		flag;
 	char	**map;
 
+	flag = 0;
 	map = g->map_info->map;
 	if (map[j][i] == '0' || map[j][i] == 'E' || map[j][i] == 'W' || \
 		map[j][i] == 'S' || map[j][i] == 'N')

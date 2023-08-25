@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 19:28:46 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/16 14:04:01 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/21 14:04:26 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ static void	cal_ver_ray(t_data *g, double ray_angle)
 	if (g->rays->is_ray_left)
 		g->rays->xstep *= -1;
 	g->rays->ystep = TILE * tan(ray_angle);
-	if (g->rays->is_ray_up && g->rays->ystep > 0 || \
-		g->rays->is_ray_down && g->rays->ystep < 0)
+	if ((g->rays->is_ray_up && g->rays->ystep > 0) || \
+		(g->rays->is_ray_down && g->rays->ystep < 0))
 		g->rays->ystep *= -1;
 	if (find_wall_at(g, FALSE))
 	{
@@ -91,7 +91,7 @@ static void	cast_ray(t_data *g, double ray_angle)
 	cal_hor_ray(g, ray_angle);
 	cal_ver_ray(g, ray_angle);
 	compare_hv_distance(g, ray_angle);
-	shot_ray(g, g->rays->strip_id);
+	shot_ray(g);
 	g->rays->x0 = g->player->x + P_ERROR;
 	g->rays->y0 = g->player->y + P_ERROR;
 	g->rays->x1 = g->rays->wall_hit_x;

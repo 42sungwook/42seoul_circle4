@@ -6,13 +6,13 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 14:02:44 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/16 14:02:52 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/21 14:03:59 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/cub3d.h"
 
-void	shot_ray(t_data *g, int strip_id)
+void	shot_ray(t_data *g)
 {
 	double	wall_size;
 	int		wall_top_pixel;

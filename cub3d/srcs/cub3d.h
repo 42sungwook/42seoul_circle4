@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:15:41 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/18 15:50:25 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/21 14:04:15 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ int		map_has_wall_at(t_data *g, double x, double y);
 double	distance_between_points(double x1, double y1, double x2, double y2);
 void	ray_dir(t_data *g, double ray_angle);
 void	compare_hv_distance(t_data *g, double ray_angle);
-void	shot_ray(t_data *g, int strip_id);
+void	shot_ray(t_data *g);
 
 // valid
 int		check_map(t_data *g);

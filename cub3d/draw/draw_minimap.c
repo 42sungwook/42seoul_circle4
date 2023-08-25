@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 19:06:39 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/16 14:53:33 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/08/21 14:05:24 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ void	draw_minimap(t_data *g)
 {
 	int	i;
 	int	j;
-	int	x;
-	int	y;
 
 	i = 0;
 	while (g->map_info->map[i])
