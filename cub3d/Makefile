@@ -1,146 +1,67 @@
-# **************************************************************************** #
-# ProgramName && Files                                                         #
-# **************************************************************************** #
-NAME		=	cub3D
+SRCS = ./libft/ft_atoi.c ./libft/ft_bzero.c ./libft/ft_isalnum.c ./libft/ft_isalpha.c ./libft/ft_isascii.c \
+				./libft/ft_isdigit.c ./libft/ft_isprint.c ./libft/ft_itoa.c ./libft/ft_memchr.c ./libft/ft_memcmp.c \
+				./libft/ft_memcpy.c ./libft/ft_memmove.c ./libft/ft_memset.c ./libft/ft_putchar_fd.c ./libft/ft_putendl_fd.c \
+				./libft/ft_putnbr_fd.c ./libft/ft_putstr_fd.c ./libft/ft_split.c ./libft/ft_strchr.c ./libft/ft_striteri.c \
+				./libft/ft_strjoin.c ./libft/ft_strlcat.c ./libft/ft_strlcpy.c ./libft/ft_strlen.c ./libft/ft_strmapi.c \
+				./libft/ft_strncmp.c ./libft/ft_strnstr.c ./libft/ft_strrchr.c ./libft/ft_strtrim.c ./libft/ft_substr.c \
+				./libft/ft_tolower.c ./libft/ft_toupper.c ./libft/ft_calloc.c ./libft/ft_strdup.c \
+				./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c \
+				./draw/draw_player.c ./draw/draw_fov.c ./draw/draw.c \
+				./init/check_space.c ./init/free_functions.c ./init/init_game.c ./init/init_img.c ./init/init_map.c ./init/set_color.c \
+				./raycasting/calculation_utils.c ./raycasting/cast_rays.c ./raycasting/shoot_ray.c \
+				./srcs/handle_keys.c ./srcs/main.c \
+				./valid/check_map.c
 
-INC_FILES	=	cub3d.h
+SRCS_B = ./libft/ft_atoi.c ./libft/ft_bzero.c ./libft/ft_isalnum.c ./libft/ft_isalpha.c ./libft/ft_isascii.c \
+				./libft/ft_isdigit.c ./libft/ft_isprint.c ./libft/ft_itoa.c ./libft/ft_memchr.c ./libft/ft_memcmp.c \
+				./libft/ft_memcpy.c ./libft/ft_memmove.c ./libft/ft_memset.c ./libft/ft_putchar_fd.c ./libft/ft_putendl_fd.c \
+				./libft/ft_putnbr_fd.c ./libft/ft_putstr_fd.c ./libft/ft_split.c ./libft/ft_strchr.c ./libft/ft_striteri.c \
+				./libft/ft_strjoin.c ./libft/ft_strlcat.c ./libft/ft_strlcpy.c ./libft/ft_strlen.c ./libft/ft_strmapi.c \
+				./libft/ft_strncmp.c ./libft/ft_strnstr.c ./libft/ft_strrchr.c ./libft/ft_strtrim.c ./libft/ft_substr.c \
+				./libft/ft_tolower.c ./libft/ft_toupper.c ./libft/ft_calloc.c ./libft/ft_strdup.c \
+				./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c \
+				./draw/draw_minimap_bonus.c ./draw/draw_player_bonus.c ./draw/draw_fov_bonus.c ./draw/draw_bonus.c \
+				./init/check_space_bonus.c ./init/free_functions_bonus.c ./init/init_game_bonus.c ./init/init_img_bonus.c ./init/init_map_bonus.c ./init/set_color_bonus.c \
+				./raycasting/calculation_utils_bonus.c ./raycasting/cast_rays_bonus.c ./raycasting/shoot_ray_bonus.c \
+				./srcs/handle_keys_bonus.c ./srcs/main_bonus.c \
+				./valid/check_map_bonus.c
 
-SRC_FILES	=	main.c handle_keys.c
+OBJS = $(SRCS:.c=.o)
+OBJS_B = $(SRCS_B:.c=.o)
 
-INIT_FILES	=	init_game.c init_img.c init_map.c set_color.c free_functions.c \
-				check_space.c
+NAME = cub3D
 
-GNL_FILES	=	get_next_line.c get_next_line_utils.c
+CC		=	cc
+CFLAGS	=	-Wall -Werror -Wextra
+MLXLIB	=	-lm -Lmlx -lmlx -framework OpenGL -framework Appkit -Imlx
 
-LIBFT_FILES	=	ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
-				ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c ft_memcmp.c \
-				ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c \
-				ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strchr.c ft_striteri.c \
-				ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c \
-				ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c \
-				ft_tolower.c ft_toupper.c ft_calloc.c ft_strdup.c
-
-DRAW_FILES	=	draw.c draw_minimap.c draw_miniplayer.c draw_pov.c
-
-RAY_FILES = cast_rays.c calculation_utils.c shoot_ray.c
-
-VALID_FILES = check_map.c
-
-# **************************************************************************** #
-# Directories && Paths                                                         #
-# **************************************************************************** #
-INC_DIR		=	./srcs/
-SRC_DIR		=	./srcs/
-INIT_DIR	=	./init/
-GNL_DIR		=	./get_next_line/
-LIBFT_DIR	=	./libft/
-DRAW_DIR	=	./draw/
-RAY_DIR		=	./raycasting/
-VALID_DIR	=	./valid/
-OBJ_DIR		=	.obj/
-DEP_DIR		=	.dep/
-SRCS		=	$(addprefix $(LIBFT_DIR), $(LIBFT_FILES)) $(addprefix $(GNL_DIR), $(GNL_FILES)) \
-				$(addprefix $(INIT_DIR), $(INIT_FILES)) $(addprefix $(DRAW_DIR), $(DRAW_FILES)) \
-				$(addprefix $(RAY_DIR), $(RAY_FILES)) $(addprefix $(VALID_DIR), $(VALID_FILES)) \
-				$(addprefix $(SRC_DIR), $(SRC_FILES))
-
-OBJS		=	$(LIBFT_FILES:%.c=$(OBJ_DIR)%.o) $(GNL_FILES:%.c=$(OBJ_DIR)%.o) \
-				$(INIT_FILES:%.c=$(OBJ_DIR)%.o) $(DRAW_FILES:%.c=$(OBJ_DIR)%.o) \
-				$(RAY_FILES:%.c=$(OBJ_DIR)%.o) $(VALID_FILES:%.c=$(OBJ_DIR)%.o) \
-				$(SRC_FILES:%.c=$(OBJ_DIR)%.o)
-
-DEPS		=	$(LIBFT_FILES:%.c=$(DEP_DIR)%.d) $(GNL_FILES:%.c=$(DEP_DIR)%.o) \
-				$(INIT_FILES:%.c=$(DEP_DIR)%.d) $(DRAW_FILES:%.c=$(DEP_DIR)%.d) \
-				$(RAY_FILES:%.c=$(DEP_DIR)%.d) $(VALID_FILES:%.c=$(DEP_DIR)%.d) \
-				$(SRC_FILES:%.c=$(DEP_DIR)%.d)
-
-# **************************************************************************** #
-# Compiler && flags                                                            #
-# **************************************************************************** #
-CXX			=	cc
-CXXFLAGS	=   -Wall -Wextra -Werror
-MLXFLAGS	=	-lm -Lmlx -lmlx -framework OpenGL -framework Appkit -Imlx 
-CPPFLAGS	=	-I$(INC_DIR)
-DEPFLAGS	=	-MMD -MP -MF $(@:$(OBJ_DIR)%.o=$(DEP_DIR)%.d)
-RM			=	rm -rf
-# **************************************************************************** #
-# Debug options                                                                #
-# **************************************************************************** #
-ifdef DEBUG
-	CXXFLAGS += -pedantic -g -fsanitize=address,undefined
-endif
-ifdef C
-	CXX = c++-7
-endif
-Q = @
-ifdef PRINT
-	Q =
-endif
-ifdef MAC
-	MLXFLAGS = -L./mlx -lmlx -framework OpenGL -framework AppKit
-endif
-# **************************************************************************** #
-# Output controls                                                              #
-# **************************************************************************** #
-NAME_LEN = $(shell echo $(NAME) | tr -d '\n' | wc -c)
-ifeq ($(shell echo "$(NAME_LEN)-6" | bc | grep -c '-'), 1)
-	N = 6
+ifdef BONUS
+ 	OBJS_ALL = $(OBJS_B)
 else
-	N = $(NAME_LEN)
+	OBJS_ALL = $(OBJS)
 endif
-RST =	\033[0m
-GRN =	\033[1;32m
-CYN =	\033[1;36m
-BCY =	\033[1;96m
-HOM =	\033[A
-CLR =	\033[K
-# **************************************************************************** #
-# Rules                                                                        #
-# **************************************************************************** #
-.DEFAULT_GOAL   =   all
--include $(DEPS)
-all				:	$(NAME)
 
-$(NAME)			:	$(OBJS)
-					$Q$(CXX) $(CXXFLAGS) $(MLXFLAGS) -o $@ $(OBJS)
-					install_name_tool -change libmlx.dylib mlx/libmlx.dylib $(NAME)
-					@printf "$(CLR)$(GRN)%$Ns is Ready ✅\\n$(RST)" $(NAME)
-$(OBJ_DIR)%.o	:	$(LIBFT_DIR)%.c
-					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
-					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" LIBFT
-					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
-$(OBJ_DIR)%.o	:	$(GNL_DIR)%.c
-					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
-					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" GNL
-					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
-$(OBJ_DIR)%.o	:	$(INIT_DIR)%.c
-					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
-					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" INIT
-					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
-$(OBJ_DIR)%.o	:	$(DRAW_DIR)%.c
-					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
-					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" DRAW
-					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
-$(OBJ_DIR)%.o	:	$(RAY_DIR)%.c
-					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
-					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" RAY
-					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
-$(OBJ_DIR)%.o	:	$(VALID_DIR)%.c
-					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
-					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" VALID
-					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
-$(OBJ_DIR)%.o	:	$(SRC_DIR)%.c
-					@mkdir -p $(OBJ_DIR) $(DEP_DIR)
-					@printf "$(CLR)$(GRN)%$Ns is Ready : $<$(RST)$(HOM)\\n" SRC
-					$Q$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
-clean			:
-					$Q$(RM) $(OBJ_DIR) $(DEP_DIR) *.dSYM
-					@printf "$(CYN)%$Ns Objects! 🗑$(RST)\\n" Remove
-fclean			:   clean
-					$Q$(RM) $(NAME)
-					@printf "$(BCY)%$Ns Program! 🗑$(RST)\\n" Remove
-re				:	fclean
-					@make all
-bonus			:	all
+ifdef DEBUG
+	CFLAGS += -g3 -fsanitize=address
+endif
 
-.PHONY			:	all clean fclean re bonus
+all:	$(NAME)
+
+$(NAME):	$(OBJS_ALL)
+			$(CC) $(CFLAGS) $(MLXLIB) $(OBJS_ALL) -o $(NAME)
+
+%.o : %.c
+			$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+			rm -rf $(OBJS) $(OBJS_B)
+
+fclean:		clean
+			rm -rf $(NAME)
+
+re:			fclean all
+
+bonus:
+	make BONUS=1 all
+
+.PHONY:		all clean fclean re bonus

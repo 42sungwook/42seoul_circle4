@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../srcs/cub3d.h"
+#include "../srcs/cub3d_bonus.h"
 
-void	draw_miniplayer(t_data *g)
+void	draw_player(t_data *g)
 {
 	int	new_x;
 	int	new_y;

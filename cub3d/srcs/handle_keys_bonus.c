@@ -10,7 +10,47 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./cub3d.h"
+#include "./cub3d_bonus.h"
+
+static int	handle_mouse_move(int x, int y, t_data *g)
+{
+	double	tmp_x;
+
+	if (g->player->mouse_mode > 0)
+	{
+		mlx_mouse_move(g->win, WIDTH / 2, HEIGHT / 2);
+		g->player->mouse_y = y;
+		tmp_x = x;
+		mlx_mouse_get_pos(g->win, &g->player->mouse_x, &g->player->mouse_y);
+		tmp_x -= g->player->mouse_x;
+		g->player->rotation_angle += tmp_x / (PI * 80);
+	}
+	return (0);
+}
+
+static void	change_mouse_mode(t_data *g)
+{
+	if (g->player->mouse_mode == 0)
+	{
+		g->player->mouse_mode = 1;
+		mlx_mouse_hide();
+		mlx_hook(g->win, 6, 0, handle_mouse_move, g);
+	}
+	else
+	{
+		g->player->mouse_mode = 0;
+		g->player->turn_dir = 0;
+		mlx_mouse_show();
+	}
+}
+
+static void	change_key_mode(int *key_mode)
+{
+	if (*key_mode == 0)
+		*key_mode = 1;
+	else
+		*key_mode = 0;
+}
 
 int	handle_key_press(int keycode, t_data *data)
 {
@@ -31,6 +71,10 @@ int	handle_key_press(int keycode, t_data *data)
 		data->player->turn_dir = -1;
 	else if (keycode == RIGHT)
 		data->player->turn_dir = 1;
+	else if (keycode == MOUSE)
+		change_mouse_mode(data);
+	else if (keycode == M_RAY)
+		change_key_mode(&data->map_info->mini_ray);
 	return (0);
 }
 

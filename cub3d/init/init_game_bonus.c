@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../srcs/cub3d.h"
+#include "../srcs/cub3d_bonus.h"
 
 static void	init_map(t_data *g, char **av)
 {
@@ -37,6 +37,7 @@ static void	init_player(t_data *g)
 	g->player->walk_dir = STOP;
 	g->player->turn_dir = 0;
 	g->player->rotation_angle = g->map_info->character_angle;
+	g->player->mouse_mode = 0;
 }
 
 void	init_game(t_data *g, int ac, char **av)

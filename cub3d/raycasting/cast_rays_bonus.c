@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../srcs/cub3d.h"
+#include "../srcs/cub3d_bonus.h"
 
 static int	find_wall_at(t_data *g, int is_horz)
 {
@@ -92,6 +92,14 @@ static void	cast_ray(t_data *g, double ray_angle)
 	cal_ver_ray(g, ray_angle);
 	compare_hv_distance(g, ray_angle);
 	shot_ray(g);
+	if (g->map_info->mini_ray)
+	{
+		g->rays->x0 = g->player->x + P_ERROR;
+		g->rays->y0 = g->player->y + P_ERROR;
+		g->rays->x1 = g->rays->wall_hit_x;
+		g->rays->y1 = g->rays->wall_hit_y;
+		draw_line(g);
+	}
 }
 
 void	cast_rays(t_data *g)

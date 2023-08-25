@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../srcs/cub3d.h"
+#include "../srcs/cub3d_bonus.h"
 
 static void	draw_ray_line(t_data *g, t_mini_line *line)
 {

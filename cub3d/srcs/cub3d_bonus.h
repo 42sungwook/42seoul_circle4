@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <fcntl.h>
 # include <math.h>
@@ -23,11 +23,13 @@
 
 # define WIDTH 1000
 # define HEIGHT 1000
+# define M_WIDTH 300
+# define M_HEIGHT 300
 # define PI 3.141593
 # define MOVE_SPEED 10
 # define ROT_SPEED 8
 # define TILE 64
-# define IMG_CNT 5
+# define IMG_CNT 9
 # define NUM_RAYS 800
 # define INT_MAX 2147483647
 # define TRUE 1
@@ -43,6 +45,8 @@ enum e_key {
 	LEFT = 123,
 	RIGHT = 124,
 	ESC = 53,
+	MOUSE = 50,
+	M_RAY = 5,
 };
 
 enum e_dir {
@@ -57,6 +61,10 @@ enum e_dir {
 
 enum e_img {
 	SCREEN,
+	M_MAP,
+	M_WALL,
+	M_PLAIN,
+	M_PLAYER,
 	EAST,
 	WEST,
 	SOUTH,
@@ -82,6 +90,7 @@ typedef struct s_img {
 typedef struct s_map {
 	int		w;
 	int		h;
+	int		mini_ray;
 	t_color	color_c;
 	t_color	color_f;
 	int		character_x;
@@ -98,6 +107,9 @@ typedef struct s_player {
 	double	walk_dir;
 	double	turn_dir;
 	double	rotation_angle;
+	int		mouse_mode;
+	int		mouse_x;
+	int		mouse_y;
 }	t_player;
 
 typedef struct s_ray {
@@ -123,6 +135,10 @@ typedef struct s_ray {
 	double	vert_wall_hit_y;
 	double	horz_hit_distance;
 	double	vert_hit_distance;
+	int		x0;
+	int		y0;
+	int		x1;
+	int		y1;
 }	t_ray;
 
 typedef struct s_data {
@@ -134,12 +150,28 @@ typedef struct s_data {
 	t_ray		*rays;
 }	t_data;
 
+typedef struct s_mini_line {
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	e2;
+}	t_mini_line;
+
 // draw
 void	put_img_to_screen(t_data *g, t_img *imgs, int x, int y);
 void	put_pixel_to_screen(t_data *g, int x, int y, int color);
+void	put_img_to_minimap(t_data *g, t_img *imgs, int x, int y);
+void	put_pixel_to_minimap(t_data *g, int x, int y, int color);
+void	put_minimap_to_screen(t_data *g);
+void	draw_minimap(t_data *g);
 void	draw_player(t_data *g);
+void	draw_line(t_data *g);
 void	draw_texture(t_data *g, int wall_size, int wallTopPixel, \
 		int wallBottomPixel);
+void	revert_minimap(t_data *g);
+void	minimap_define_xy(t_data *g, int *x, int *y);
 
 // init
 void	init_game(t_data *g, int ac, char **av);
@@ -155,12 +187,13 @@ void	check_file(char *str, int is_valid);
 // srcs
 int		handle_key_press(int keycode, t_data *data);
 int		handle_key_release(int keycode, t_data *data);
+int		is_wall(t_data *g, int x, int y);
 
 // raycasting
 void	cast_rays(t_data *g);
 int		map_has_wall_at(t_data *g, double x, double y);
-void	ray_dir(t_data *g, double ray_angle);
 double	distance_between_points(double x1, double y1, double x2, double y2);
+void	ray_dir(t_data *g, double ray_angle);
 void	compare_hv_distance(t_data *g, double ray_angle);
 void	shot_ray(t_data *g);
 
