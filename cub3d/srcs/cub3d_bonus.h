@@ -23,8 +23,8 @@
 
 # define WIDTH 1000
 # define HEIGHT 1000
-# define M_WIDTH 300
-# define M_HEIGHT 300
+# define M_WIDTH 800
+# define M_HEIGHT 800
 # define PI 3.141593
 # define MOVE_SPEED 10
 # define ROT_SPEED 8

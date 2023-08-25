@@ -81,12 +81,12 @@ void	put_minimap_to_screen(t_data *g)
 
 	i = -1;
 	minimap_define_xy(g, &x, &y);
-	while (++i < M_HEIGHT)
+	while (++i < M_HEIGHT / 4)
 	{
 		j = -1;
-		while (++j < M_WIDTH)
+		while (++j < M_WIDTH / 4)
 		{
-			color_idx = (y + i) * g->map_info->w * TILE + x + j;
+			color_idx = (y + i * 4) * g->map_info->w * TILE + x + j * 4;
 			if (color_idx < 0 || color_idx > \
 				g->imgs[M_MAP].w * g->imgs[M_MAP].h)
 				put_pixel_to_screen(g, j, i, 0x000000);
