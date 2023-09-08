@@ -6,7 +6,7 @@
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 19:21:48 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/25 15:35:53 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/09/08 16:44:31 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	draw_bg(t_data *g)
 
 	floor = g->map_info->color_f.r << 16 | g->map_info->color_f.g << 8 | \
 	g->map_info->color_f.b;
-	ceil = g->map_info->color_c.r << 16 | g->map_info->color_c.r << 8 | \
-	g->map_info->color_c.r;
+	ceil = g->map_info->color_c.r << 16 | g->map_info->color_c.g << 8 | \
+	g->map_info->color_c.b;
 	i = -1;
 	while (++i < HEIGHT / 2)
 	{

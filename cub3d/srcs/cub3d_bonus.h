@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seulee2 <seulee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:15:41 by seulee2           #+#    #+#             */
-/*   Updated: 2023/08/21 14:04:15 by seulee2          ###   ########.fr       */
+/*   Updated: 2023/09/08 16:23:56 by seulee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define M_WIDTH 800
 # define M_HEIGHT 800
 # define PI 3.141593
-# define MOVE_SPEED 10
+# define MOVE_SPEED 0
 # define ROT_SPEED 8
 # define TILE 64
 # define IMG_CNT 9
